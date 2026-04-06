@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage";
 import { SectionIndexPage } from "./pages/SectionIndexPage";
 import { SectionItemPage } from "./pages/SectionItemPage";
 import { CatalogBrowsePage } from "./pages/CatalogBrowsePage";
+import { CatalogsIndexPage } from "./pages/CatalogsIndexPage";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
 import { getSectionItems } from "./content/sections";
@@ -41,7 +42,7 @@ export const App: React.FC = () => {
             {Object.entries(siteConfig.contentSections).map(([section, config]) =>
               config.enabled ? (
                 <React.Fragment key={section}>
-                  <Route path={`/${section}`} element={<SectionIndexPage section={section} />} />
+                  <Route path={`/${section}`} element={section === "catalogs" ? <CatalogsIndexPage /> : <SectionIndexPage section={section} />} />
                   {getSectionItems(section)
                     .filter((item) => item.path)
                     .map((item) => (
