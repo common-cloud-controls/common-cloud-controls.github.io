@@ -8,30 +8,17 @@ import { SectionCard } from "../components/SectionCard";
 
 const benefits = [
   {
-    icon: "💯",
     title: "Defining Best Practices Around Cloud Security",
     body: "CCC aims to standardize cloud security controls for the banking sector, providing a common set of controls that CSPs can implement to meet the requirements of FS firms. As multiple FS firms are involved in the project, effort is shared — the controls will be representative of the sector as a whole, and more robust than any one firm could develop on its own."
   },
   {
-    icon: "🎯",
     title: "One Target For CSPs To Conform To",
     body: "If all FS firms specify their own cloud infrastructure requirements, CSPs will have to conform to multiple standards. CCC aims to provide a single target for CSPs to conform to."
   },
   {
-    icon: "🎒",
     title: "Sharing The Burden Of A Common Definition",
     body: "CCC aims to reduce the burden of compliance for CSPs by providing a common definition of controls which they can adopt. As CCC controls are specified in a cloud-agnostic way, CSPs can implement them in a way that is consistent with their own infrastructure, while delivering services that FS firms understand and trust."
   },
-  {
-    icon: "🧭",
-    title: "A Path Towards Common Implementation",
-    body: "FINOS sister project Compliant Financial Infrastructure (CFI) aims to be a downstream implementation of the CCC controls standard, providing FS firms with a one-stop shop for secure cloud infrastructure deployment."
-  },
-  {
-    icon: "🥇",
-    title: "A Path Towards Certification",
-    body: "It is envisaged that eventually, CCC will offer certification for CSPs who conform to the standard."
-  }
 ];
 
 const videos = [
@@ -133,7 +120,7 @@ export const HomePage: React.FC = () => {
         <SectionHeading>What Are the Benefits?</SectionHeading>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "var(--gf-space-lg)" }}>
           {benefits.map((b) => (
-            <SectionCard key={b.title} title={`${b.icon} ${b.title}`} description={b.body} />
+            <SectionCard key={b.title} title={b.title} description={b.body} />
           ))}
         </div>
       </section>
