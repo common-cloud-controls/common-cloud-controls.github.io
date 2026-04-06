@@ -7,6 +7,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { HomePage } from "./pages/HomePage";
 import { SectionIndexPage } from "./pages/SectionIndexPage";
 import { SectionItemPage } from "./pages/SectionItemPage";
+import { CatalogBrowsePage } from "./pages/CatalogBrowsePage";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
 import { getSectionItems } from "./content/sections";
@@ -54,6 +55,7 @@ export const App: React.FC = () => {
                 </React.Fragment>
               ) : null
             )}
+            <Route path="/catalogs/*" element={<CatalogBrowsePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
