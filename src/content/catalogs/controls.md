@@ -1,6 +1,7 @@
 ---
 title: Control Catalogs
 description: Control catalogs specify the concrete security measures that mitigate identified threats for each cloud service.
+path: /catalogs/controls
 ---
 
 A control catalog defines what must be done to secure a cloud service. Each control entry specifies a concrete, testable requirement that directly addresses one or more threats identified in the corresponding threat catalog.

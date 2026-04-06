@@ -1,6 +1,7 @@
 ---
 title: Capability Catalogs
 description: Capabilities define the functional properties a cloud service must support — the scope of what CCC controls are written against.
+path: /catalogs/capabilities
 ---
 
 A capability catalog describes what a cloud service is and what it can do. Capabilities are the foundation of the CCC framework: before you can identify threats or specify controls, you need a clear, vendor-neutral definition of the service itself.

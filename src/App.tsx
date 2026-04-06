@@ -51,7 +51,7 @@ export const App: React.FC = () => {
                         element={<SectionItemPage section={section} path={item.path} />}
                       />
                     ))}
-                  <Route path={`/${section}/:slug`} element={<SectionItemPage section={section} />} />
+
                 </React.Fragment>
               ) : null
             )}

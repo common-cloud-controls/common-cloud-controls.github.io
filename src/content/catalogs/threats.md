@@ -1,6 +1,7 @@
 ---
 title: Threat Catalogs
 description: Threat catalogs identify the security and resiliency risks relevant to each cloud service capability.
+path: /catalogs/threats
 ---
 
 A threat catalog maps the risks that apply to a given cloud service. Each threat entry describes a specific way the service could be compromised, misused, or fail to meet resiliency expectations — expressed in terms of the capabilities it puts at risk.
