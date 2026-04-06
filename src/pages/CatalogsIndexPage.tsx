@@ -6,7 +6,6 @@ import { SectionCard } from "../components/SectionCard";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
-import { getServiceGroups, prettifySegment } from "../content/catalogUtils";
 
 export const CatalogsIndexPage: React.FC = () => {
   const indexItem = getSectionIndexItem("catalogs");
@@ -15,8 +14,6 @@ export const CatalogsIndexPage: React.FC = () => {
   const overviewItems = listItems.filter(
     (item) => item.path && item.path.split("/").filter(Boolean).length === 2
   );
-
-  const serviceGroups = getServiceGroups(listItems);
 
   return (
     <div style={{ display: "flex", gap: "var(--gf-space-xl)", maxWidth: "1200px", margin: "0 auto", width: "100%", alignItems: "flex-start" }}>
@@ -58,27 +55,6 @@ export const CatalogsIndexPage: React.FC = () => {
           </section>
         )}
 
-        {serviceGroups.size > 0 && (
-          <section>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-text)" }}>
-              Service Catalogs
-            </h2>
-            {Array.from(serviceGroups.entries()).map(([category, services]) => (
-              <div key={category} style={{ marginBottom: "var(--gf-space-lg)" }}>
-                <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "var(--gf-space-sm)", color: "var(--gf-color-text-subtle)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  {prettifySegment(category)}
-                </h3>
-                <div className="catalog-grid">
-                  {services.map(({ path, label }) => (
-                    <Link key={path} to={path} style={{ textDecoration: "none", color: "inherit" }}>
-                      <SectionCard title={label} description="" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </section>
-        )}
       </div>
     </div>
   );
