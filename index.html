@@ -5,6 +5,23 @@
     <link rel="icon" href="/logo/favicon.ico" type="image/x-icon" />
     <title>Common Cloud Controls</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Restore path encoded by 404.html for SPA routing on GitHub Pages.
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (p) {
+          params.delete('p');
+          var h = params.get('h') || '';
+          params.delete('h');
+          var remaining = params.toString();
+          window.history.replaceState(
+            null, null,
+            p + (remaining ? '?' + remaining : '') + decodeURIComponent(h)
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

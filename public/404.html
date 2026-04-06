@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Common Cloud Controls</title>
+    <script>
+      // GitHub Pages 404 redirect for SPA routing.
+      // Encodes the path as a query param and redirects to the root,
+      // where index.html restores it before React Router initializes.
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      window.location.replace(
+        '/?p=' + encodeURIComponent(path + search) + (hash ? '&h=' + encodeURIComponent(hash) : '')
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
