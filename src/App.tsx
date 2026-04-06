@@ -9,6 +9,7 @@ import { SectionIndexPage } from "./pages/SectionIndexPage";
 import { SectionItemPage } from "./pages/SectionItemPage";
 import { CatalogBrowsePage } from "./pages/CatalogBrowsePage";
 import { CatalogsIndexPage } from "./pages/CatalogsIndexPage";
+import { CatalogTypeOverviewPage } from "./pages/CatalogTypeOverviewPage";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
 import { getSectionItems } from "./content/sections";
@@ -43,6 +44,13 @@ export const App: React.FC = () => {
               config.enabled ? (
                 <React.Fragment key={section}>
                   <Route path={`/${section}`} element={section === "catalogs" ? <CatalogsIndexPage /> : <SectionIndexPage section={section} />} />
+                  {section === "catalogs" && (
+                    <>
+                      <Route path="/catalogs/capabilities" element={<CatalogTypeOverviewPage type="capabilities" />} />
+                      <Route path="/catalogs/threats" element={<CatalogTypeOverviewPage type="threats" />} />
+                      <Route path="/catalogs/controls" element={<CatalogTypeOverviewPage type="controls" />} />
+                    </>
+                  )}
                   {getSectionItems(section)
                     .filter((item) => item.path)
                     .map((item) => (
