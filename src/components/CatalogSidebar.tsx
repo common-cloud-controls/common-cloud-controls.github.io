@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getSectionListItems } from "../content/sections";
 import { prettifySegment, getServiceGroups } from "../content/catalogUtils";
@@ -16,6 +16,12 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
   );
 
   const serviceGroups = getServiceGroups(listItems, typeFilter);
+
+  // Default open: whichever category the current path falls under
+  const activeCategory = Array.from(serviceGroups.keys()).find((cat) =>
+    pathname.startsWith(`/catalogs/${cat}/`)
+  );
+  const [openCategory, setOpenCategory] = useState<string | null>(activeCategory ?? null);
 
   const isActive = (path: string) =>
     pathname === path || pathname.startsWith(path + "/");
@@ -65,26 +71,51 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
       {serviceGroups.size > 0 && (
         <>
           <div style={{ ...sectionLabel, marginTop: "var(--gf-space-lg)" }}>Services</div>
-          {Array.from(serviceGroups.entries()).map(([category, services]) => (
-            <div key={category} style={{ marginBottom: "var(--gf-space-sm)" }}>
-              <div
-                style={{
-                  fontSize: "0.7rem",
-                  color: "var(--gf-color-text-subtle)",
-                  padding: "0.2rem 0.75rem",
-                  fontStyle: "italic",
-                  opacity: 0.7,
-                }}
-              >
-                {prettifySegment(category)}
+          {Array.from(serviceGroups.entries()).map(([category, services]) => {
+            const isOpen = openCategory === category;
+            const categoryActive = pathname.startsWith(`/catalogs/${category}/`);
+            return (
+              <div key={category} style={{ marginBottom: "0.1rem" }}>
+                <button
+                  onClick={() => setOpenCategory(isOpen ? null : category)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "0.3rem 0.75rem",
+                    borderRadius: "4px",
+                    fontSize: "0.875rem",
+                    fontWeight: categoryActive ? 600 : 500,
+                    color: categoryActive ? "var(--gf-color-accent)" : "var(--gf-color-text-subtle)",
+                    textAlign: "left",
+                    transition: "background 0.15s, color 0.15s",
+                  }}
+                >
+                  <span>{prettifySegment(category)}</span>
+                  <span style={{
+                    fontSize: "0.65rem",
+                    opacity: 0.6,
+                    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.2s",
+                    display: "inline-block",
+                  }}>▾</span>
+                </button>
+                {isOpen && (
+                  <div style={{ paddingLeft: "0.5rem" }}>
+                    {services.map(({ path, label }) => (
+                      <Link key={path} to={path} style={linkStyle(path)}>
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
-              {services.map(({ path, label }) => (
-                <Link key={path} to={path} style={linkStyle(path)}>
-                  {label}
-                </Link>
-              ))}
-            </div>
-          ))}
+            );
+          })}
         </>
       )}
     </nav>
