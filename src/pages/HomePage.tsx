@@ -233,7 +233,7 @@ export const HomePage: React.FC = () => {
 
           {/* Journey timeline */}
           <div style={{ flex: 1, minWidth: "280px", maxWidth: "650px" }}>
-            <SectionHeading>Advance Your Automated Governance Journey</SectionHeading>
+            <SectionHeading>Advance Your Automated Governance</SectionHeading>
             <div style={{ position: "relative", paddingLeft: "2rem" }}>
               {/* vertical line */}
               <div style={{
