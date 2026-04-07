@@ -16,6 +16,18 @@ function getItemType(itemPath: string): string | null {
   return null;
 }
 
+// Returns the canonical /catalogs/<category>/<service> for an item regardless of path structure.
+function getServicePath(itemPath: string): string | null {
+  const parts = itemPath.split("/").filter(Boolean);
+  if (parts.length < 5) return null;
+  if (CATALOG_TYPES.has(parts[1])) {
+    // New: /catalogs/<type>/<category>/<service>/<tag>
+    return `/catalogs/${parts[2]}/${parts[3]}`;
+  }
+  // Old: /catalogs/<category>/<service>/<type>/<tag>
+  return `/catalogs/${parts[1]}/${parts[2]}`;
+}
+
 export const CatalogBrowsePage: React.FC = () => {
   const { pathname } = useLocation();
   const allItems = getSectionItems("catalogs");
@@ -28,8 +40,13 @@ export const CatalogBrowsePage: React.FC = () => {
     const type = segments[1];
     matches = allItems.filter((item) => item.path && getItemType(item.path) === type);
   } else {
-    const prefix = pathname.replace(/\/$/, "") + "/";
-    matches = allItems.filter((item) => item.path?.startsWith(prefix));
+    const servicePath = pathname.replace(/\/$/, "");
+    matches = allItems.filter(
+      (item) => item.path && (
+        item.path.startsWith(servicePath + "/") ||
+        getServicePath(item.path) === servicePath
+      )
+    );
   }
 
   if (matches.length === 0) return <Navigate to="/catalogs" replace />;
