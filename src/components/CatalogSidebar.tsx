@@ -46,19 +46,22 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
     color: "var(--gf-color-text-subtle)",
     padding: "0 0.75rem",
     marginBottom: "0.25rem",
-    marginTop: "var(--gf-space-md)",
+    marginTop: "0",
   };
 
   return (
     <nav
       style={{
-        width: "200px",
+        width: "210px",
         flexShrink: 0,
         position: "sticky",
         top: "var(--gf-space-xl)",
         alignSelf: "flex-start",
-        borderRight: "1px solid var(--gf-color-border)",
-        paddingRight: "var(--gf-space-md)",
+        background: "var(--gf-color-surface)",
+        border: "1px solid var(--gf-color-border-strong)",
+        borderRadius: "var(--gf-radius-xl)",
+        padding: "var(--gf-space-md)",
+        boxShadow: "var(--gf-shadow-surface)",
       }}
     >
       <div style={sectionLabel}>Catalog Types</div>

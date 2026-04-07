@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { SectionCard } from "../components/SectionCard";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
+
 
 export const CatalogsIndexPage: React.FC = () => {
   const indexItem = getSectionIndexItem("catalogs");
@@ -42,19 +42,42 @@ export const CatalogsIndexPage: React.FC = () => {
 
         {overviewItems.length > 0 && (
           <section style={{ marginBottom: "var(--gf-space-xl)" }}>
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-text)" }}>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "var(--gf-space-lg)", color: "var(--gf-color-text)" }}>
               Catalog Types
             </h2>
             <div className="catalog-grid">
-              {overviewItems.map((item) => (
-                <Link key={item.path} to={item.path!} style={{ textDecoration: "none", color: "inherit" }}>
-                  <SectionCard title={item.title} description={item.description ?? ""} />
-                </Link>
-              ))}
+              {overviewItems.map((item) => {
+                return (
+                  <Link key={item.path} to={item.path!} className="link-card" style={{ textDecoration: "none", color: "inherit", display: "flex" }}>
+                    <div style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "var(--gf-space-md)",
+                      padding: "var(--gf-space-xl)",
+                      background: "var(--gf-color-surface)",
+                      borderRadius: "var(--gf-radius-xl)",
+                      border: "1px solid var(--gf-color-border-strong)",
+                      boxShadow: "var(--gf-shadow-surface)",
+                    }}>
+                      <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 700, color: "var(--gf-color-accent)" }}>
+                        {item.title}
+                      </h3>
+                      {item.description && (
+                        <p style={{ margin: 0, color: "var(--gf-color-text-subtle)", lineHeight: 1.7, fontSize: "0.95rem", flex: 1 }}>
+                          {item.description}
+                        </p>
+                      )}
+                      <span style={{ fontSize: "0.875rem", color: "var(--gf-color-accent)", fontWeight: 600 }}>
+                        Browse →
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}
-
       </div>
     </div>
   );
