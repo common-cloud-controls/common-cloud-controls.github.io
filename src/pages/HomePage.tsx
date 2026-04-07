@@ -115,7 +115,7 @@ export const HomePage: React.FC = () => {
         marginBottom: "var(--gf-space-xl)",
       }}>
         <h1 style={{ fontSize: "2.5rem", fontWeight: 700, color: "#1e3a8a", lineHeight: 1.2, marginBottom: "var(--gf-space-md)" }}>
-          Automated Governance is Waiting.
+          Automated Governance is Within Reach.
         </h1>
         <img
           src="/diagrams/ccc-diagram.svg"
@@ -238,7 +238,7 @@ export const HomePage: React.FC = () => {
         <div style={{ display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start", flexWrap: "wrap", justifyContent: "center" }}>
 
           {/* Journey timeline */}
-          <div style={{ flex: 1, minWidth: "280px", maxWidth: "675px" }}>
+          <div style={{ flex: 1, minWidth: "280px", maxWidth: "650px" }}>
             <SectionHeading>Advance Your Automated Governance Journey</SectionHeading>
             <div style={{ position: "relative", paddingLeft: "2rem" }}>
               {/* vertical line */}
@@ -359,38 +359,26 @@ export const HomePage: React.FC = () => {
         <p style={{ color: "var(--gf-color-text-subtle)", fontSize: "1.1rem", marginBottom: "var(--gf-space-lg)", lineHeight: 1.7, maxWidth: "700px", margin: "0 auto var(--gf-space-lg)" }}>
           Common Cloud Controls is an open project — contributions, feedback, and participation are welcome.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "var(--gf-space-md)", maxWidth: "900px", margin: "0 auto" }}>
+        <ul className="get-involved-list" style={{ maxWidth: "900px", margin: "0 auto" }}>
           {[
             { href: "https://github.com/finos/common-cloud-controls", label: "View on GitHub", desc: "Browse source, open issues, and submit pull requests." },
             { href: "https://github.com/finos#common-cloud-controls", label: "Join a CCC Meeting", desc: "Attend a community meeting and meet the team." },
             { href: "https://www.finos.org/common-cloud-controls-project", label: "FINOS Project Page", desc: "Learn more about the project on the FINOS website." },
             { href: "https://github.com/finos/common-cloud-controls/issues", label: "Open an Issue", desc: "Report a bug, request a feature, or start a discussion." }
           ].map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-card"
-              style={{
-                display: "block",
-                padding: "var(--gf-space-lg)",
-                backgroundColor: "var(--gf-color-surface)",
-                borderRadius: "var(--gf-radius-xl)",
-                boxShadow: "var(--gf-shadow-surface)",
-                backdropFilter: "var(--gf-glass-blur)",
-                WebkitBackdropFilter: "var(--gf-glass-blur)",
-                border: "1px solid var(--gf-color-border-strong)",
-                textDecoration: "none",
-                color: "inherit",
-                textAlign: "left"
-              }}
-            >
-              <div style={{ fontWeight: 600, color: "var(--gf-color-accent)", marginBottom: "0.5rem" }}>{link.label}</div>
-              <div style={{ fontSize: "0.95rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>{link.desc}</div>
-            </a>
+            <li key={link.href} className="get-involved-item">
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="get-involved-link link-card"
+              >
+                <span className="get-involved-label">{link.label}</span>
+                <span className="get-involved-desc">{link.desc}</span>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
     </div>
