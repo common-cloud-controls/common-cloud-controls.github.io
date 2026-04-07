@@ -34,6 +34,7 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
 
   return (
     <nav
+      className="catalog-sidebar"
       style={{
         width: "210px",
         flexShrink: 0,

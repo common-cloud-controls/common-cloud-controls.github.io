@@ -82,7 +82,7 @@ function VersionCard({ item }: { item: { path: string; title: string } }) {
           </p>
         )}
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "var(--gf-space-lg)", gap: "var(--gf-space-md)" }}>
+        <div className="version-card-footer">
           <div style={{ display: "flex", gap: "var(--gf-space-xl)", flexWrap: "wrap" }}>
             {meta?.capabilityCount !== undefined && (
               <Stat label="Capabilities" value={meta.capabilityCount} />
@@ -94,7 +94,7 @@ function VersionCard({ item }: { item: { path: string; title: string } }) {
               <Stat label="Assessment Requirements" value={meta.assessmentRequirementCount} />
             )}
           </div>
-          <span style={{ fontSize: "0.8rem", color: "var(--gf-color-accent)", fontWeight: 600, whiteSpace: "nowrap", alignSelf: "flex-end" }}>
+          <span className="version-card-view" style={{ fontSize: "0.8rem", color: "var(--gf-color-accent)", fontWeight: 600, whiteSpace: "nowrap" }}>
             View →
           </span>
         </div>
@@ -145,7 +145,7 @@ export const CatalogVersionsPage: React.FC<CatalogVersionsPageProps> = ({ catego
   const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
 
   return (
-    <div style={{ display: "flex", gap: "var(--gf-space-xl)", maxWidth: "1200px", margin: "0 auto", width: "100%", alignItems: "flex-start" }}>
+    <div className="catalog-page-layout">
       <CatalogSidebar />
 
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -157,7 +157,7 @@ export const CatalogVersionsPage: React.FC<CatalogVersionsPageProps> = ({ catego
           <span style={{ color: "var(--gf-color-text)" }}>{prettifySegment(service)} {typeLabel}</span>
         </nav>
 
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: "var(--gf-space-lg)", color: "var(--gf-color-accent)", lineHeight: 1.2 }}>
+        <h1 className="catalog-page-h1">
           {prettifySegment(service)} {typeLabel}
         </h1>
 

@@ -394,3 +394,53 @@ h3 {
   }
 }
 
+/* Catalog page layout */
+.catalog-page-layout {
+  display: flex;
+  gap: var(--gf-space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .catalog-sidebar {
+    display: none;
+  }
+}
+
+/* Version card footer: stats left, View → right; stack on mobile */
+.version-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--gf-space-lg);
+  gap: var(--gf-space-md);
+}
+
+@media (max-width: 600px) {
+  .version-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .version-card-footer .version-card-view {
+    align-self: flex-end;
+  }
+}
+
+/* Catalog page headings */
+.catalog-page-h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gf-color-accent);
+  line-height: 1.2;
+  margin-bottom: var(--gf-space-lg);
+}
+
+@media (max-width: 600px) {
+  .catalog-page-h1 {
+    font-size: 1.75rem;
+  }
+}
+
