@@ -314,11 +314,17 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Videos */}
+          <div className="scroll-hint">
+            <span className="scroll-hint-arrow">›</span>
+            <span className="scroll-hint-arrow">›</span>
+            <span className="scroll-hint-arrow">›</span>
+          </div>
+
           <div style={{ width: "300px", flexShrink: 0, minWidth: "280px" }}>
             <SectionHeading>_____</SectionHeading>
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--gf-space-lg)" }}>
+            <div className="video-list">
               {videos.map((v) => (
-                <figure key={v.url} style={{ margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <figure key={v.url} className="video-item" style={{ margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                   <div style={{
                     borderRadius: "var(--gf-radius-lg)",
                     overflow: "hidden",

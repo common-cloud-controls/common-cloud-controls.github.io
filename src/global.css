@@ -169,6 +169,68 @@ h3 {
   }
 }
 
+/* Scroll hint arrow */
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  color: var(--gf-color-text-subtle);
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.scroll-hint-arrow {
+  display: inline-block;
+  animation: scroll-bob 1.2s ease-in-out infinite;
+}
+
+.scroll-hint-arrow:nth-child(2) { animation-delay: 0.15s; }
+.scroll-hint-arrow:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes scroll-bob {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  50% { transform: translateX(4px); opacity: 1; }
+}
+
+@media (min-width: 768px) {
+  .scroll-hint {
+    display: none;
+  }
+}
+
+/* Video list: horizontal scroll on mobile, vertical stack on medium+ */
+.video-list {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gf-space-lg);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+}
+
+.video-item {
+  flex: 0 0 80vw;
+  max-width: 320px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .video-list {
+    flex-direction: column;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+
+  .video-item {
+    flex: none;
+    max-width: none;
+  }
+}
+
 /* Get Involved: bullet list on mobile, 2x2 card grid on medium+ */
 .get-involved-list {
   list-style: disc;
