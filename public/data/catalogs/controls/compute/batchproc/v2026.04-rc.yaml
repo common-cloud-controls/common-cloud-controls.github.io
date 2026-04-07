@@ -1,0 +1,13 @@
+title: CCC Batch Processing Controls
+metadata:
+    id: CCC
+    type: ControlCatalog
+    gemara-version: v0
+    description: Controls for Batch Processing technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+imports:
+    - entries: []
+      reference-id: CCC
