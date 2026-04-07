@@ -152,7 +152,7 @@ export const HomePage: React.FC = () => {
         </p>
 
         {/* Horizontal process flow */}
-        <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "0", maxWidth: "1000px", margin: "0 auto" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "0", maxWidth: "1000px", margin: "0 auto", justifyContent: "center" }}>
           {[
             {
               icon: (
@@ -187,6 +187,7 @@ export const HomePage: React.FC = () => {
               <div style={{
                 flex: "1",
                 minWidth: "220px",
+                maxWidth: "360px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -214,17 +215,10 @@ export const HomePage: React.FC = () => {
                 <p style={{ margin: 0, color: "var(--gf-color-text-subtle)", lineHeight: 1.7, fontSize: "0.9rem" }}>{step.body}</p>
               </div>
               {i < arr.length - 1 && (
-                <div style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "0 0.5rem",
-                  color: "var(--gf-color-accent)",
-                  fontSize: "1.5rem",
-                  opacity: 0.5,
-                  alignSelf: "center",
-                  flexShrink: 0,
-                }}>→</div>
+                <>
+                  <div className="process-arrow-lr">→</div>
+                  <div className="process-arrow-tb">↓</div>
+                </>
               )}
             </React.Fragment>
           ))}

@@ -157,6 +157,33 @@ h3 {
   outline-offset: 2px;
 }
 
+/* Process flow arrows: LR on medium+, TB on mobile */
+.process-arrow-lr,
+.process-arrow-tb {
+  align-items: center;
+  justify-content: center;
+  color: var(--gf-color-accent);
+  font-size: 1.5rem;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.process-arrow-lr {
+  display: none;
+  padding: 0 0.5rem;
+  align-self: center;
+}
+
+.process-arrow-tb {
+  display: flex;
+  width: 100%;
+}
+
+@media (min-width: 650px) {
+  .process-arrow-lr { display: flex; }
+  .process-arrow-tb { display: none; }
+}
+
 /* Catalog grid: 2-column layout for catalog card lists */
 .catalog-grid {
   display: grid;
