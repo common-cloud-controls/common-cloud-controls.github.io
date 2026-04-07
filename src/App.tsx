@@ -36,7 +36,7 @@ export const App: React.FC = () => {
         <Header />
         <main
           className="main-content"
-          style={{ flex: 1, padding: "var(--gf-space-lg)", paddingTop: "var(--gf-space-xl)" }}
+          style={{ flex: 1, padding: "var(--gf-space-lg)", paddingTop: "var(--gf-space-md)", overflowX: "hidden" }}
         >
           <Routes>
             <Route path="/" element={<HomePage />} />

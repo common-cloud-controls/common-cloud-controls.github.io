@@ -1,23 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { TextSection } from "../components/TextSection";
 import { SectionCard } from "../components/SectionCard";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const benefits = [
   {
-    title: "Defining Best Practices Around Cloud Security",
-    body: "CCC aims to standardize cloud security controls for the banking sector, providing a common set of controls that CSPs can implement to meet the requirements of FS firms. As multiple FS firms are involved in the project, effort is shared — the controls will be representative of the sector as a whole, and more robust than any one firm could develop on its own."
+    title: "Composable Core Catalogs",
+    body: "Access a foundational repository of reusable, technology-agnostic threat and control definitions. Seamlessly import these elements into your organization's technology-specific catalogs."
   },
   {
-    title: "One Target For CSPs To Conform To",
-    body: "If all FS firms specify their own cloud infrastructure requirements, CSPs will have to conform to multiple standards. CCC aims to provide a single target for CSPs to conform to."
+    title: "Threat-Informed Safeguards",
+    body: "Utilize specifically-scoped threats that pinpoint exact opportunities for negative impacts to your organization."
   },
   {
-    title: "Sharing The Burden Of A Common Definition",
-    body: "CCC aims to reduce the burden of compliance for CSPs by providing a common definition of controls which they can adopt. As CCC controls are specified in a cloud-agnostic way, CSPs can implement them in a way that is consistent with their own infrastructure, while delivering services that FS firms understand and trust."
+    title: "Actionable Controls",
+    body: "Deploy clear safeguards equipped with precise assessment requirements designed directly for implementation by evaluators."
+  },
+  {
+    title: "A Proven Engineering Process",
+    body: "Follow a structured, logical methodology to secure your information systems: assess system capabilities, identify related threats, and apply the exact controls needed for mitigation."
   },
 ];
 
@@ -76,90 +79,108 @@ const Divider: React.FC = () => (
 
 export const HomePage: React.FC = () => {
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+    <div style={{ maxWidth: "1440px", margin: "0 auto", width: "100%" }}>
 
-      {/* Hero */}
-      <section style={{ textAlign: "center", padding: "var(--gf-space-xl) 0" }}>
-        <TextSection
-          title="Common Cloud Controls"
-          subtitle="An open standard for consistent, compliant public cloud deployments in financial services."
-          paragraphs={[
-            "FINOS CCC is a collaborative project developing a unified set of cybersecurity, resiliency, and compliance controls for common services across the major cloud service providers.",
-            "By standardizing controls across the sector, CCC reduces duplication, shares the compliance burden, and gives cloud providers a single, authoritative target to conform to."
-          ]}
-          centered
-          maxWidth="800px"
-          lastParagraphMargin="var(--gf-space-xl)"
+      {/* SVG clip-path: full-width rectangle, bottom edge curves down at centre */}
+      <svg width="0" height="0" style={{ position: "absolute", overflow: "hidden" }}>
+        <defs>
+          <clipPath id="hero-wave-clip" clipPathUnits="objectBoundingBox">
+            <path d="M0,0 L1,0 L1,0.82 Q0.5,1 0,0.82 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      {/* Hero — light panel, bleeds to main edges, wave clip at bottom */}
+      <section style={{
+        background: "#dbeafe",
+        marginTop: "calc(-1 * var(--gf-space-md))",
+        marginLeft: "calc(-1 * var(--gf-space-lg))",
+        marginRight: "calc(-1 * var(--gf-space-lg))",
+        padding: "var(--gf-space-xl) var(--gf-space-xl) 9rem",
+        clipPath: "url(#hero-wave-clip)",
+        textAlign: "center",
+        marginBottom: "var(--gf-space-xl)",
+      }}>
+        <h1 style={{ fontSize: "2.5rem", fontWeight: 700, color: "#1e3a8a", lineHeight: 1.2, marginBottom: "var(--gf-space-md)" }}>
+          Automated Governance is Waiting.
+        </h1>
+        <img
+          src="/diagrams/ccc-diagram.svg"
+          alt="CCC architecture diagram"
+          style={{ maxWidth: "100%", width: "720px", maxHeight: "340px", objectFit: "contain", marginBottom: "var(--gf-space-lg)" }}
         />
-        <div style={{ display: "flex", gap: "var(--gf-space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+        <div>
           <Link
             to="/catalogs"
             style={{
               display: "inline-block",
               padding: "var(--gf-space-md) var(--gf-space-xl)",
-              background: "var(--gf-color-accent)",
+              background: "#1e3a8a",
               color: "#fff",
               fontWeight: 600,
               textDecoration: "none",
               borderRadius: "var(--gf-radius-lg)",
-              boxShadow: "var(--gf-shadow-surface)",
+              boxShadow: "0 4px 14px rgba(30,58,138,0.4)",
               transition: "filter 0.2s, transform 0.2s"
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.filter = "brightness(1.15)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseEnter={(e) => { e.currentTarget.style.filter = "brightness(1.2)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.filter = "none"; e.currentTarget.style.transform = "none"; }}
           >
-            Get Started
+            Explore the Catalogs
           </Link>
         </div>
       </section>
 
-      <Divider />
-
-      {/* Benefits */}
+      {/* Benefits + Videos side-by-side */}
       <section style={{ marginBottom: "var(--gf-space-xl)" }}>
-        <SectionHeading>What Are the Benefits?</SectionHeading>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "var(--gf-space-lg)" }}>
-          {benefits.map((b) => (
-            <SectionCard key={b.title} title={b.title} description={b.body} />
-          ))}
-        </div>
-      </section>
+        <div style={{ display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start", flexWrap: "wrap" }}>
 
-      <Divider />
+          {/* Benefits */}
+          <div style={{ flex: 1, minWidth: "280px" }}>
+            <SectionHeading>Start using CCC today</SectionHeading>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--gf-space-lg)" }}>
+              {benefits.map((b) => (
+                <SectionCard key={b.title} title={b.title} description={b.body} />
+              ))}
+            </div>
+          </div>
 
-      {/* Videos */}
-      <section style={{ marginBottom: "var(--gf-space-xl)" }}>
-        <SectionHeading>Learn More</SectionHeading>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "var(--gf-space-lg)" }}>
-          {videos.map((v) => (
-            <figure key={v.url} style={{ margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <div style={{
-                borderRadius: "var(--gf-radius-lg)",
-                overflow: "hidden",
-                background: "var(--gf-color-surface)",
-                border: "1px solid var(--gf-color-border-strong)",
-                aspectRatio: "16/9",
-                position: "relative"
-              }}>
-                <ReactPlayer url={v.url} width="100%" height="100%" controls style={{ position: "absolute", top: 0, left: 0 }} />
-              </div>
-              <figcaption style={{ fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
-                {v.caption}
-              </figcaption>
-            </figure>
-          ))}
+          {/* Videos */}
+          <div style={{ width: "350px", flexShrink: 0, minWidth: "280px" }}>
+            <SectionHeading>Learn More</SectionHeading>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--gf-space-lg)" }}>
+              {videos.map((v) => (
+                <figure key={v.url} style={{ margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <div style={{
+                    borderRadius: "var(--gf-radius-lg)",
+                    overflow: "hidden",
+                    background: "var(--gf-color-surface)",
+                    border: "1px solid var(--gf-color-border-strong)",
+                    aspectRatio: "16/9",
+                    position: "relative"
+                  }}>
+                    <ReactPlayer url={v.url} width="100%" height="100%" controls style={{ position: "absolute", top: 0, left: 0 }} />
+                  </div>
+                  <figcaption style={{ fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
+                    {v.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <p style={{ textAlign: "center", marginTop: "var(--gf-space-lg)", color: "var(--gf-color-text-subtle)" }}>
+              Further videos on the{" "}
+              <a
+                href="https://www.youtube.com/watch?v=8hMRahzwK3k&list=PLmPXh6nBuhJuWoOHDqG4AMPVerlWYDacD"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--gf-color-accent)" }}
+              >
+                YouTube playlist
+              </a>.
+            </p>
+          </div>
+
         </div>
-        <p style={{ textAlign: "center", marginTop: "var(--gf-space-lg)", color: "var(--gf-color-text-subtle)" }}>
-          Further videos on the{" "}
-          <a
-            href="https://www.youtube.com/watch?v=8hMRahzwK3k&list=PLmPXh6nBuhJuWoOHDqG4AMPVerlWYDacD"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "var(--gf-color-accent)" }}
-          >
-            YouTube playlist
-          </a>.
-        </p>
       </section>
 
       <Divider />

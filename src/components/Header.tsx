@@ -39,9 +39,6 @@ export const Header: React.FC = () => {
           <Link to="/" aria-label={`${siteConfig.siteName} home`} style={{ display: "block" }}>
             <img src={logoUrl} alt={siteConfig.siteName} style={{ maxHeight: "60px", width: "auto", objectFit: "contain", display: "block" }} />
           </Link>
-          <p style={{ fontSize: "1rem", color: "var(--gf-color-text-subtle)", margin: 0, lineHeight: 1.4 }}>
-            {siteConfig.tagline}
-          </p>
         </div>
 
         <nav style={{ display: "flex", gap: "var(--gf-space-md)", alignItems: "center", flexWrap: "wrap", justifyContent: "center", position: "relative" }}>
