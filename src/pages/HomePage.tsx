@@ -6,24 +6,34 @@ import ReactPlayer from "react-player";
 
 const journey = [
   {
-    verb: "Integrate",
-    title: "Core Catalogs",
-    body: "Access a foundational repository of technology-agnostic threat and control definitions designed for seamless import into your specific environments."
+    verb: "Research",
+    title: "System Capabilities",
+    body: "Capabilities Examine your specific technology stack to pinpoint exactly where you are exposed to negative impacts. By identifying specific threats, you can seamlessly apply precise, actionable controls to mitigate those exact vulnerabilities.",
   },
   {
-    verb: "Target",
-    title: "Specific Threats",
-    body: "Move past abstract recommendations. Utilize specifically-scoped threats to pinpoint exactly where your organization is exposed to negative impacts."
+    verb: "Import",
+    title: "Reusable Definitions",
+    body: "Establish a foundational baseline of reusable, technology-agnostic threat and control definitions. This prevents your team from needing to write arbitrary security rules from scratch and ensures interoperability."
   },
   {
-    verb: "Deploy",
-    title: "Actionable Controls",
-    body: "Implement clear safeguards equipped with precise assessment requirements, allowing your evaluators and automated tools to measure reality against expectations."
+    verb: "Define",
+    title: "Risk-Informed Policies",
+    body: "Create clearly scoped rules tailored to your organization's specific risk appetite. Instead of treating compliance as abstract suggestions, use your selected controls as executable design requirements that guide safe implementation.",
   },
   {
-    verb: "Adopt",
-    title: "GRC Engineering",
-    body: "Follow a structured methodology to secure your systems: assess capabilities, identify threats, and apply the exact controls needed to mitigate them."
+    verb: "Automate",
+    title: "Compliance Evaluations",
+    body: "Translate your controls' specific assessment requirements into automated configuration scans and behavioral tests. This allows your tools to continuously measure reality against expectations without slowing down your development pipelines.",
+  },
+  {
+    verb: "Enforce",
+    title: "Control Objectives",
+    body: "Wire these automated evaluations directly into your software development lifecycle as deployment gates. This automated enforcement blocks non-compliant resources and misconfigurations before they ever reach production.",
+  },
+  {
+    verb: "Monitor",
+    title: "Production Systems",
+    body: "Establish a continuous, policy-driven process that harnesses multiple systems to gather immutable logs and artifacts automatically. This guarantees ongoing compliance and vastly simplifies formal audits by providing highly verifiable, easily accessible evidence.",
   },
 ];
 
@@ -134,13 +144,102 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Strategy section */}
+      <section style={{ marginBottom: "var(--gf-space-xl)" }}>
+        <SectionHeading>Level Up Your Process</SectionHeading>
+        <p style={{ color: "var(--gf-color-text-subtle)", fontSize: "1.05rem", lineHeight: 1.75, maxWidth: "780px", margin: "0 auto var(--gf-space-xl)", textAlign: "center" }}>
+          Achieving fully automated governance requires moving from static compliance documents to executable design requirements. Here is how your team can leverage the CCC project to build a robust GRC Engineering pipeline.
+        </p>
+
+        {/* Horizontal process flow */}
+        <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "0", maxWidth: "1000px", margin: "0 auto" }}>
+          {[
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "2rem", height: "2rem" }}>
+                  <path d="M12 2v13M8 11l4 4 4-4M4 18h16" />
+                </svg>
+              ),
+              title: "Import the Core Catalog",
+              body: "Pull in the FINOS CCC Core Catalog — a foundational baseline of reusable, technology-agnostic threat and control definitions. A shared, authoritative starting point your whole team can build from."
+            },
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "2rem", height: "2rem" }}>
+                  <circle cx="6" cy="12" r="2" /><circle cx="18" cy="6" r="2" /><circle cx="18" cy="18" r="2" />
+                  <path d="M8 12h4m2-4.5L10 10m4 2.5L10 15" />
+                </svg>
+              ),
+              title: "Build Technology-Specific Catalogs",
+              body: "Import core definitions into your organization's environments, or extend our technology-specific catalogs to fit your needs. Assess capabilities, map threats, and applying precise mitigation controls where they matter."
+            },
+            {
+              icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "2rem", height: "2rem" }}>
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+                </svg>
+              ),
+              title: "Automate Tests Using Assessment Requirements",
+              body: "Every control ships with tightly scoped, verifiable assessment requirements. Translate them into scans, code analyses, or behavioral checks — wired into your pipelines as gates that block non-compliant resources before production."
+            }
+          ].map((step, i, arr) => (
+            <React.Fragment key={step.title}>
+              <div style={{
+                flex: "1",
+                minWidth: "220px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+                padding: "var(--gf-space-lg)",
+                background: "var(--gf-color-surface)",
+                borderRadius: "var(--gf-radius-xl)",
+                border: "1px solid var(--gf-color-border-strong)",
+                boxShadow: "var(--gf-shadow-surface)",
+              }}>
+                <div style={{
+                  color: "var(--gf-color-accent)",
+                  marginBottom: "var(--gf-space-md)",
+                  background: "var(--gf-color-accent-soft)",
+                  borderRadius: "50%",
+                  width: "3.5rem",
+                  height: "3.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  {step.icon}
+                </div>
+                <p style={{ margin: "0 0 0.5rem", fontWeight: 700, fontSize: "1rem", color: "var(--gf-color-text)" }}>{step.title}</p>
+                <p style={{ margin: 0, color: "var(--gf-color-text-subtle)", lineHeight: 1.7, fontSize: "0.9rem" }}>{step.body}</p>
+              </div>
+              {i < arr.length - 1 && (
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "0 0.5rem",
+                  color: "var(--gf-color-accent)",
+                  fontSize: "1.5rem",
+                  opacity: 0.5,
+                  alignSelf: "center",
+                  flexShrink: 0,
+                }}>→</div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
+      <Divider />
+
       {/* Benefits + Videos side-by-side */}
       <section style={{ marginBottom: "var(--gf-space-xl)" }}>
-        <div style={{ display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start", flexWrap: "wrap", justifyContent: "center" }}>
 
           {/* Journey timeline */}
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <SectionHeading>Start Your Automated Governance Journey</SectionHeading>
+          <div style={{ flex: 1, minWidth: "280px", maxWidth: "675px" }}>
+            <SectionHeading>Advance Your Automated Governance Journey</SectionHeading>
             <div style={{ position: "relative", paddingLeft: "2rem" }}>
               {/* vertical line */}
               <div style={{
@@ -177,6 +276,24 @@ export const HomePage: React.FC = () => {
               ))}
             </div>
 
+            {/* Bridge: where CCC fits */}
+            <div style={{ marginTop: "var(--gf-space-xl)", paddingTop: "var(--gf-space-xl)", borderTop: "1px solid var(--gf-color-border-strong)" }}>
+              <h3 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--gf-color-accent)", marginBottom: "var(--gf-space-md)" }}>
+                Where CCC Fits In
+              </h3>
+              <p style={{ color: "var(--gf-color-text-subtle)", lineHeight: 1.75, marginBottom: "var(--gf-space-md)", fontSize: "0.975rem" }}>
+                Automated governance pipelines are built in layers, and FINOS Common Cloud Controls (CCC) operates at <strong style={{ color: "var(--gf-color-text)" }}>Layer 2</strong> of the{" "}
+                <a href="https://github.com/gemaraproj/go-gemara" target="_blank" rel="noopener noreferrer" style={{ color: "var(--gf-color-accent)" }}>Gemara</a>
+                {" "}model: Threats and Controls. Sitting above high-level guidance (Layer 1) and below your organization's specific policies (Layer 3), CCC acts as the vital bridge that translates abstract best practices into actionable, threat-informed safeguards.
+              </p>
+              <p style={{ color: "var(--gf-color-text-subtle)", lineHeight: 1.75, marginBottom: "var(--gf-space-md)", fontSize: "0.975rem" }}>
+                At this layer, your team defines what a secure system looks like in a reusable, technology-agnostic way. By focusing on specifically scoped threats and controls with clear assessment requirements, CCC empowers you to build interoperable resources that seamlessly inform your policies and guide automated evaluation tools across different environments.
+              </p>
+              <p style={{ color: "var(--gf-color-text-subtle)", lineHeight: 1.75, fontSize: "0.975rem" }}>
+                Furthermore, the practical needs of projects like CCC actually helped form the genesis of the Gemara model itself. Because real-world automated governance requires separating high-level concepts from specific implementations, Gemara provides the machine-optimized document schemas that allow CCC's layered artifacts to interoperate flawlessly throughout your secure software factory.
+              </p>
+            </div>
+
             {/* Catalog structure */}
             <div style={{ marginTop: "var(--gf-space-xl)" }}>
               <h3 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--gf-color-accent)", marginBottom: "var(--gf-space-md)" }}>
@@ -197,8 +314,8 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Videos */}
-          <div style={{ width: "350px", flexShrink: 0, minWidth: "280px" }}>
-            <SectionHeading>Learn More</SectionHeading>
+          <div style={{ width: "300px", flexShrink: 0, minWidth: "280px" }}>
+            <SectionHeading>_____</SectionHeading>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--gf-space-lg)" }}>
               {videos.map((v) => (
                 <figure key={v.url} style={{ margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
