@@ -1,26 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { SectionCard } from "../components/SectionCard";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-const benefits = [
+const journey = [
   {
-    title: "Composable Core Catalogs",
-    body: "Access a foundational repository of reusable, technology-agnostic threat and control definitions. Seamlessly import these elements into your organization's technology-specific catalogs."
+    verb: "Integrate",
+    title: "Core Catalogs",
+    body: "Access a foundational repository of technology-agnostic threat and control definitions designed for seamless import into your specific environments."
   },
   {
-    title: "Threat-Informed Safeguards",
-    body: "Utilize specifically-scoped threats that pinpoint exact opportunities for negative impacts to your organization."
+    verb: "Target",
+    title: "Specific Threats",
+    body: "Move past abstract recommendations. Utilize specifically-scoped threats to pinpoint exactly where your organization is exposed to negative impacts."
   },
   {
+    verb: "Deploy",
     title: "Actionable Controls",
-    body: "Deploy clear safeguards equipped with precise assessment requirements designed directly for implementation by evaluators."
+    body: "Implement clear safeguards equipped with precise assessment requirements, allowing your evaluators and automated tools to measure reality against expectations."
   },
   {
-    title: "A Proven Engineering Process",
-    body: "Follow a structured, logical methodology to secure your information systems: assess system capabilities, identify related threats, and apply the exact controls needed for mitigation."
+    verb: "Adopt",
+    title: "GRC Engineering",
+    body: "Follow a structured methodology to secure your systems: assess capabilities, identify threats, and apply the exact controls needed to mitigate them."
   },
 ];
 
@@ -135,13 +138,61 @@ export const HomePage: React.FC = () => {
       <section style={{ marginBottom: "var(--gf-space-xl)" }}>
         <div style={{ display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start", flexWrap: "wrap" }}>
 
-          {/* Benefits */}
+          {/* Journey timeline */}
           <div style={{ flex: 1, minWidth: "280px" }}>
-            <SectionHeading>Start using CCC today</SectionHeading>
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--gf-space-lg)" }}>
-              {benefits.map((b) => (
-                <SectionCard key={b.title} title={b.title} description={b.body} />
+            <SectionHeading>Start Your Automated Governance Journey</SectionHeading>
+            <div style={{ position: "relative", paddingLeft: "2rem" }}>
+              {/* vertical line */}
+              <div style={{
+                position: "absolute",
+                left: "0.45rem",
+                top: "0.6rem",
+                bottom: "0.6rem",
+                width: "2px",
+                background: "linear-gradient(to bottom, var(--gf-color-accent), var(--gf-color-complement))",
+                borderRadius: "1px",
+                opacity: 0.4,
+              }} />
+              {journey.map((step, i) => (
+                <div key={step.verb} style={{ position: "relative", marginBottom: i < journey.length - 1 ? "var(--gf-space-xl)" : 0 }}>
+                  {/* node dot */}
+                  <div style={{
+                    position: "absolute",
+                    left: "-2rem",
+                    top: "0.35rem",
+                    width: "0.85rem",
+                    height: "0.85rem",
+                    borderRadius: "50%",
+                    background: "var(--gf-color-accent)",
+                    boxShadow: "0 0 8px var(--gf-accent-glow)",
+                  }} />
+                  <p style={{ margin: "0 0 0.35rem", fontSize: "1.1rem", fontWeight: 700, lineHeight: 1.2 }}>
+                    <span style={{ color: "var(--gf-color-accent)" }}>{step.verb} </span>
+                    <span style={{ color: "var(--gf-color-text)" }}>{step.title}</span>
+                  </p>
+                  <p style={{ margin: 0, color: "var(--gf-color-text-subtle)", lineHeight: 1.7, fontSize: "0.975rem" }}>
+                    {step.body}
+                  </p>
+                </div>
               ))}
+            </div>
+
+            {/* Catalog structure */}
+            <div style={{ marginTop: "var(--gf-space-xl)" }}>
+              <h3 style={{ fontSize: "1.3rem", fontWeight: 700, color: "var(--gf-color-accent)", marginBottom: "var(--gf-space-md)" }}>
+                Three Catalogs, One Complete Picture
+              </h3>
+              <p style={{ color: "var(--gf-color-text-subtle)", lineHeight: 1.75, marginBottom: "var(--gf-space-md)", fontSize: "0.975rem" }}>
+                Each cloud service is covered by three interlocking catalog types — Capabilities, Threats, and Controls — because real-world governance requires all three layers to be explicit and independently reusable.
+              </p>
+              <p style={{ color: "var(--gf-color-text-subtle)", lineHeight: 1.75, marginBottom: "var(--gf-space-lg)", fontSize: "0.975rem" }}>
+                Keeping them separate means your team can import only what is relevant, compose new service catalogs from existing building blocks, and map controls directly to the threats they mitigate — without carrying the weight of definitions you don't need.
+              </p>
+              <img
+                src="/diagrams/catalogs-diagram.svg"
+                alt="CCC catalog structure diagram"
+                style={{ display: "block", maxWidth: "350px", width: "100%", height: "auto", borderRadius: "var(--gf-radius-lg)", margin: "0 auto" }}
+              />
             </div>
           </div>
 
