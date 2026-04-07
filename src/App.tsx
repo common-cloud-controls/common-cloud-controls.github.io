@@ -10,6 +10,7 @@ import { SectionItemPage } from "./pages/SectionItemPage";
 import { CatalogBrowsePage } from "./pages/CatalogBrowsePage";
 import { CatalogsIndexPage } from "./pages/CatalogsIndexPage";
 import { CatalogTypeOverviewPage } from "./pages/CatalogTypeOverviewPage";
+import { CatalogSidebar } from "./components/CatalogSidebar";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
 import { getSectionItems } from "./content/sections";
@@ -57,7 +58,13 @@ export const App: React.FC = () => {
                       <Route
                         key={item.path}
                         path={item.path!}
-                        element={<SectionItemPage section={section} path={item.path} />}
+                        element={
+                          <SectionItemPage
+                            section={section}
+                            path={item.path}
+                            sidebar={section === "catalogs" ? <CatalogSidebar /> : undefined}
+                          />
+                        }
                       />
                     ))}
 
