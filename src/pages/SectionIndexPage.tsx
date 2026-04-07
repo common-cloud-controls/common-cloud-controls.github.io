@@ -3,6 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { SectionCard } from "../components/SectionCard";
+import { SectionSidebar } from "../components/SectionSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { siteConfig } from "../config/site";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
@@ -20,9 +21,11 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
   const title = config.label ?? section;
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start" }}>
+      <SectionSidebar section={section} />
+      <div style={{ flex: 1, minWidth: 0 }}>
       {indexItem ? (
-        <article style={{ maxWidth: "900px", margin: "0 auto", padding: "0 var(--gf-space-xl)", width: "100%" }}>
+        <article style={{ padding: "0 var(--gf-space-xl)" }}>
           <h1 style={{ fontSize: "2.5rem", fontWeight: 700, margin: 0, color: "var(--gf-color-accent)", lineHeight: 1.2, marginBottom: "var(--gf-space-md)" }}>
             {indexItem.title}
           </h1>
@@ -70,6 +73,7 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
           Add markdown files under <code>src/content/{section}/</code> to populate this section.
         </p>
       )}
+      </div>
     </div>
   );
 };

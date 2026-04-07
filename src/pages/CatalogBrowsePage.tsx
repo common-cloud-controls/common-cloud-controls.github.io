@@ -4,17 +4,37 @@ import { CatalogSidebar } from "../components/CatalogSidebar";
 import { getSectionItems } from "../content/sections";
 import { prettifySegment } from "../content/catalogUtils";
 
+const CATALOG_TYPES = new Set(["capabilities", "threats", "controls"]);
+
+function getItemType(itemPath: string): string | null {
+  const parts = itemPath.split("/").filter(Boolean);
+  if (parts.length < 5) return null;
+  // New structure: /catalogs/<type>/<category>/<service>/<tag>
+  if (CATALOG_TYPES.has(parts[1])) return parts[1];
+  // Old structure: /catalogs/<category>/<service>/<type>/<tag>
+  if (CATALOG_TYPES.has(parts[3])) return parts[3];
+  return null;
+}
+
 export const CatalogBrowsePage: React.FC = () => {
   const { pathname } = useLocation();
   const allItems = getSectionItems("catalogs");
 
-  const prefix = pathname.replace(/\/$/, "") + "/";
-  const matches = allItems.filter((item) => item.path?.startsWith(prefix));
+  const segments = pathname.split("/").filter(Boolean);
+  const isBrowsingByType = segments.length === 2 && CATALOG_TYPES.has(segments[1]);
+
+  let matches;
+  if (isBrowsingByType) {
+    const type = segments[1];
+    matches = allItems.filter((item) => item.path && getItemType(item.path) === type);
+  } else {
+    const prefix = pathname.replace(/\/$/, "") + "/";
+    matches = allItems.filter((item) => item.path?.startsWith(prefix));
+  }
 
   if (matches.length === 0) return <Navigate to="/catalogs" replace />;
 
   // Build breadcrumb segments from the path
-  const segments = pathname.split("/").filter(Boolean); // ["catalogs", "networking", "vpc"]
   const breadcrumbs = segments.map((seg, i) => ({
     label: prettifySegment(seg),
     path: "/" + segments.slice(0, i + 1).join("/"),
@@ -24,7 +44,7 @@ export const CatalogBrowsePage: React.FC = () => {
 
   return (
     <div style={{ display: "flex", gap: "var(--gf-space-xl)", maxWidth: "1200px", margin: "0 auto", width: "100%", alignItems: "flex-start" }}>
-      <CatalogSidebar />
+      <CatalogSidebar typeFilter={isBrowsingByType ? segments[1] : undefined} />
 
       <div style={{ flex: 1, minWidth: 0 }}>
         {/* Breadcrumb */}

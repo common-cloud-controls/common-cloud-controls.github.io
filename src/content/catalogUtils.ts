@@ -19,8 +19,12 @@ export interface ServiceEntry {
   label: string;
 }
 
+const CATALOG_TYPES = new Set(["capabilities", "threats", "controls"]);
+
 // Derive unique service paths grouped by category from published release items.
-// Published paths follow the pattern /catalogs/<type>/<category>/<service>/<version>.
+// Handles both path structures:
+//   New: /catalogs/<type>/<category>/<service>/<version>
+//   Old: /catalogs/<category>/<service>/<type>/<version>
 // Pass typeFilter to restrict to a specific catalog type (capabilities|threats|controls).
 export function getServiceGroups(
   items: SectionItem[],
@@ -33,9 +37,18 @@ export function getServiceGroups(
     if (!item.path) continue;
     const parts = item.path.split("/").filter(Boolean);
     if (parts.length < 5) continue;
-    const [, type, category, service] = parts;
+
+    let type: string, category: string, service: string;
+    if (CATALOG_TYPES.has(parts[1])) {
+      // New structure: /catalogs/<type>/<category>/<service>/<version>
+      [, type, category, service] = parts;
+    } else {
+      // Old structure: /catalogs/<category>/<service>/<type>/<version>
+      [, category, service, type] = parts;
+    }
+
     if (typeFilter && type !== typeFilter) continue;
-    const servicePath = `/catalogs/${type}/${category}/${service}`;
+    const servicePath = `/catalogs/${category}/${service}`;
     if (seen.has(servicePath)) continue;
     seen.add(servicePath);
     if (!groups.has(category)) groups.set(category, []);
