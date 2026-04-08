@@ -3,6 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { SectionCard } from "../components/SectionCard";
+import { SectionSidebar } from "../components/SectionSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { siteConfig } from "../config/site";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
@@ -20,56 +21,53 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
   const title = config.label ?? section;
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
-      {indexItem ? (
-        <article style={{ maxWidth: "900px", margin: "0 auto", padding: "0 var(--gf-space-xl)", width: "100%" }}>
-          <h1 style={{ fontSize: "2.5rem", fontWeight: 700, margin: 0, color: "var(--gf-color-accent)", lineHeight: 1.2, marginBottom: "var(--gf-space-md)" }}>
-            {indexItem.title}
-          </h1>
-          {indexItem.description && (
-            <p style={{ color: "var(--gf-color-text-subtle)", fontSize: "1.1rem", marginBottom: "var(--gf-space-lg)", lineHeight: 1.6 }}>
-              {indexItem.description}
-            </p>
-          )}
-          {indexItem.body.trim() && (
-            <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.1rem", marginBottom: listItems.length > 0 ? "var(--gf-space-xl)" : 0 }}>
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                {indexItem.body}
-              </ReactMarkdown>
+    <div className="page-layout">
+      <SectionSidebar section={section} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {indexItem ? (
+          <article style={{ padding: "0 var(--gf-space-xl)" }}>
+            <h1 className="page-h1">{indexItem.title}</h1>
+            {indexItem.description && (
+              <p className="page-description">{indexItem.description}</p>
+            )}
+            {indexItem.body.trim() && (
+              <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.1rem", marginBottom: listItems.length > 0 ? "var(--gf-space-xl)" : 0 }}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                  {indexItem.body}
+                </ReactMarkdown>
+              </div>
+            )}
+          </article>
+        ) : (
+          <h1 className="page-h1">{title}</h1>
+        )}
+
+        {listItems.length > 0 && (
+          <>
+            {indexItem && (
+              <h2 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-text)", lineHeight: 1.3 }}>
+                {title}
+              </h2>
+            )}
+            <div className="catalog-grid">
+              {listItems.map((item) => {
+                const href = item.path ?? `/${section}/${item.slug}`;
+                return (
+                  <Link key={item.slug} to={href} className="link-card surface-card" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+                    <SectionCard title={item.title} description={item.description ?? ""} />
+                  </Link>
+                );
+              })}
             </div>
-          )}
-        </article>
-      ) : (
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-accent)", lineHeight: 1.2 }}>
-          {title}
-        </h1>
-      )}
+          </>
+        )}
 
-      {listItems.length > 0 && (
-        <>
-          {indexItem && (
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-text)", lineHeight: 1.3 }}>
-              {title}
-            </h2>
-          )}
-          <div className="catalog-grid">
-            {listItems.map((item) => {
-              const href = item.path ?? `/${section}/${item.slug}`;
-              return (
-                <Link key={item.slug} to={href} style={{ textDecoration: "none", color: "inherit" }}>
-                  <SectionCard title={item.title} description={item.description ?? ""} />
-                </Link>
-              );
-            })}
-          </div>
-        </>
-      )}
-
-      {!indexItem && listItems.length === 0 && (
-        <p style={{ color: "var(--gf-color-text-subtle)" }}>
-          Add markdown files under <code>src/content/{section}/</code> to populate this section.
-        </p>
-      )}
+        {!indexItem && listItems.length === 0 && (
+          <p style={{ color: "var(--gf-color-text-subtle)" }}>
+            Add markdown files under <code>src/content/{section}/</code> to populate this section.
+          </p>
+        )}
+      </div>
     </div>
   );
 };

@@ -19,20 +19,8 @@ export const LinkCard: React.FC<LinkCardProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel ?? title}
-      className="link-card"
-      style={{
-        display: "block",
-        padding: "var(--gf-space-xl)",
-        backgroundColor: "var(--gf-color-surface)",
-        borderRadius: "var(--gf-radius-xl)",
-        boxShadow: "var(--gf-shadow-surface)",
-        backdropFilter: "var(--gf-glass-blur)",
-        WebkitBackdropFilter: "var(--gf-glass-blur)",
-        border: "1px solid var(--gf-color-border-strong)",
-        textDecoration: "none",
-        color: "inherit",
-        cursor: "pointer"
-      }}
+      className="link-card surface-card"
+      style={{ display: "block", textDecoration: "none", color: "inherit", cursor: "pointer" }}
     >
       <h3 style={{ marginTop: 0, marginBottom: "var(--gf-space-md)" }}>{title}</h3>
       <p

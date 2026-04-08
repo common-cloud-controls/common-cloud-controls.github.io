@@ -394,3 +394,84 @@ h3 {
   }
 }
 
+/* Shared page layout: sidebar + content */
+.page-layout {
+  display: flex;
+  gap: var(--gf-space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* Sidebar nav container (used by CatalogSidebar and SectionSidebar) */
+.sidebar-nav {
+  width: 210px;
+  flex-shrink: 0;
+  position: sticky;
+  top: var(--gf-space-xl);
+  align-self: flex-start;
+  background: var(--gf-color-surface);
+  border: 1px solid var(--gf-color-border-strong);
+  border-radius: var(--gf-radius-xl);
+  padding: var(--gf-space-md);
+  box-shadow: var(--gf-shadow-surface);
+}
+
+/* Surface card: shared card container */
+.surface-card {
+  padding: var(--gf-space-xl);
+  background: var(--gf-color-surface);
+  border-radius: var(--gf-radius-xl);
+  border: 1px solid var(--gf-color-border-strong);
+  box-shadow: var(--gf-shadow-surface);
+}
+
+@media (max-width: 768px) {
+  .catalog-sidebar {
+    display: none;
+  }
+}
+
+/* Version card footer: stats left, View → right; stack on mobile */
+.version-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--gf-space-lg);
+  gap: var(--gf-space-md);
+}
+
+@media (max-width: 600px) {
+  .version-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .version-footer .version-view {
+    align-self: flex-end;
+  }
+}
+
+/* Page headings */
+.page-h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gf-color-accent);
+  line-height: 1.2;
+  margin-bottom: var(--gf-space-lg);
+}
+
+@media (max-width: 600px) {
+  .page-h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Page description (subtle lead paragraph) */
+.page-description {
+  color: var(--gf-color-text-subtle);
+  font-size: 1.1rem;
+  margin-bottom: var(--gf-space-lg);
+  line-height: 1.6;
+}
+

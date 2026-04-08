@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { siteConfig, type NavLink } from "../config/site";
+import { isExternal } from "../utils";
 
 const logoUrl = "/logo/ccc-logo.png";
 
@@ -29,8 +30,6 @@ export const Header: React.FC = () => {
     transition: "background-color 0.2s",
     backgroundColor: location.pathname === path ? "var(--gf-color-accent-soft)" : "transparent"
   });
-
-  const isExternal = (path: string) => path.startsWith("http");
 
   return (
     <header className="site-header" style={{ width: "100vw", margin: 0, padding: "var(--gf-space-md) var(--gf-space-xl)", boxSizing: "border-box" }}>
