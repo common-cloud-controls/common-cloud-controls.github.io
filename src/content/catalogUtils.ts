@@ -21,21 +21,18 @@ export interface ServiceEntry {
 
 export const CATALOG_TYPES = new Set(["capabilities", "threats", "controls"]);
 
-// Returns the catalog type for an item path, handling both path structures.
+// Returns the catalog type for an item path: /catalogs/<category>/<service>/<type>/<version>
 export function getItemType(itemPath: string): string | null {
   const parts = itemPath.split("/").filter(Boolean);
   if (parts.length < 5) return null;
-  if (CATALOG_TYPES.has(parts[1])) return parts[1]; // new: /catalogs/<type>/...
-  if (CATALOG_TYPES.has(parts[3])) return parts[3]; // old: /catalogs/<cat>/<svc>/<type>/...
-  return null;
+  return CATALOG_TYPES.has(parts[3]) ? parts[3] : null;
 }
 
-// Returns /catalogs/<category>/<service> for an item, regardless of path structure.
+// Returns /catalogs/<category>/<service> for an item path.
 export function getServicePath(itemPath: string): string | null {
   const parts = itemPath.split("/").filter(Boolean);
   if (parts.length < 5) return null;
-  if (CATALOG_TYPES.has(parts[1])) return `/catalogs/${parts[2]}/${parts[3]}`; // new
-  return `/catalogs/${parts[1]}/${parts[2]}`; // old
+  return `/catalogs/${parts[1]}/${parts[2]}`;
 }
 
 // Derive unique service paths grouped by category from published release items.
