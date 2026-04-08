@@ -37,8 +37,8 @@ export const siteConfig: SiteConfig = {
     copyrightText: "FINOS Common Cloud Controls is a FINOS open standard project.",
     links: [
       { href: "https://www.finos.org/common-cloud-controls-project", label: "FINOS Project Page" },
-      { href: "https://github.com/finos/common-cloud-controls", label: "GitHub" },
-      { href: "https://github.com/finos/common-cloud-controls/issues", label: "Issues" }
+      { href: "https://github.com/common-cloud-controls", label: "GitHub" },
+      { href: "https://github.com/common-cloud-controls/common-cloud-controls.github.io/issues", label: "Report a Website Issue" }
     ]
   },
 

@@ -366,10 +366,10 @@ export const HomePage: React.FC = () => {
         </p>
         <ul className="get-involved-list" style={{ maxWidth: "900px", margin: "0 auto" }}>
           {[
-            { href: "https://github.com/finos/common-cloud-controls", label: "View on GitHub", desc: "Browse source, open issues, and submit pull requests." },
-            { href: "https://github.com/finos#common-cloud-controls", label: "Join a CCC Meeting", desc: "Attend a community meeting and meet the team." },
+            { href: "https://github.com/common-cloud-controls", label: "View on GitHub", desc: "Browse source, open issues, and submit pull requests." },
+            { href: "https://github.com/common-cloud-controls#common-cloud-controls", label: "Join a CCC Meeting", desc: "Attend a community meeting and meet the team." },
             { href: "https://www.finos.org/common-cloud-controls-project", label: "FINOS Project Page", desc: "Learn more about the project on the FINOS website." },
-            { href: "https://github.com/finos/common-cloud-controls/issues", label: "Open an Issue", desc: "Report a bug, request a feature, or start a discussion." }
+            { href: "https://github.com/common-cloud-controls/common-cloud-controls.github.io/issues", label: "Report a Website Issue", desc: "Report a bug, request a feature, or start a discussion." }
           ].map((link) => (
             <li key={link.href} className="get-involved-item">
               <a
