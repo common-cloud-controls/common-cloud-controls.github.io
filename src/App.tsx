@@ -55,7 +55,7 @@ export const App: React.FC = () => {
                     </>
                   )}
                   {getSectionItems(section)
-                    .filter((item) => item.path)
+                    .filter((item) => item.path && (section !== "catalogs" || item.path.split("/").filter(Boolean).length >= 5))
                     .map((item) => (
                       <Route
                         key={item.path}

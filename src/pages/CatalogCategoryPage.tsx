@@ -27,6 +27,18 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
   const serviceGroups = getServiceGroups(allItems);
   const services = serviceGroups.get(category) ?? [];
 
+  // For core: check which types have published content at /catalogs/core/ccc/<type>
+  const isCore = category === "core";
+  const coreAvailableTypes = new Set<string>();
+  if (isCore) {
+    for (const item of allItems) {
+      if (!item.path) continue;
+      if (getServicePath(item.path) !== "/catalogs/core/ccc") continue;
+      const t = getItemType(item.path);
+      if (t) coreAvailableTypes.add(t);
+    }
+  }
+
   // Which types are available per service
   function availableTypes(service: string): Set<string> {
     const sp = `/catalogs/${category}/${service}`;
@@ -56,6 +68,53 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
             <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
               {indexItem.body}
             </ReactMarkdown>
+          </div>
+        )}
+
+        {isCore && (
+          <div style={{ display: "flex", gap: "var(--gf-space-md)", flexWrap: "wrap", marginBottom: "var(--gf-space-xl)" }}>
+            {typeOrder.map((type) => {
+              const enabled = coreAvailableTypes.has(type);
+              const href = `/catalogs/core/ccc/${type}`;
+              return enabled ? (
+                <Link
+                  key={type}
+                  to={href}
+                  style={{
+                    display: "inline-block",
+                    padding: "0.6rem 1.25rem",
+                    borderRadius: "var(--gf-radius-lg)",
+                    border: "1px solid var(--gf-color-accent)",
+                    background: "transparent",
+                    color: "var(--gf-color-accent)",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    transition: "background 0.15s, color 0.15s",
+                  }}
+                >
+                  {TYPE_LABELS[type]}
+                </Link>
+              ) : (
+                <span
+                  key={type}
+                  style={{
+                    display: "inline-block",
+                    padding: "0.6rem 1.25rem",
+                    borderRadius: "var(--gf-radius-lg)",
+                    border: "1px solid var(--gf-color-border-strong)",
+                    background: "transparent",
+                    color: "var(--gf-color-text-subtle)",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    opacity: 0.45,
+                    cursor: "not-allowed",
+                  }}
+                >
+                  {TYPE_LABELS[type]}
+                </span>
+              );
+            })}
           </div>
         )}
 
