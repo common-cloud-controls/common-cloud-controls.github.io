@@ -2,7 +2,7 @@ title: CCC Generative AI Capabilities
 metadata:
     id: CCC.GenAI.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2025.04.rc-1
     description: Capabilities for Generative AI technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

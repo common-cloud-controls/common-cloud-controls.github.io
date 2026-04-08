@@ -2,7 +2,7 @@ title: CCC Logging Threats
 metadata:
     id: CCC.Logging.TH
     type: ThreatCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Threats for Logging technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

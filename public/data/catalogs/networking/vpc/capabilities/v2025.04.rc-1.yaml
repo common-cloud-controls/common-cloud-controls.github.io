@@ -2,7 +2,7 @@ title: CCC Virtual Private Cloud Capabilities
 metadata:
     id: CCC.VPC.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2025.04.rc-1
     description: Capabilities for Virtual Private Cloud technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

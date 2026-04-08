@@ -2,7 +2,7 @@ title: CCC Build Systems Capabilities
 metadata:
     id: CCC.Build.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2025.04.rc-1
     description: Capabilities for Build Systems technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

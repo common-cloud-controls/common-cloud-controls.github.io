@@ -2,7 +2,7 @@ title: CCC Vector Database Threats
 metadata:
     id: CCC.Vector.TH
     type: ThreatCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Threats for Vector Database technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

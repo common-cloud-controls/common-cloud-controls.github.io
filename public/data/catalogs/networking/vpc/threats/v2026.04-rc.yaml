@@ -2,7 +2,7 @@ title: CCC Virtual Private Cloud Threats
 metadata:
     id: CCC.VPC.TH
     type: ThreatCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Threats for Virtual Private Cloud technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

@@ -2,7 +2,7 @@ title: CCC Key Management Capabilities
 metadata:
     id: CCC.KeyMgmt.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Capabilities for Key Management technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

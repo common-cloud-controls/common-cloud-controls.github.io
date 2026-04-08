@@ -2,7 +2,7 @@ title: CCC ML Development Environments Controls
 metadata:
     id: CCC
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Controls for ML Development Environments technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

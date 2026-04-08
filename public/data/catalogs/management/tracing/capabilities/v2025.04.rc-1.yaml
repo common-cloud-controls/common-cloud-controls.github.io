@@ -2,7 +2,7 @@ title: CCC Distributed Tracing Capabilities
 metadata:
     id: CCC.Tracing.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2025.04.rc-1
     description: Capabilities for Distributed Tracing technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

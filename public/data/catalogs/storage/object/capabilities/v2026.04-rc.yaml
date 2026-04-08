@@ -2,7 +2,7 @@ title: CCC Object Storage Capabilities
 metadata:
     id: CCC.ObjStor.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Capabilities for Object Storage technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

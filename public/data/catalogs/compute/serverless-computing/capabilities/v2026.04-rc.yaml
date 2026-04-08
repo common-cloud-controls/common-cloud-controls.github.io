@@ -2,7 +2,7 @@ title: CCC Serverless Computing Capabilities
 metadata:
     id: CCC.SvlsComp.CP
     type: ControlCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Capabilities for Serverless Computing technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

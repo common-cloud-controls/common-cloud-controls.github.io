@@ -2,7 +2,7 @@ title: CCC Virtual Machines Threats
 metadata:
     id: CCC.VM.TH
     type: ThreatCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Threats for Virtual Machines technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC

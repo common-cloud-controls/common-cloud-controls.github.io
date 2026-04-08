@@ -2,7 +2,7 @@ title: CCC Audit Logging Threats
 metadata:
     id: CCC.AUDITLOG.TH
     type: ThreatCatalog
-    gemara-version: v0
+    gemara-version: v2026.04-rc
     description: Threats for Audit Logging technologies, as defined by the FINOS Common Cloud Controls project.
     author:
         id: FINOS-CCC
