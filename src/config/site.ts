@@ -21,9 +21,16 @@ export type NavLink = {
   children?: NavLink[];
 };
 
+export type BannerConfig = {
+  enabled: boolean;
+  message: string;
+  storageKey: string;
+};
+
 export type SiteConfig = {
   siteName: string;
   tagline: string;
+  banner?: BannerConfig;
   footer: { copyrightText: string; links: FooterLink[] };
   contentSections: Record<string, ContentSectionConfig>;
   customNavLinks?: NavLink[];
@@ -32,6 +39,12 @@ export type SiteConfig = {
 export const siteConfig: SiteConfig = {
   siteName: "Common Cloud Controls",
   tagline: "Consistent controls for compliant public cloud deployments in financial services.",
+
+  banner: {
+    enabled: true,
+    message: "This website is under construction, please join us on GitHub to improve the presentation of our catalog content!",
+    storageKey: "under-construction-banner-dismissed"
+  },
 
   footer: {
     copyrightText: "FINOS Common Cloud Controls is a FINOS open standard project.",

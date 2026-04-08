@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Banner } from "./components/Banner";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { BackgroundArcs } from "./components/BackgroundArcs";
@@ -34,6 +35,7 @@ export const App: React.FC = () => {
         }}
       >
         <BackgroundArcs />
+        <Banner />
         <Header />
         <main
           className="main-content"
