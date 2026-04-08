@@ -23,34 +23,23 @@ export const CatalogTypeOverviewPage: React.FC<CatalogTypeOverviewPageProps> = (
   const config = typeConfig[type];
 
   return (
-    <div style={{ display: "flex", gap: "var(--gf-space-xl)", maxWidth: "1200px", margin: "0 auto", width: "100%", alignItems: "flex-start" }}>
+    <div className="page-layout">
       <CatalogSidebar typeFilter={type} />
 
       <article style={{ flex: 1, minWidth: 0 }}>
         {/* Type header */}
-        <div style={{
-          padding: "var(--gf-space-xl)",
-          background: "var(--gf-color-surface)",
-          borderRadius: "var(--gf-radius-xl)",
-          border: "1px solid var(--gf-color-border-strong)",
-          boxShadow: "var(--gf-shadow-surface)",
-          marginBottom: "var(--gf-space-xl)",
-        }}>
+        <div className="surface-card" style={{ marginBottom: "var(--gf-space-xl)" }}>
           <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gf-color-text-subtle)", marginBottom: "0.35rem" }}>
             Catalog Type
           </div>
-          <h1 style={{ fontSize: "2rem", fontWeight: 700, margin: 0, color: "var(--gf-color-accent)", lineHeight: 1.2 }}>
-            {item.title}
-          </h1>
+          <h1 className="page-h1" style={{ margin: 0 }}>{item.title}</h1>
           <p style={{ margin: "0.5rem 0 0", color: "var(--gf-color-text-subtle)", fontSize: "1rem", lineHeight: 1.5 }}>
             {config.label}
           </p>
         </div>
 
         {item.description && (
-          <p style={{ color: "var(--gf-color-text-subtle)", fontSize: "1.1rem", marginBottom: "var(--gf-space-lg)", lineHeight: 1.6 }}>
-            {item.description}
-          </p>
+          <p className="page-description">{item.description}</p>
         )}
 
         {item.body.trim() && (
@@ -62,12 +51,9 @@ export const CatalogTypeOverviewPage: React.FC<CatalogTypeOverviewPageProps> = (
         )}
 
         {/* Browse CTA */}
-        <div style={{
+        <div className="surface-card" style={{
           marginTop: "var(--gf-space-xl)",
           padding: "var(--gf-space-lg)",
-          background: "var(--gf-color-surface)",
-          borderRadius: "var(--gf-radius-xl)",
-          border: "1px solid var(--gf-color-border-strong)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",

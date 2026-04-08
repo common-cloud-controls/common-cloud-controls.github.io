@@ -1,14 +1,6 @@
 import React from "react";
 import type { Components } from "react-markdown";
-
-function isExternal(href?: string | null): boolean {
-  if (!href) return false;
-  return (
-    href.startsWith("http://") ||
-    href.startsWith("https://") ||
-    href.startsWith("//")
-  );
-}
+import { isExternal } from "../utils";
 
 export const markdownComponents: Components = {
   a: ({ href, children, ...props }) => (

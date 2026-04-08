@@ -38,20 +38,7 @@ export const SectionSidebar: React.FC<SectionSidebarProps> = ({ section }) => {
   };
 
   return (
-    <nav
-      style={{
-        width: "210px",
-        flexShrink: 0,
-        position: "sticky",
-        top: "var(--gf-space-xl)",
-        alignSelf: "flex-start",
-        background: "var(--gf-color-surface)",
-        border: "1px solid var(--gf-color-border-strong)",
-        borderRadius: "var(--gf-radius-xl)",
-        padding: "var(--gf-space-md)",
-        boxShadow: "var(--gf-shadow-surface)",
-      }}
-    >
+    <nav className="sidebar-nav">
       <div style={sectionLabel}>{label}</div>
       <Link to={`/${section}`} style={linkStyle(`/${section}`)}>
         Overview

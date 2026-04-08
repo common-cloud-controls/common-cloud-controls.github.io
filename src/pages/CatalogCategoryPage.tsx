@@ -43,7 +43,7 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
   const typeOrder = Array.from(CATALOG_TYPES);
 
   return (
-    <div style={{ display: "flex", gap: "var(--gf-space-xl)", maxWidth: "1200px", margin: "0 auto", width: "100%", alignItems: "flex-start" }}>
+    <div className="page-layout">
       <CatalogSidebar />
 
       <div style={{ flex: 1, minWidth: 0 }}>

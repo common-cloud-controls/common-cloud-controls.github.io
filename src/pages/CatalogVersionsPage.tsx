@@ -53,51 +53,39 @@ function VersionCard({ item }: { item: { path: string; title: string } }) {
   return (
     <Link
       to={item.path}
-      className="link-card"
-      style={{ textDecoration: "none", color: "inherit", display: "flex" }}
+      className="link-card surface-card"
+      style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "var(--gf-space-sm)", padding: "var(--gf-space-lg) var(--gf-space-xl)" }}
     >
-      <div style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--gf-space-sm)",
-        padding: "var(--gf-space-lg) var(--gf-space-xl)",
-        background: "var(--gf-color-surface)",
-        borderRadius: "var(--gf-radius-xl)",
-        border: "1px solid var(--gf-color-border-strong)",
-        boxShadow: "var(--gf-shadow-surface)",
-      }}>
-        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--gf-space-md)" }}>
-          <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--gf-color-accent)" }}>
-            {item.title}
-          </div>
-          <span style={{ fontSize: "0.8rem", color: "var(--gf-color-text-subtle)", whiteSpace: "nowrap", flexShrink: 0 }}>
-            {tag}
-          </span>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--gf-space-md)" }}>
+        <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--gf-color-accent)" }}>
+          {item.title}
         </div>
+        <span style={{ fontSize: "0.8rem", color: "var(--gf-color-text-subtle)", whiteSpace: "nowrap", flexShrink: 0 }}>
+          {tag}
+        </span>
+      </div>
 
-        {meta?.description && (
-          <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
-            {meta.description}
-          </p>
-        )}
+      {meta?.description && (
+        <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
+          {meta.description}
+        </p>
+      )}
 
-        <div className="version-card-footer">
-          <div style={{ display: "flex", gap: "var(--gf-space-xl)", flexWrap: "wrap" }}>
-            {meta?.capabilityCount !== undefined && (
-              <Stat label="Capabilities" value={meta.capabilityCount} />
-            )}
-            {meta?.controlCount !== undefined && (
-              <Stat label="Controls" value={meta.controlCount} />
-            )}
-            {meta?.assessmentRequirementCount !== undefined && (
-              <Stat label="Assessment Requirements" value={meta.assessmentRequirementCount} />
-            )}
-          </div>
-          <span className="version-card-view" style={{ fontSize: "0.8rem", color: "var(--gf-color-accent)", fontWeight: 600, whiteSpace: "nowrap" }}>
-            View →
-          </span>
+      <div className="version-footer">
+        <div style={{ display: "flex", gap: "var(--gf-space-xl)", flexWrap: "wrap" }}>
+          {meta?.capabilityCount !== undefined && (
+            <Stat label="Capabilities" value={meta.capabilityCount} />
+          )}
+          {meta?.controlCount !== undefined && (
+            <Stat label="Controls" value={meta.controlCount} />
+          )}
+          {meta?.assessmentRequirementCount !== undefined && (
+            <Stat label="Assessment Requirements" value={meta.assessmentRequirementCount} />
+          )}
         </div>
+        <span className="version-view" style={{ fontSize: "0.8rem", color: "var(--gf-color-accent)", fontWeight: 600, whiteSpace: "nowrap" }}>
+          View →
+        </span>
       </div>
     </Link>
   );
@@ -145,7 +133,7 @@ export const CatalogVersionsPage: React.FC<CatalogVersionsPageProps> = ({ catego
   const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
 
   return (
-    <div className="catalog-page-layout">
+    <div className="page-layout">
       <CatalogSidebar />
 
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -157,7 +145,7 @@ export const CatalogVersionsPage: React.FC<CatalogVersionsPageProps> = ({ catego
           <span style={{ color: "var(--gf-color-text)" }}>{prettifySegment(service)} {typeLabel}</span>
         </nav>
 
-        <h1 className="catalog-page-h1">
+        <h1 className="page-h1">
           {prettifySegment(service)} {typeLabel}
         </h1>
 

@@ -33,21 +33,7 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
   });
 
   return (
-    <nav
-      className="catalog-sidebar"
-      style={{
-        width: "210px",
-        flexShrink: 0,
-        position: "sticky",
-        top: "var(--gf-space-xl)",
-        alignSelf: "flex-start",
-        background: "var(--gf-color-surface)",
-        border: "1px solid var(--gf-color-border-strong)",
-        borderRadius: "var(--gf-radius-xl)",
-        padding: "var(--gf-space-md)",
-        boxShadow: "var(--gf-shadow-surface)",
-      }}
-    >
+    <nav className="sidebar-nav catalog-sidebar">
       {Array.from(serviceGroups.entries()).map(([category, services]) => {
         const isOpen = openCategory === category;
         const categoryActive = services.some(({ path }) => isActive(path));

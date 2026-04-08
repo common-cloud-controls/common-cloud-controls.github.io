@@ -21,18 +21,14 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
   const title = config.label ?? section;
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", display: "flex", gap: "var(--gf-space-xl)", alignItems: "flex-start" }}>
+    <div className="page-layout">
       <SectionSidebar section={section} />
       <div style={{ flex: 1, minWidth: 0 }}>
       {indexItem ? (
         <article style={{ padding: "0 var(--gf-space-xl)" }}>
-          <h1 style={{ fontSize: "2.5rem", fontWeight: 700, margin: 0, color: "var(--gf-color-accent)", lineHeight: 1.2, marginBottom: "var(--gf-space-md)" }}>
-            {indexItem.title}
-          </h1>
+          <h1 className="page-h1">{indexItem.title}</h1>
           {indexItem.description && (
-            <p style={{ color: "var(--gf-color-text-subtle)", fontSize: "1.1rem", marginBottom: "var(--gf-space-lg)", lineHeight: 1.6 }}>
-              {indexItem.description}
-            </p>
+            <p className="page-description">{indexItem.description}</p>
           )}
           {indexItem.body.trim() && (
             <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.1rem", marginBottom: listItems.length > 0 ? "var(--gf-space-xl)" : 0 }}>
@@ -43,9 +39,7 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
           )}
         </article>
       ) : (
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-accent)", lineHeight: 1.2 }}>
-          {title}
-        </h1>
+        <h1 className="page-h1">{title}</h1>
       )}
 
       {listItems.length > 0 && (
@@ -59,7 +53,7 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
             {listItems.map((item) => {
               const href = item.path ?? `/${section}/${item.slug}`;
               return (
-                <Link key={item.slug} to={href} style={{ textDecoration: "none", color: "inherit" }}>
+                <Link key={item.slug} to={href} className="link-card surface-card" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
                   <SectionCard title={item.title} description={item.description ?? ""} />
                 </Link>
               );
