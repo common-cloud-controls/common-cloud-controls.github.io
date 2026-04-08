@@ -1,0 +1,43 @@
+title: CCC Serverless Computing Threats
+metadata:
+    id: CCC
+    type: ThreatCatalog
+    gemara-version: v0
+    description: Threats for Serverless Computing technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access control is misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is intercepted in transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment region network is untrusted
+        - reference-id: CCC.Core.TH04
+          remarks: Data is replicated to untrusted or external locations
+        - reference-id: CCC.Core.TH05
+          remarks: Data is corrupted during replication
+        - reference-id: CCC.Core.TH06
+          remarks: Data is lost or corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH08
+          remarks: Cost Management Data is Manipulated
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Metrics Publication Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH11
+          remarks: Event Notifications are Incorrectly Triggered
+        - reference-id: CCC.Core.TH12
+          remarks: Resource constraints are exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags Are Manipulated
+        - reference-id: CCC.Core.TH14
+          remarks: Older Resource Versions Are Exploited
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-Human Entities
+      reference-id: CCC
