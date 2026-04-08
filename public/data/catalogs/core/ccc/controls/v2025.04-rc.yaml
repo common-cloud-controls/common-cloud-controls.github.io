@@ -1,0 +1,11 @@
+title: CCC Core Controls
+metadata:
+    id: CCC
+    type: ControlCatalog
+    gemara-version: v1.0.0-rc.2
+    version: v2025.04-rc
+    description: Controls for Core technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
