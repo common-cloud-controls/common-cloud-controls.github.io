@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import fs from "node:fs";
 import path from "node:path";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 function catalogYamlPlugin() {
   return {
     name: "catalog-yaml",
@@ -42,7 +44,7 @@ function copyYamlFiles(srcDir: string, destBase: string, srcBase: string) {
 }
 
 export default defineConfig({
-  plugins: [react(), catalogYamlPlugin()],
+  plugins: [react(), catalogYamlPlugin(), cloudflare()],
   base: "/",
   build: {
     outDir: "dist"
