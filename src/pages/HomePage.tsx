@@ -76,6 +76,11 @@ const videos = [
   }
 ];
 
+function youtubeThumbnail(url: string): string | false {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
+  return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : false;
+}
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 const SectionHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -327,7 +332,7 @@ export const HomePage: React.FC = () => {
                     aspectRatio: "16/9",
                     position: "relative"
                   }}>
-                    <ReactPlayer url={v.url} width="100%" height="100%" controls style={{ position: "absolute", top: 0, left: 0 }} />
+                    <ReactPlayer url={v.url} width="100%" height="100%" controls light={youtubeThumbnail(v.url)} style={{ position: "absolute", top: 0, left: 0 }} />
                   </div>
                   <figcaption style={{ fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
                     {v.caption}
