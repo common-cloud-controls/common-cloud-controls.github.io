@@ -7,10 +7,10 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { HomePage } from "./pages/HomePage";
 import { SectionIndexPage } from "./pages/SectionIndexPage";
 import { SectionItemPage } from "./pages/SectionItemPage";
+import { CatalogItemPage } from "./pages/CatalogItemPage";
 import { CatalogBrowsePage } from "./pages/CatalogBrowsePage";
 import { CatalogsIndexPage } from "./pages/CatalogsIndexPage";
 import { CatalogTypeOverviewPage } from "./pages/CatalogTypeOverviewPage";
-import { CatalogSidebar } from "./components/CatalogSidebar";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
 import { getSectionItems } from "./content/sections";
@@ -59,11 +59,9 @@ export const App: React.FC = () => {
                         key={item.path}
                         path={item.path!}
                         element={
-                          <SectionItemPage
-                            section={section}
-                            path={item.path}
-                            sidebar={section === "catalogs" ? <CatalogSidebar /> : undefined}
-                          />
+                          section === "catalogs"
+                            ? <CatalogItemPage path={item.path!} />
+                            : <SectionItemPage section={section} path={item.path} />
                         }
                       />
                     ))}
