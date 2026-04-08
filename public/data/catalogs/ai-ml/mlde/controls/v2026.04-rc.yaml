@@ -1,0 +1,25 @@
+title: CCC ML Development Environments Controls
+metadata:
+    id: CCC
+    type: ControlCatalog
+    gemara-version: v0
+    description: Controls for ML Development Environments technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+      reference-id: CCC
