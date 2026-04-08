@@ -427,6 +427,7 @@ h3 {
   box-shadow: var(--gf-shadow-surface);
 }
 
+
 @media (max-width: 768px) {
   .catalog-sidebar {
     display: none;
@@ -474,4 +475,5 @@ h3 {
   margin-bottom: var(--gf-space-lg);
   line-height: 1.6;
 }
+
 
