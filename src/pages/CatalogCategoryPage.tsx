@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { getSectionItems } from "../content/sections";
+import { useItemBody } from "../content/useItemBody";
 import { prettifySegment, getServiceGroups, getItemType, getServicePath, CATALOG_TYPES } from "../content/catalogUtils";
 
 const TYPE_LABELS: Record<string, string> = {
@@ -22,6 +23,7 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
 
   // Optional index content: an item whose path is exactly /catalogs/<category>
   const indexItem = allItems.find((item) => item.path === `/catalogs/${category}`);
+  const indexBody = useItemBody(indexItem);
 
   // All services in this category
   const serviceGroups = getServiceGroups(allItems);
@@ -60,19 +62,11 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
 
       <div style={{ flex: 1, minWidth: 0 }}>
         <h1 style={{ fontSize: "2.5rem", fontWeight: 700, marginBottom: "var(--gf-space-md)", color: "var(--gf-color-accent)", lineHeight: 1.2 }}>
-          {prettifySegment(category)}
+          {isCore ? "CCC Core Catalog" : prettifySegment(category)}
         </h1>
 
-        {indexItem?.body.trim() && (
-          <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.05rem", marginBottom: "var(--gf-space-xl)" }}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-              {indexItem.body}
-            </ReactMarkdown>
-          </div>
-        )}
-
         {isCore && (
-          <div style={{ display: "flex", gap: "var(--gf-space-md)", flexWrap: "wrap", marginBottom: "var(--gf-space-xl)" }}>
+          <div style={{ display: "flex", gap: "var(--gf-space-md)", flexWrap: "wrap", alignItems: "center", justifyContent: "center", flex: 1, marginBottom: "var(--gf-space-xl)" }}>
             {typeOrder.map((type) => {
               const enabled = coreAvailableTypes.has(type);
               const href = `/catalogs/core/ccc/${type}`;
@@ -118,7 +112,15 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
           </div>
         )}
 
-        {services.map(({ label, path: servicePath }) => {
+        {indexBody.trim() && (
+          <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.05rem", marginBottom: "var(--gf-space-xl)" }}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+              {indexBody}
+            </ReactMarkdown>
+          </div>
+        )}
+
+        {!isCore && services.map(({ label, path: servicePath }) => {
           const serviceSlug = servicePath.split("/").pop()!;
           const available = availableTypes(serviceSlug);
           return (
@@ -173,6 +175,36 @@ export const CatalogCategoryPage: React.FC<CatalogCategoryPageProps> = ({ catego
             </div>
           );
         })}
+
+        {isCore && (
+          <div className="surface-card" style={{
+            marginTop: "var(--gf-space-xl)",
+            padding: "var(--gf-space-lg)",
+          }}>
+            <h2 style={{ margin: "0 0 var(--gf-space-sm)", fontSize: "1.25rem" }}>Contribute to the Next Release</h2>
+            <p style={{ margin: "0 0 var(--gf-space-md)", color: "var(--gf-color-text-subtle)", fontSize: "1rem", lineHeight: 1.6 }}>
+              The core catalog is maintained as versioned YAML files. Generated artifacts are published here as each release is cut.
+            </p>
+            <a
+              href="https://github.com/common-cloud-controls/core-catalog"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                padding: "0.6rem 1.5rem",
+                background: "var(--gf-color-accent)",
+                color: "var(--gf-color-button-text, #fff)",
+                borderRadius: "var(--gf-radius-lg)",
+                textDecoration: "none",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                whiteSpace: "nowrap",
+              }}
+            >
+              View on GitHub →
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

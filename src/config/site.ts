@@ -65,7 +65,7 @@ export const siteConfig: SiteConfig = {
       path: "/catalogs",
       label: "Catalogs",
       children: [
-        { path: "/catalogs/core", label: "Core" },
+        { path: "/catalogs/core", label: "Core Catalogs" },
         { path: "/catalogs/capabilities", label: "Capabilities" },
         { path: "/catalogs/threats", label: "Threats" },
         { path: "/catalogs/controls", label: "Controls" }

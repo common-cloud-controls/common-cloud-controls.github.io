@@ -16,7 +16,3 @@ Each control includes:
 - Mappings to common compliance frameworks where applicable
 
 Control catalogs are the primary artifact consumed by compliance teams and by downstream implementation projects such as [Compliant Financial Infrastructure (CFI)](https://github.com/finos/compliant-financial-infrastructure).
-
-## Where to find them
-
-Control catalogs are maintained in the [control-catalogs](https://github.com/common-cloud-controls/control-catalogs) repository as versioned YAML files. Generated artifacts are published here as each release is cut.

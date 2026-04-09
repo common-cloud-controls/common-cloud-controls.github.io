@@ -1,66 +1,57 @@
-import matter from "gray-matter";
 
 export type SectionItem = {
   slug: string;
   title: string;
   description?: string;
   path?: string;
-  body: string;
+  /** Markdown file path relative to content dir, for lazy fetching. */
+  file: string;
 };
 
-type Frontmatter = {
+type ManifestEntry = {
+  file: string;
+  slug: string;
+  section: string;
   title: string;
   description?: string;
   path?: string;
 };
 
-const rawModules = import.meta.glob("./*/**/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true
-});
+let bySection: Record<string, SectionItem[]> = {};
+let loaded = false;
 
-function slugFromPath(filePath: string): string {
-  const base = filePath.split("/").pop() ?? filePath;
-  return base.replace(/\.md$/, "");
-}
-
-function getRawContent(value: unknown): string {
-  if (typeof value === "string") return value;
-  if (value && typeof value === "object" && "default" in value) return String((value as { default: unknown }).default);
-  return "";
-}
-
-function sectionFromPath(filePath: string): string {
-  const parts = filePath.split("/");
-  return parts[1] ?? "";
-}
-
-const bySection: Record<string, SectionItem[]> = {};
-
-for (const [path, raw] of Object.entries(rawModules)) {
-  const section = sectionFromPath(path);
-  if (!section) continue;
-  const rawString = getRawContent(raw);
-  const { data, content } = matter(rawString);
-  const fm = data as Frontmatter;
-  const slug = slugFromPath(path);
-  const item: SectionItem = {
-    slug,
-    title: fm.title ?? "Untitled",
-    description: fm.description,
-    path: fm.path,
-    body: content
-  };
-  if (!bySection[section]) bySection[section] = [];
-  bySection[section].push(item);
-}
-
-for (const arr of Object.values(bySection)) {
-  arr.sort((a, b) => (a.path ?? a.slug).localeCompare(b.path ?? b.slug));
+function ensureLoaded(): void {
+  if (loaded) return;
+  // In dev and production, the manifest is fetched synchronously via XMLHttpRequest
+  // so that existing call sites remain synchronous.
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "/content-manifest.json", false); // synchronous
+  xhr.send();
+  if (xhr.status !== 200) {
+    console.error("Failed to load content manifest:", xhr.status);
+    loaded = true;
+    return;
+  }
+  const entries: ManifestEntry[] = JSON.parse(xhr.responseText);
+  for (const entry of entries) {
+    const item: SectionItem = {
+      slug: entry.slug,
+      title: entry.title,
+      description: entry.description,
+      path: entry.path,
+      file: entry.file,
+    };
+    if (!bySection[entry.section]) bySection[entry.section] = [];
+    bySection[entry.section].push(item);
+  }
+  for (const arr of Object.values(bySection)) {
+    arr.sort((a, b) => (a.path ?? a.slug).localeCompare(b.path ?? b.slug));
+  }
+  loaded = true;
 }
 
 export function getSectionItems(sectionName: string): SectionItem[] {
+  ensureLoaded();
   return bySection[sectionName] ?? [];
 }
 
@@ -80,4 +71,14 @@ export function getSectionItemBySlug(sectionName: string, slug: string): Section
 
 export function getSectionItemByPath(sectionName: string, path: string): SectionItem | undefined {
   return getSectionItems(sectionName).find((item) => item.path === path);
+}
+
+/** Fetch the markdown body for an item. Returns the body text (without frontmatter). */
+export async function fetchItemBody(item: SectionItem): Promise<string> {
+  const resp = await fetch(`/content/${item.file}`);
+  if (!resp.ok) return "";
+  const raw = await resp.text();
+  // Strip YAML frontmatter (--- ... ---) without pulling in gray-matter
+  const match = raw.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/);
+  return match ? raw.slice(match[0].length) : raw;
 }

@@ -5,10 +5,12 @@ import remarkGfm from "remark-gfm";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
+import { useItemBody } from "../content/useItemBody";
 
 
 export const CatalogsIndexPage: React.FC = () => {
   const indexItem = getSectionIndexItem("catalogs");
+  const indexBody = useItemBody(indexItem);
   const listItems = getSectionListItems("catalogs");
 
   const overviewItems = listItems.filter(
@@ -26,10 +28,10 @@ export const CatalogsIndexPage: React.FC = () => {
             {indexItem.description && (
               <p className="page-description">{indexItem.description}</p>
             )}
-            {indexItem.body.trim() && (
+            {indexBody.trim() && (
               <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.1rem" }}>
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                  {indexItem.body}
+                  {indexBody}
                 </ReactMarkdown>
               </div>
             )}

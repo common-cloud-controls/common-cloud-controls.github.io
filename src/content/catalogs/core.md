@@ -9,7 +9,3 @@ The core catalog is the foundation of the CCC framework. Where individual servic
 This includes fundamental security properties such as identity and access management, audit logging, encryption, and network boundary controls. Any cloud service evaluated against CCC inherits the core catalog's requirements in addition to its own service-specific ones.
 
 The core catalog is maintained by the CCC community and evolves as the threat landscape and regulatory environment changes. It represents the minimum security baseline for any cloud deployment in scope for CCC.
-
-## Where to find it
-
-The core catalog is maintained in the [core-catalog](https://github.com/common-cloud-controls/core-catalog) repository. It contains capabilities, threats, and controls in a single flat structure, versioned and released alongside the service-specific catalogs.

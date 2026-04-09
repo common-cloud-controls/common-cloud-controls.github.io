@@ -7,6 +7,7 @@ import { SectionSidebar } from "../components/SectionSidebar";
 import { markdownComponents } from "../components/markdownComponents";
 import { siteConfig } from "../config/site";
 import { getSectionIndexItem, getSectionListItems } from "../content/sections";
+import { useItemBody } from "../content/useItemBody";
 
 export interface SectionIndexPageProps {
   section: string;
@@ -17,6 +18,7 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
   if (!config?.enabled) return <Navigate to="/" replace />;
 
   const indexItem = getSectionIndexItem(section);
+  const indexBody = useItemBody(indexItem);
   const listItems = getSectionListItems(section);
   const title = config.label ?? section;
 
@@ -30,10 +32,10 @@ export const SectionIndexPage: React.FC<SectionIndexPageProps> = ({ section }) =
             {indexItem.description && (
               <p className="page-description">{indexItem.description}</p>
             )}
-            {indexItem.body.trim() && (
+            {indexBody.trim() && (
               <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.1rem", marginBottom: listItems.length > 0 ? "var(--gf-space-xl)" : 0 }}>
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                  {indexItem.body}
+                  {indexBody}
                 </ReactMarkdown>
               </div>
             )}

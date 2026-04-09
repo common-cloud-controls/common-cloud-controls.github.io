@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { markdownComponents } from "../components/markdownComponents";
 import { SectionSidebar } from "../components/SectionSidebar";
 import { getSectionItemBySlug, getSectionItemByPath } from "../content/sections";
+import { useItemBody } from "../content/useItemBody";
 
 export interface SectionItemPageProps {
   section: string;
@@ -19,6 +20,7 @@ export const SectionItemPage: React.FC<SectionItemPageProps> = ({ section, path:
     : slugParam
       ? getSectionItemBySlug(section, slugParam)
       : undefined;
+  const body = useItemBody(item);
 
   if (!item) return <Navigate to={pathProp ? "/" : `/${section}`} replace />;
 
@@ -30,10 +32,10 @@ export const SectionItemPage: React.FC<SectionItemPageProps> = ({ section, path:
         {item.description && (
           <p className="page-description">{item.description}</p>
         )}
-        {item.body.trim() && (
+        {body.trim() && (
           <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.05rem" }}>
             <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-              {item.body}
+              {body}
             </ReactMarkdown>
           </div>
         )}

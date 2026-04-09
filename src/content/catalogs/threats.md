@@ -9,7 +9,3 @@ A threat catalog maps the risks that apply to a given cloud service. Each threat
 Threats are written at the service category level, not at the provider level. This means the same threat applies whether you are running on AWS S3, Azure Blob Storage, or Google Cloud Storage — the catalog captures the risk once, and control authors address it once.
 
 Threat catalogs draw on established frameworks such as STRIDE and MITRE ATT&CK for Cloud, adapted to the specific context of financial services cloud deployments. Each threat is traceable to the capability it targets and to the controls that mitigate it.
-
-## Where to find them
-
-Threat catalogs are maintained in the [threat-catalogs](https://github.com/common-cloud-controls/threat-catalogs) repository as versioned YAML files. Generated artifacts are published here as each release is cut.

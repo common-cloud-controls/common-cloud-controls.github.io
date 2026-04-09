@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { markdownComponents } from "../components/markdownComponents";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { getSectionItemByPath } from "../content/sections";
+import { useItemBody } from "../content/useItemBody";
 import { prettifySegment } from "../content/catalogUtils";
 
 interface CatalogItemPageProps {
@@ -13,6 +14,7 @@ interface CatalogItemPageProps {
 
 export const CatalogItemPage: React.FC<CatalogItemPageProps> = ({ path }) => {
   const item = getSectionItemByPath("catalogs", path);
+  const body = useItemBody(item);
   if (!item) return <Navigate to="/catalogs" replace />;
 
   // path = "/catalogs/<category>/<service>/<type>/<version>"
@@ -56,10 +58,10 @@ export const CatalogItemPage: React.FC<CatalogItemPageProps> = ({ path }) => {
           </a>
         </div>
 
-        {item.body.trim() && (
+        {body.trim() && (
           <div className="library-article-body" style={{ color: "var(--gf-color-text)", lineHeight: 1.8, fontSize: "1.05rem" }}>
             <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-              {item.body}
+              {body}
             </ReactMarkdown>
           </div>
         )}

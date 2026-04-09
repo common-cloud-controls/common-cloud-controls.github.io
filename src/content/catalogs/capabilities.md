@@ -9,7 +9,3 @@ A capability catalog describes what a cloud service is and what it can do. Capab
 Each capability entry captures a discrete functional property of the service — for example, "supports server-side encryption at rest" or "supports access logging." These properties are expressed in a cloud-agnostic way so that they apply equally across AWS, Azure, Google Cloud, and other providers.
 
 Capability catalogs serve as the authoritative scope boundary for a given service category. Threats and controls are always written against a defined capability, ensuring full traceability from risk to requirement.
-
-## Where to find them
-
-Capability catalogs are maintained in the [capability-catalogs](https://github.com/common-cloud-controls/capability-catalogs) repository as versioned YAML files. Generated artifacts are published here as each release is cut.
