@@ -1,0 +1,61 @@
+title: CCC Object Storage Threats
+metadata:
+    id: CCC.ObjStor.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0-rc.2
+    version: v2026.04-rc.1
+    description: Threats for Object Storage technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment Region Network is Untrusted
+        - reference-id: CCC.Core.TH04
+          remarks: Data is Replicated to Untrusted or External Locations
+        - reference-id: CCC.Core.TH05
+          remarks: Data is Corrupted During Replication
+        - reference-id: CCC.Core.TH06
+          remarks: Data is Lost or Corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH08
+          remarks: Cost Management Data is Manipulated
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH11
+          remarks: Event Notifications are Incorrectly Triggered
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+        - reference-id: CCC.Core.TH14
+          remarks: Older Resource Versions are Exploited
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human Entities
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.ObjStor.TH01
+      title: Data Exfiltration via Insecure Lifecycle Policies
+      description: |
+        Misconfigured lifecycle policies may unintentionally allow data to be
+        exfiltrated or destroyed prematurely, resulting in a loss of availability
+        and potential exposure of sensitive data.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.ObjStor.CP08
+            - reference-id: CCC.Core.CP11
+          reference-id: CCC
