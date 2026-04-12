@@ -1,0 +1,245 @@
+title: CCC Generative AI Threats
+metadata:
+    id: CCC.GenAI.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc.2
+    description: Threats for Generative AI technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc.2
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment Region Network is Untrusted
+        - reference-id: CCC.Core.TH06
+          remarks: Data is Lost or Corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH08
+          remarks: Cost Management Data is Manipulated
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+        - reference-id: CCC.Core.TH14
+          remarks: Older Resource Versions are Exploited
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human Entities
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.GenAI.TH01
+      title: Prompt Injection
+      description: "Prompt injection may occur when crafted input is used to manipulate the\nGenAI model's behaviour, resulting in the generation of harmful or \nunintended outputs. Prompt injection can be either direct (performed via\ndirect interaction with the model) or indirect (performed via external\nsources ingested by the model). Both text-based and multi-modal prompt\ninjection is possible.\n"
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP14
+              remarks: API Access
+          reference-id: CCC.Core.Capabilities
+        - entries:
+            - reference-id: CCC.GenAI.CP15
+              remarks: Text-Based Prompts
+            - reference-id: CCC.GenAI.CP16
+              remarks: Structured Prompts
+            - reference-id: CCC.GenAI.CP17
+              remarks: Contextual Prompts
+            - reference-id: CCC.GenAI.CP18
+              remarks: Interactive Prompts
+            - reference-id: CCC.GenAI.CP19
+              remarks: Image-Based Prompts
+            - reference-id: CCC.GenAI.CP20
+              remarks: Custom Template Prompts
+            - reference-id: CCC.GenAI.CP21
+              remarks: Generate Content
+            - reference-id: CCC.GenAI.CP24
+              remarks: Content Moderation
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH02
+      title: Data Poisoning
+      description: "Data poisoning occurs when training, fine-tuning or embedding data is\ntampered with in order to modify the model's behaviour, for example \nsteering it towards specific outputs, degrading performance or \nintroducing backdoors.\n"
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP02
+              remarks: Encryption at Rest Enabled by Default
+            - reference-id: CCC.Core.CP06
+              remarks: Identity-Based Access Control
+          reference-id: CCC.Core.Capabilities
+        - entries:
+            - reference-id: CCC.GenAI.CP03
+              remarks: Embedding Model Selection
+            - reference-id: CCC.GenAI.CP06
+              remarks: Customizable Model Selection
+            - reference-id: CCC.GenAI.CP21
+              remarks: Generate Content
+            - reference-id: CCC.GenAI.CP22
+              remarks: Data Control
+            - reference-id: CCC.GenAI.CP24
+              remarks: Content Moderation
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH03
+      title: Sensitive Information Disclosure
+      description: "Sensitive data can be memorised by the model from user interaction or\ntraining and may then be leaked to unintended and unauthorised parties \nby querying the model, for example through crafted prompts.\n"
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP02
+              remarks: Encryption at Rest Enabled by Default
+            - reference-id: CCC.Core.CP06
+              remarks: Identity-Based Access Control
+          reference-id: CCC.Core.Capabilities
+        - entries:
+            - reference-id: CCC.GenAI.CP22
+              remarks: Data Control
+            - reference-id: CCC.GenAI.CP22
+              remarks: Plugin Integrations
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH04
+      title: Insecure / Unreliable Model Output
+      description: |
+        A GenAI model may generate content that is incorrect, misleading or
+        harmful, such as convincing misinformation (hallucinations) or vulnerable
+        or malicious code, due to its reliance on statistical patterns rather
+        than factual understanding. Directly using this flawed output without
+        validation can lead to system compromises, poor decision-making, and
+        legal or reputational damage.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP03
+              remarks: Embedding Model Selection
+            - reference-id: CCC.GenAI.CP06
+              remarks: Customizable Model Selection
+            - reference-id: CCC.GenAI.CP07
+              remarks: Parameter Tuning - Temperature
+            - reference-id: CCC.GenAI.CP08
+              remarks: Parameter Tuning - Max Token
+            - reference-id: CCC.GenAI.CP09
+              remarks: Parameter Tuning - Top P (Nucleus Sampling)
+            - reference-id: CCC.GenAI.CP10
+              remarks: Parameter Tuning - Top K
+            - reference-id: CCC.GenAI.CP11
+              remarks: Parameter Tuning - Stop Sequences
+            - reference-id: CCC.GenAI.CP12
+              remarks: Parameter Tuning - Frequency Penalty
+            - reference-id: CCC.GenAI.CP13
+              remarks: Parameter Tuning - Temperature
+            - reference-id: CCC.GenAI.CP14
+              remarks: Parameter Tuning - Context Length
+            - reference-id: CCC.GenAI.CP21
+              remarks: Generate Content
+            - reference-id: CCC.GenAI.CP25
+              remarks: Content Moderation
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH05
+      title: Model Overreliance
+      description: |
+        Model overreliance and misplaced implicit trust in the output of
+        a GenAI model may lead to the acceptance of inaccurate, biased or
+        insecure outputs without proper validation or oversight, potentially
+        resulting in operational failueres, compliance breaches and flawed
+        decision making.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP21
+              remarks: Generate Content
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH06
+      title: Unintended Action by a Model-Based Agent
+      description: |
+        A model-based agent, given the authority to execute tools or interact
+        with APIs, may perform an action that is harmful, incorrect, or not
+        aligned with the user's true intent in response to a prompt. This can
+        be caused by the model misinterpreting an ambiguous prompt or being
+        manipulated by an adversary into misusing its delegated authority.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP21
+              remarks: Plugin Integrations
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH07
+      title: Insecure Plugin
+      description: |
+        A plugin integrated with a GenAI model may contain vulnerabilities
+        such as poor input validation or improper access control. An adversary
+        may exploit these flaws by crafting a prompt that causes the model to
+        pass a malicious payload to the plugin, potentially leading to system
+        compromise, data exfiltration or privilege escalation.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP25
+              remarks: Plugin Integrations
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH08
+      title: Model Tampering
+      description: |
+        Supply chain risks, including tampering with a model's core components
+        at any stage of its lifecycle—from its source code and training data to
+        the final deployable artifact—may result in embedding backdoors or
+        adversarial triggers altering model behaviour under certain conditions.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP01
+              remarks: Text-Based Model Selection
+            - reference-id: CCC.GenAI.CP02
+              remarks: Code-Based Model Selection
+            - reference-id: CCC.GenAI.CP03
+              remarks: Embedding Model Selection
+            - reference-id: CCC.GenAI.CP04
+              remarks: Image-Based Model Selection
+            - reference-id: CCC.GenAI.CP04
+              remarks: Multimodal Model Selection
+            - reference-id: CCC.GenAI.CP04
+              remarks: Customizable Model Selection
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH09
+      title: Lack of Explainability
+      description: |
+        The "black box" nature of GenAI models makes it difficult or impossible
+        to understand the specific reasoning behind a given output. This opacity
+        makes it challenging to diagnose failures, detect hidden biases, and meet
+        regulatory requirements for decision transparency.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.GenAI.CP21
+              remarks: Generate Content
+          reference-id: CCC.GenAI.Capabilities
+    - id: CCC.GenAI.TH10
+      title: Model Version Drift
+      description: |
+        An update to a managed GenAI model may cause unpredictable and
+        breaking changes in its outputs, alignment, and performance. Systems
+        built and tested against the previous version's specific behavior can
+        suddenly fail or become insecure, as their functional and safety
+        assumptions are no longer valid.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP18
+              remarks: Versioning
+          reference-id: CCC.Core.Capabilities
