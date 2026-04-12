@@ -1,0 +1,99 @@
+title: CCC Key Management Threats
+metadata:
+    id: CCC.KeyMgmt.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc.3
+    description: Threats for Key Management technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc.3
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: CCC.Core.Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers controls, threats, and capabilities related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH04
+          remarks: Data is Replicated to Untrusted or External Locations
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.KeyMgmt.TH01
+      title: |
+        Deletion or Disabling of Key Versions Causing Denial of Service or
+        Data Loss
+      description: |
+        Disabling, scheduling deletion, or permanently purging KMS key versions
+        that protect sensitive data can prevent required decryption or signing
+        operations.  Service interruption or irreversible data loss may occur if
+        the key material is no longer recoverable.
+      group: CCC.Core.Encryption
+      capabilities:
+        - entries:
+            - reference-id: CCC.KeyMgmt.CP14
+              remarks: Key Versioning
+            - reference-id: CCC.KeyMgmt.CP16
+              remarks: Disable key
+            - reference-id: CCC.KeyMgmt.CP18
+              remarks: Soft Delete
+            - reference-id: CCC.KeyMgmt.CP19
+              remarks: Delete Key
+          reference-id: CCC.KeyMgmt.Capabilities
+    - id: CCC.KeyMgmt.TH02
+      title: Unrestricted Use of a KMS Key to Decrypt Data
+      description: |
+        Misconfigured permissions that allow broad invocation of the Decrypt API
+        can expose plaintext data, enabling unintended disclosure or exfiltration
+        of sensitive information.
+      group: CCC.Core.Encryption
+      capabilities:
+        - entries:
+            - reference-id: CCC.KeyMgmt.CP10
+              remarks: Decrypt data
+            - reference-id: CCC.KeyMgmt.CP17
+              remarks: Enable key
+          reference-id: CCC.KeyMgmt.Capabilities
+    - id: CCC.KeyMgmt.TH03
+      title: Key Rotation is Disabled or Delayed Beyond Policy Limits
+      description: |
+        Modification of automatic or manual rotation settings can keep older key
+        material active longer than intended, decreasing cryptographic
+        resilience and extending exposure in the event of key compromise.
+      group: CCC.Core.Encryption
+      capabilities:
+        - entries:
+            - reference-id: CCC.KeyMgmt.CP20
+              remarks: Automatic Symmetric Key Rotation
+            - reference-id: CCC.KeyMgmt.CP21
+              remarks: Manual Key Rotation
+          reference-id: CCC.KeyMgmt.Capabilities
+    - id: CCC.KeyMgmt.TH04
+      title: Introduction of Weak or Compromised Key Material During Import
+      description: |
+        Insufficient validation during the key-import process may allow weak,
+        back-doored, or otherwise compromised key material to be introduced,
+        reducing the overall strength of subsequent cryptographic operations.
+      group: CCC.Core.Encryption
+      capabilities:
+        - entries:
+            - reference-id: CCC.KeyMgmt.CP22
+              remarks: Key Import
+          reference-id: CCC.KeyMgmt.Capabilities
