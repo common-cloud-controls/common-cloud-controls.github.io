@@ -1,0 +1,186 @@
+title: CCC Virtual Machines Threats
+metadata:
+    id: CCC.VM.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc.3
+    description: Threats for Virtual Machines technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc.3
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: CCC.Core.Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers threats and capabilities related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+    - id: CCC.Core.Access
+      title: Access Control
+      description: |
+        The Access Control group covers controls, threats, and capabilities related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+    - id: CCC.Core.Compute
+      title: Compute
+      description: |
+        The Compute group covers capabilities related to processing, execution,
+        and runtime infrastructure. This includes CPU, memory, storage allocation,
+        network ports, command-line interfaces, and elastic scaling.
+    - id: CCC.Core.Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers controls, threats, and capabilities related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+        - reference-id: CCC.Core.TH03
+        - reference-id: CCC.Core.TH05
+        - reference-id: CCC.Core.TH06
+        - reference-id: CCC.Core.TH07
+        - reference-id: CCC.Core.TH08
+        - reference-id: CCC.Core.TH09
+        - reference-id: CCC.Core.TH10
+        - reference-id: CCC.Core.TH11
+        - reference-id: CCC.Core.TH13
+        - reference-id: CCC.Core.TH16
+        - reference-id: CCC.Core.TH17
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.VM.TH01
+      title: Images Contain Vulnerabilities
+      description: |
+        Virtual machine images may include outdated software, insecure
+        configurations, or secrets. Use of such images can introduce
+        vulnerabilities into environments where they are deployed.
+      group: CCC.Core.Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP11
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH02
+      title: Instance Metadata is Unprotected
+      description: |
+        Instance metadata services may be exposed within virtual machines without
+        appropriate access controls, allowing unauthorized retrieval of sensitive
+        configuration details or temporary credentials.
+      group: CCC.Core.Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP16
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH03
+      title: Bootstrap Scripts Introduce Unintended Behavior
+      description: |
+        Bootstrap scripts executed at startup may include unvalidated commands or
+        configuration changes. If not securely managed, these scripts can modify
+        instance behavior in unexpected or insecure ways.
+      group: CCC.Core.Compute
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP19
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH04
+      title: Instance Templates Propagate Insecure Defaults
+      description: |
+        Instance templates may contain hardcoded credentials, open ports, or
+        insecure configurations. When reused across deployments, these templates
+        can replicate vulnerabilities at scale.
+      group: CCC.Core.Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP18
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH05
+      title: Network Access Rules Allow Unintended Communication
+      description: |
+        Inadequately scoped network access rules may permit communication between
+        virtual machines and untrusted networks or services, increasing exposure
+        to unauthorized access and lateral movement.
+      group: CCC.Core.Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP23
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.VM.TH06
+      title: Remote Access Interfaces Are Insufficiently Restricted
+      description: |
+        Virtual machine instances may expose remote access methods such as SSH or
+        RDP without proper access controls or network restrictions, allowing
+        unintended access to administrative interfaces.
+      group: CCC.Core.Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP22
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH07
+      title: Resource Starvation Through Preemptible (spot) VM Termination
+      description: |
+        Workloads running on preemptible (spot) instances may experience unexpected termination
+        by the cloud provider with minimal notice. This can result in workload instability, leading
+        to service degradation or denial-of-service if critical processes are scheduled on such VMs,
+        potentially impacting system reliability and availability.
+      group: CCC.Core.Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP06
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH08
+      title: Co-Residency Risk on Non-Dedicated Infrastructure
+      description: |
+        Virtual machines operating on shared infrastructure, rather than dedicated instances, may be
+        exposed to increased risk of side-channel or cross-VM activities. This can result in data
+        leakage or memory scraping, potentially compromising data confidentiality and system integrity.
+      group: CCC.Core.Data
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP07
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH09
+      title: Misconfigured Vertical Scaling Leads to Privilege Escalation
+      description: |
+        Inadequate permissions or automation logic in vertical scaling processes may allow unauthorized
+        resource escalation, such as adding CPUs or memory. This can result in elevated access rights,
+        increased computational capacity for unintended actions, or unplanned cost increases, potentially
+        affecting system security and operational control.
+      group: CCC.Core.Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP08
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH10
+      title: Auto-Scaling Abuse for Resource Exhaustion
+      description: |
+        Automated horizontal scaling mechanisms may be manipulated through forced load generation, such
+        as distributed denial-of-service events, triggering excessive VM creation. This can lead to
+        billing anomalies, service instability, or disruption of resource quotas, potentially impacting
+        cost management and service availability.
+      group: CCC.Core.Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP09
+          reference-id: CCC.VM.Capabilities
+    - id: CCC.VM.TH11
+      title: VM Image Tampering or Poisoning
+      description: |
+        Virtual machine images may be created or modified to include backdoors, malware, or misconfigurations.
+        The deployment of compromised images can propagate threats across cloud infrastructure, potentially
+        affecting data integrity, confidentiality, and system reliability.
+      group: CCC.Core.Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.VM.CP10
+          reference-id: CCC.VM.Capabilities
