@@ -46,39 +46,41 @@ export const App: React.FC = () => {
           className="main-content"
           style={{ flex: 1, padding: "var(--gf-space-lg)", paddingTop: "var(--gf-space-md)", overflowX: "hidden" }}
         >
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            {Object.entries(siteConfig.contentSections).map(([section, config]) =>
-              config.enabled ? (
-                <React.Fragment key={section}>
-                  <Route path={`/${section}`} element={section === "catalogs" ? <CatalogsIndexPage /> : <SectionIndexPage section={section} />} />
-                  {section === "catalogs" && (
-                    <>
-                      <Route path="/catalogs/capabilities" element={<CatalogTypeOverviewPage type="capabilities" />} />
-                      <Route path="/catalogs/threats" element={<CatalogTypeOverviewPage type="threats" />} />
-                      <Route path="/catalogs/controls" element={<CatalogTypeOverviewPage type="controls" />} />
-                    </>
-                  )}
-                  {ready && getSectionItems(section)
-                    .filter((item) => item.path && (section !== "catalogs" || item.path.split("/").filter(Boolean).length >= 5))
-                    .map((item) => (
-                      <Route
-                        key={item.path}
-                        path={item.path!}
-                        element={
-                          section === "catalogs"
-                            ? <CatalogItemPage path={item.path!} />
-                            : <SectionItemPage section={section} path={item.path} />
-                        }
-                      />
-                    ))}
+          {ready ? (
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              {Object.entries(siteConfig.contentSections).map(([section, config]) =>
+                config.enabled ? (
+                  <React.Fragment key={section}>
+                    <Route path={`/${section}`} element={section === "catalogs" ? <CatalogsIndexPage /> : <SectionIndexPage section={section} />} />
+                    {section === "catalogs" && (
+                      <>
+                        <Route path="/catalogs/capabilities" element={<CatalogTypeOverviewPage type="capabilities" />} />
+                        <Route path="/catalogs/threats" element={<CatalogTypeOverviewPage type="threats" />} />
+                        <Route path="/catalogs/controls" element={<CatalogTypeOverviewPage type="controls" />} />
+                      </>
+                    )}
+                    {getSectionItems(section)
+                      .filter((item) => item.path && (section !== "catalogs" || item.path.split("/").filter(Boolean).length >= 5))
+                      .map((item) => (
+                        <Route
+                          key={item.path}
+                          path={item.path!}
+                          element={
+                            section === "catalogs"
+                              ? <CatalogItemPage path={item.path!} />
+                              : <SectionItemPage section={section} path={item.path} />
+                          }
+                        />
+                      ))}
 
-                </React.Fragment>
-              ) : null
-            )}
-            <Route path="/catalogs/*" element={<CatalogBrowsePage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+                  </React.Fragment>
+                ) : null
+              )}
+              <Route path="/catalogs/*" element={<CatalogBrowsePage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          ) : null}
         </main>
         <Footer />
       </div>
