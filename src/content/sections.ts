@@ -19,39 +19,51 @@ type ManifestEntry = {
 
 let bySection: Record<string, SectionItem[]> = {};
 let loaded = false;
+let loadPromise: Promise<void> | null = null;
 
-function ensureLoaded(): void {
-  if (loaded) return;
-  // In dev and production, the manifest is fetched synchronously via XMLHttpRequest
-  // so that existing call sites remain synchronous.
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "/content-manifest.json", false); // synchronous
-  xhr.send();
-  if (xhr.status !== 200) {
-    console.error("Failed to load content manifest:", xhr.status);
-    loaded = true;
-    return;
-  }
-  const entries: ManifestEntry[] = JSON.parse(xhr.responseText);
-  for (const entry of entries) {
-    const item: SectionItem = {
-      slug: entry.slug,
-      title: entry.title,
-      description: entry.description,
-      path: entry.path,
-      file: entry.file,
-    };
-    if (!bySection[entry.section]) bySection[entry.section] = [];
-    bySection[entry.section].push(item);
-  }
-  for (const arr of Object.values(bySection)) {
-    arr.sort((a, b) => (a.path ?? a.slug).localeCompare(b.path ?? b.slug));
-  }
-  loaded = true;
+/** Load the content manifest asynchronously. Safe to call multiple times. */
+export function loadManifest(): Promise<void> {
+  if (loaded) return Promise.resolve();
+  if (loadPromise) return loadPromise;
+  loadPromise = (async () => {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const resp = await fetch("/content-manifest.json", { signal: controller.signal });
+      clearTimeout(timeout);
+      if (!resp.ok) {
+        console.error("Failed to load content manifest:", resp.status);
+        return;
+      }
+      const entries: ManifestEntry[] = await resp.json();
+      for (const entry of entries) {
+        const item: SectionItem = {
+          slug: entry.slug,
+          title: entry.title,
+          description: entry.description,
+          path: entry.path,
+          file: entry.file,
+        };
+        if (!bySection[entry.section]) bySection[entry.section] = [];
+        bySection[entry.section].push(item);
+      }
+      for (const arr of Object.values(bySection)) {
+        arr.sort((a, b) => (a.path ?? a.slug).localeCompare(b.path ?? b.slug));
+      }
+    } catch (err) {
+      console.error("Failed to load content manifest:", err);
+    } finally {
+      loaded = true;
+    }
+  })();
+  return loadPromise;
+}
+
+export function isManifestLoaded(): boolean {
+  return loaded;
 }
 
 export function getSectionItems(sectionName: string): SectionItem[] {
-  ensureLoaded();
   return bySection[sectionName] ?? [];
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Banner } from "./components/Banner";
 import { Header } from "./components/Header";
@@ -14,10 +14,15 @@ import { CatalogsIndexPage } from "./pages/CatalogsIndexPage";
 import { CatalogTypeOverviewPage } from "./pages/CatalogTypeOverviewPage";
 import { useTheme } from "./theme";
 import { siteConfig } from "./config/site";
-import { getSectionItems } from "./content/sections";
+import { getSectionItems, loadManifest } from "./content/sections";
 
 export const App: React.FC = () => {
   useTheme();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    loadManifest().then(() => setReady(true));
+  }, []);
 
   return (
     <BrowserRouter>
@@ -54,7 +59,7 @@ export const App: React.FC = () => {
                       <Route path="/catalogs/controls" element={<CatalogTypeOverviewPage type="controls" />} />
                     </>
                   )}
-                  {getSectionItems(section)
+                  {ready && getSectionItems(section)
                     .filter((item) => item.path && (section !== "catalogs" || item.path.split("/").filter(Boolean).length >= 5))
                     .map((item) => (
                       <Route
