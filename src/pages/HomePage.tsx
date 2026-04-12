@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactPlayer from "react-player";
+
+const ReactPlayer = React.lazy(() => import("react-player/lazy"));
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -76,9 +77,12 @@ const videos = [
   }
 ];
 
-function youtubeThumbnail(url: string): string | false {
+function videoThumbnail(url: string): string | true {
   const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
-  return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : false;
+  if (match) return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
+  // For non-YouTube videos, return true to enable light mode with a generic
+  // play button overlay. This prevents eager video downloads that block page load.
+  return true;
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -332,7 +336,9 @@ export const HomePage: React.FC = () => {
                     aspectRatio: "16/9",
                     position: "relative"
                   }}>
-                    <ReactPlayer url={v.url} width="100%" height="100%" controls light={youtubeThumbnail(v.url)} style={{ position: "absolute", top: 0, left: 0 }} />
+                    <React.Suspense fallback={<div style={{ width: "100%", height: "100%", background: "var(--gf-color-surface)" }} />}>
+                      <ReactPlayer url={v.url} width="100%" height="100%" controls light={videoThumbnail(v.url)} style={{ position: "absolute", top: 0, left: 0 }} />
+                    </React.Suspense>
                   </div>
                   <figcaption style={{ fontSize: "0.9rem", color: "var(--gf-color-text-subtle)", lineHeight: 1.5 }}>
                     {v.caption}
