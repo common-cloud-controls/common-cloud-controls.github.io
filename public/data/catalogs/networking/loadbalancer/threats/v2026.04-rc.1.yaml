@@ -1,0 +1,107 @@
+title: CCC Load Balancer Threats
+metadata:
+    id: CCC.LB.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0-rc.2
+    version: v2026.04-rc.1
+    description: Threats for Load Balancer technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+        - reference-id: CCC.Core.TH17
+          remarks: Unauthorized Network Access via Misconfigured Rules
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.LB.TH01
+      title: Unrestricted Request Traffic Overwhelms Downstream Services
+      description: |
+        Absence of filtering or rate limiting permits malicious traffic to
+        overload downstream services and facilitates brute-force activity.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP04
+              remarks: Transaction Rate Limits
+          reference-id: CCC
+        - entries:
+            - reference-id: CCC.LB.CP22
+              remarks: Rate Limiting / Throttling
+          reference-id: LB
+    - id: CCC.LB.TH03
+      title: Traffic Distribution Is Manipulated
+      description: |
+        Adjusting distribution policies can concentrate traffic on specific nodes
+        causing DoS or redirect flows through unwanted paths.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP02
+              remarks: Dynamic LB
+            - reference-id: CCC.LB.CP20
+              remarks: Traffic Splitting
+          reference-id: LB
+    - id: CCC.LB.TH04
+      title: Session Persistence Is Exploited
+      description: |
+        Improper session-affinity settings can enable session fixation or
+        hijacking across backend targets.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP15
+              remarks: Session Affinity
+          reference-id: LB
+    - id: CCC.LB.TH05
+      title: Health Checks Are Exploited to Take Services Offline
+      description: |
+        Manipulating health-check endpoints or responses can cause healthy
+        targets to be marked unavailable, leading to denial of service.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP12
+              remarks: Health Checks
+            - reference-id: CCC.LB.CP13
+              remarks: Target Removal
+          reference-id: LB
+    - id: CCC.LB.TH06
+      title: Sensitive Metadata Exposure via HTTP Headers
+      description: |
+        Response headers may reveal software versions, internal IPs, or other
+        metadata useful for reconnaissance.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP19
+          reference-id: LBL
+    - id: CCC.LB.TH07
+      title: TLS Certificates Are Expired or Invalid
+      description: |
+        Stale or untrusted certificates weaken encrypted-traffic protection.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP11
+              remarks: SSL/TLS Termination
+          reference-id: LB

@@ -1,0 +1,112 @@
+title: CCC Relational Database Threats
+metadata:
+    id: CCC.RDMS.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc.2
+    description: Threats for Relational Database technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc.2
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access control is misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is intercepted in transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment region network is untrusted
+        - reference-id: CCC.Core.TH04
+          remarks: Data is Replicated to Untrusted or External Locations
+        - reference-id: CCC.Core.TH05
+          remarks: Data is corrupted during replication
+        - reference-id: CCC.Core.TH06
+          remarks: Data is lost or corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are tampered with or deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or monitoring data are read by unauthorized users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH11
+          remarks: Event Notifications are Incorrectly Triggered
+        - reference-id: CCC.Core.TH12
+          remarks: Resource constraints are exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource tags are manipulated
+        - reference-id: CCC.Core.TH15
+          remarks: Automated enumeration and reconnaissance by non-human entities
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+        - reference-id: CCC.Core.TH17
+          remarks: Unauthorized Network Access via Misconfigured Rules
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.RDMS.TH01
+      title: Unauthorized Access via Default Credentials
+      description: |
+        If default credentials are not disabled or changed, unauthorized access
+        may be gained to the RDMS environment. This may lead to data breaches,
+        data manipulation, or overall compromise of the database instance.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.RDMS.CP06
+            - reference-id: CCC.RDMS.CP07
+          reference-id: CCC.RDMS.Capabilities
+    - id: CCC.RDMS.TH02
+      title: Brute Force Attempts on Database Authentication
+      description: |
+        Repeated attempts to guess database user passwords may be made
+        through brute force techniques. This condition could result in
+        unauthorized access if successful, compromising database security
+        and sensitive information.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.RDMS.CP07
+          reference-id: CCC.RDMS.Capabilities
+    - id: CCC.RDMS.TH03
+      title: Database Backups Stopped
+      description: |
+        Database backups may be halted, potentially impairing the organization's
+        ability to recover data and maintain business continuity. This condition
+        increases the risk of data loss and extended system downtime.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP11
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.RDMS.TH04
+      title: Unintentional Database Backup Restoration
+      description: |
+        A database backup may be restored unintentionally, potentially
+        leading to the loss or overwrite of current data. This condition
+        could disrupt operations and result in data inconsistency or
+        corruption.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP11
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.RDMS.TH05
+      title: Unauthorized Snapshot Sharing
+      description: |
+        Snapshots may be shared with untrusted accounts, which can lead to
+        unauthorized access and potential data exfiltration. This significantly
+        increases the risk of data exposure if sensitive information is contained
+        in the snapshots.
+      group: ungrouped
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP11
+          reference-id: CCC.Core.Capabilities
