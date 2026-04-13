@@ -29,7 +29,7 @@ export function loadManifest(): Promise<void> {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 5000);
-      const resp = await fetch("/content-manifest.json", { signal: controller.signal });
+      const resp = await fetch("/content-manifest.json", { signal: controller.signal, cache: "no-store" });
       clearTimeout(timeout);
       if (!resp.ok) {
         console.error("Failed to load content manifest:", resp.status);
@@ -87,7 +87,7 @@ export function getSectionItemByPath(sectionName: string, path: string): Section
 
 /** Fetch the markdown body for an item. Returns the body text (without frontmatter). */
 export async function fetchItemBody(item: SectionItem): Promise<string> {
-  const resp = await fetch(`/content/${item.file}`);
+  const resp = await fetch(`/content/${item.file}`, { cache: "no-store" });
   if (!resp.ok) return "";
   const raw = await resp.text();
   // Strip YAML frontmatter (--- ... ---) without pulling in gray-matter
