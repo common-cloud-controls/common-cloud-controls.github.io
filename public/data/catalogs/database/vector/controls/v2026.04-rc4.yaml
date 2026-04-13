@@ -1,0 +1,179 @@
+title: CCC Vector Database Controls
+metadata:
+    id: CCC.Vector.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc4
+    description: Controls for Vector Database technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc4
+controls:
+    - id: CCC.Vector.CN01
+      title: Validate Embeddings Before Indexing
+      objective: |
+        Ensure all incoming embeddings are structurally and statistically validated
+        before indexing to prevent poisoning or corruption.
+      group: Ingestion
+      assessment-requirements:
+        - id: CCC.Vector.CN01.AR01
+          text: |
+            When a vector embedding is submitted for indexing, the system MUST validate that it
+            matches expected schema, dimension, and format profiles.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN02
+      title: Enforce Role-Based Index Lifecycle Management
+      objective: |
+        Restrict index lifecycle operations (create, delete, rollback) to privileged
+        identities using fine-grained access controls.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Vector.CN02.AR01
+          text: |
+            When an index lifecycle event is triggered, the service MUST
+            verify that the actor has explicit permissions for the operation type.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN03
+      title: Enforce Metadata-Level Access Controls
+      objective: |
+        Apply access control policies to metadata fields used in filtering to
+        prevent unauthorized exposure or inference.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Vector.CN03.AR01
+          text: |
+            When a metadata filter is applied to a query, the service MUST
+            verify the requester is authorized to access that field.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN04
+      title: Enforce Ingestion Quotas and Throttling
+      objective: |
+        Prevent ingestion-based DoS or index pollution by
+        rate-limiting vector submissions and enforcing quotas.
+      group: Ingestion
+      assessment-requirements:
+        - id: CCC.Vector.CN04.AR01
+          text: |
+            When ingestion exceeds pre-defined thresholds, the service MUST
+            throttle or reject excess vector write operations.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN05
+      title: Enforce Index Versioning with Rollback Protection
+      objective: |
+        Ensure vector indexes are versioned and that rollback
+        operations are authorized and auditable.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Vector.CN05.AR01
+          text: |
+            When a rollback is attempted, the system MUST log
+            the action and verify rollback authorization.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN06
+      title: Enforce Dimensional and Format Constraints
+      objective: |
+        Reject embeddings that do not conform to expected model
+        specifications (dimensions, format, etc).
+      group: Ingestion
+      assessment-requirements:
+        - id: CCC.Vector.CN06.AR01
+          text: |
+            When an embedding is submitted, the service MUST validate
+            that its format and dimensionality match allowed profiles.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Vector.CN07
+      title: Support Explicit ANN vs. Exact Search Configuration
+      objective: |
+        Provide clients with the option to enforce exact-match
+        (non-ANN) search where search fidelity is critical.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Vector.CN07.AR01
+          text: |
+            When a search request is issued, clients MUST be allowed
+            to declare their requirement for exact vs approximate results.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+groups:
+    - id: Ingestion
+      title: Ingestion
+      description: |
+        The Ingestion group covers entries related to how a service receives
+        or retrieves data, inputs, or commands for processing. This includes both
+        active (pull-based) and passive (push-based) ingestion patterns.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent Unencrypted Requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Require MFA for Access
+        - reference-id: CCC.Core.CN04
+          remarks: Log All Access and Changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent Access from Untrusted Entities
+        - reference-id: CCC.Core.CN06
+          remarks: Require Access Approval
+        - reference-id: CCC.Core.CN07
+          remarks: Limit Public Access to Resources
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent Log Tampering
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent Replication Outside Trust Boundary
+        - reference-id: CCC.Core.CN12
+          remarks: Secure Network Access Rules
+      reference-id: CCC.Core.Controls
