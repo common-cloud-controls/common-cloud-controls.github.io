@@ -35,6 +35,37 @@ export function getServicePath(itemPath: string): string | null {
   return `/catalogs/${parts[1]}/${parts[2]}`;
 }
 
+/**
+ * Parse a version tag like "v2026.04", "v2026.04-rc3", or "v2025.04.rc-1" into
+ * a comparable tuple [year, month, isRC, rcNumber].
+ * Full releases sort after all RCs of the same year.month.
+ */
+function parseVersion(tag: string): [number, number, boolean, number] {
+  const normalized = tag.replace(/^v/, "");
+  const match = normalized.match(/^(\d{4})\.(\d{2})(?:-rc(\d+))?$/);
+  if (!match) return [0, 0, false, 0];
+  const year = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10);
+  const isRC = match[3] !== undefined;
+  const rcNum = isRC ? parseInt(match[3], 10) : 0;
+  return [year, month, isRC, rcNum];
+}
+
+/** Compare two version path strings newest-first. */
+export function compareVersionPaths(a: string, b: string): number {
+  const tagA = (a.split("/").pop() ?? "");
+  const tagB = (b.split("/").pop() ?? "");
+  const [yearA, monthA, isRcA, rcA] = parseVersion(tagA);
+  const [yearB, monthB, isRcB, rcB] = parseVersion(tagB);
+  if (yearA !== yearB) return yearB - yearA;
+  if (monthA !== monthB) return monthB - monthA;
+  // Full release sorts before RCs (newer)
+  if (isRcA !== isRcB) return isRcA ? 1 : -1;
+  // Higher RC number is newer
+  if (isRcA && isRcB) return rcB - rcA;
+  return 0;
+}
+
 // Derive unique service paths grouped by category from published release items.
 // Published paths follow the pattern /catalogs/<category>/<service>/<type>/<version>.
 // Pass typeFilter to restrict to a specific catalog type (capabilities|threats|controls).

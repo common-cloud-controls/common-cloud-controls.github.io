@@ -6,7 +6,7 @@ import { markdownComponents } from "../components/markdownComponents";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { getSectionItemByPath, getSectionItems } from "../content/sections";
 import { useItemBody } from "../content/useItemBody";
-import { prettifySegment, getItemType, getServicePath } from "../content/catalogUtils";
+import { prettifySegment, getItemType, getServicePath, compareVersionPaths } from "../content/catalogUtils";
 
 function OtherVersionsDropdown({ versions }: { versions: { path: string; title: string }[] }) {
   const [open, setOpen] = useState(false);
@@ -105,7 +105,7 @@ export const CatalogItemPage: React.FC<CatalogItemPageProps> = ({ path }) => {
   const servicePath = `/catalogs/${category}/${service}`;
   const otherVersions = allItems
     .filter((it) => it.path && it.path !== path && getServicePath(it.path) === servicePath && getItemType(it.path) === type)
-    .sort((a, b) => (b.path ?? "").localeCompare(a.path ?? ""));
+    .sort((a, b) => compareVersionPaths(a.path ?? "", b.path ?? ""));
 
   return (
     <div className="page-layout">

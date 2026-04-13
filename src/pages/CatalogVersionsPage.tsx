@@ -6,7 +6,7 @@ import { markdownComponents } from "../components/markdownComponents";
 import { CatalogSidebar } from "../components/CatalogSidebar";
 import { getSectionItems, getSectionItemByPath } from "../content/sections";
 import { useItemBody } from "../content/useItemBody";
-import { prettifySegment, getItemType, getServicePath } from "../content/catalogUtils";
+import { prettifySegment, getItemType, getServicePath, compareVersionPaths } from "../content/catalogUtils";
 
 interface CatalogVersionsPageProps {
   category: string;
@@ -102,7 +102,7 @@ export const CatalogVersionsPage: React.FC<CatalogVersionsPageProps> = ({ catego
 
   const versions = allItems
     .filter((item) => item.path && getServicePath(item.path) === servicePath && getItemType(item.path) === type)
-    .sort((a, b) => (b.path ?? "").localeCompare(a.path ?? ""));
+    .sort((a, b) => compareVersionPaths(a.path ?? "", b.path ?? ""));
 
   const latest = versions[0];
   const previousVersions = versions.slice(1);
