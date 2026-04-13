@@ -1,0 +1,180 @@
+title: CCC ML Development Environments Capabilities
+metadata:
+    id: CCC.MLDE.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2025.04-rc6
+    description: Capabilities for ML Development Environments technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2025.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.MLDE.CP01
+      title: Managed Notebook Environments
+      description: |
+        Provides fully managed notebook instances specifically designed
+        for machine learning development, eliminating the need to manage
+        underlying infrastructure.
+      group: MachineLearning
+    - id: CCC.MLDE.CP02
+      title: Pre-configured Machine Learning Libraries
+      description: |
+        Offers environments pre-installed with popular machine
+        learning libraries and frameworks such as TensorFlow, PyTorch,
+        and Scikit-learn, optimized for ML tasks.
+      group: MachineLearning
+    - id: CCC.MLDE.CP03
+      title: Integrated Experiment Management
+      description: |
+        Facilitates tracking and management of machine learning
+        experiments, including parameters, metrics, and artifacts,
+        within the development environment.
+      group: MachineLearning
+    - id: CCC.MLDE.CP04
+      title: Model Training and Deployment Integration
+      description: |
+        Supports seamless transition from model development to
+        training and deployment, allowing models to be trained and
+        deployed directly from the MLDE.
+      group: MachineLearning
+    - id: CCC.MLDE.CP05
+      title: Automated Machine Learning (AutoML) Capabilities
+      description: |
+        Offers AutoML functionalities to automatically build,
+        train, and optimize machine learning models with minimal
+        manual intervention.
+      group: MachineLearning
+    - id: CCC.MLDE.CP06
+      title: GPU/Specialized Hardware Support
+      description: |
+        Provides access to GPU instances and specialized ML acceleration
+        hardware (TPUs, FPGAs) with automated driver and runtime management.
+      group: Compute
+    - id: CCC.MLDE.CP07
+      title: Data Pipeline Integration
+      description: |
+        Supports integration with data preparation and feature engineering
+        pipelines, including versioning of datasets and capabilities used in
+        ML experiments.
+      group: Processing
+    - id: CCC.MLDE.CP08
+      title: Model Registry
+      description: |
+        Provides centralized storage and versioning for trained models,
+        including metadata about training runs, model artifacts, and
+        deployment history.
+      group: MachineLearning
+    - id: CCC.MLDE.CP09
+      title: Collaborative Development Support
+      description: |
+        Enables multiple data scientists to work on the same project with
+        version control integration, shared notebooks, and resource management.
+      group: MachineLearning
+    - id: CCC.MLDE.CP10
+      title: Model Monitoring and Drift Detection
+      description: |
+        Supports monitoring of deployed models for performance degradation,
+        data drift, and concept drift with automated alerting capabilities.
+      group: Observability
+    - id: CCC.MLDE.CP11
+      title: Reproducibility Capabilities
+      description: |
+        Provides capability to capture and version all components needed to
+        reproduce an ML experiment, including code, data, and environment
+        configurations.
+      group: MachineLearning
+    - id: CCC.MLDE.CP12
+      title: Resource Scheduling and Optimization
+      description: |
+        Supports scheduling and optimization of compute resources for
+        training jobs, including spot instance usage and auto-scaling
+        capabilities.
+      group: Resource
+    - id: CCC.MLDE.CP13
+      title: Security and Compliance Controls
+      description: |
+        Provides specific controls for ML workflows including model
+        governance, bias detection, and compliance documentation for
+        regulated industries.
+      group: MachineLearning
+groups:
+    - id: MachineLearning
+      title: Machine Learning
+      description: |
+        The Machine Learning group covers entries related to building,
+        training, deploying, and managing ML models and AI systems. This includes
+        development environments, experiment tracking, model registries, inference,
+        generative AI, prompt engineering, and model governance.
+    - id: Compute
+      title: Compute
+      description: |
+        The Compute group covers entries related to processing, execution,
+        and runtime infrastructure. This includes CPU, memory, storage allocation,
+        network ports, command-line interfaces, and elastic scaling.
+    - id: Processing
+      title: Data Processing
+      description: |
+        The Data Processing group covers entries related to transforming,
+        enriching, and moving data through pipelines. This includes ETL/ELT,
+        stream and batch processing, data lineage, schema evolution, and
+        workflow orchestration for data workloads.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers entries related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP03
+          remarks: Access Log Publication
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP08
+          remarks: Data Replication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP15
+          remarks: Cost Management
+        - reference-id: CCC.Core.CP16
+          remarks: Budgeting
+        - reference-id: CCC.Core.CP17
+          remarks: Alerting
+        - reference-id: CCC.Core.CP20
+          remarks: Resource Tagging
+        - reference-id: CCC.Core.CP23
+          remarks: Network Access Rules
+      reference-id: CCC.Core.Capabilities
