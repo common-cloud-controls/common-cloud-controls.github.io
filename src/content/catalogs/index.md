@@ -20,3 +20,41 @@ CCC short-circuits that process. Because each control already captures the objec
 This matters most when you are trying to build governance that scales. The [CNCF TAG Security Automated Governance Maturity Model](https://tag-security.cncf.io/community/resources/automated-governance-maturity-model/) and the [Gemara](https://gemara.openssf.org) GRC Engineering Model for Automated Risk Assessment both describe the same progression: organizations that reach higher maturity levels are those whose policies are specific enough to evaluate automatically, enforce continuously, and audit without manual effort. The bottleneck is almost always the quality of the underlying requirements — vague or inconsistent controls cannot be automated reliably.
 
 CCC removes that bottleneck. Well-structured controls, expressed in a machine-readable schema aligned with Gemara, connect directly to evaluation tooling and enforcement pipelines. The community maintains the standard; your team focuses on operating against it.
+
+## Catalog Structure
+
+Every entry has a unique ID following the pattern `CCC.<Service>.<Type><Number>` — for example, `CCC.Core.CN01` (Core Control #1), `CCC.ObjStor.TH01` (Object Storage Threat #1), or `CCC.GenAI.CP03` (Generative AI Capability #3).
+
+Each entry also belongs to a **group** that describes its security or operational domain — not which service it is part of. The same groups are used across all three catalog types. For example, a control about encryption and a capability about encryption both belong to the `Encryption` group. Controls map to the threats they mitigate, and threats map to the capabilities they affect, creating full traceability from risk to requirement.
+
+## Groups
+
+| Group | Description |
+|---|---|
+| `Encryption` | Cryptographic protection — encryption in transit/at rest, key management, certificates. |
+| `Access` | Authentication, authorization, trust perimeters, least privilege. |
+| `Observability` | Logging, audit trails, metrics, alerting, tracing, health checks. |
+| `Data` | Replication, backup, recovery, data retention, versioning, failover. |
+| `Resource` | Resource lifecycle, scaling, cost management, tagging, deletion protection. |
+| `Compute` | CPU, memory, storage allocation, runtime environments, elastic scaling. |
+| `Ingestion` | Active/passive data ingestion, CDC, connectors, input validation. |
+| `Networking` | VPCs, subnets, routing, DNS, load balancing, traffic management. |
+| `Orchestration` | Container orchestration, CI/CD pipelines, build automation, job scheduling. |
+| `Processing` | ETL/ELT, batch and stream processing, data lineage, schema evolution. |
+| `Messaging` | Pub/sub, topics, subscriptions, message ordering, delivery guarantees. |
+| `MachineLearning` | ML environments, model registries, inference, GenAI, model governance. |
+
+## Applicability Levels
+
+Each assessment requirement in a control catalog specifies **applicability levels** that indicate the sensitivity context in which the requirement applies. CCC uses the [Traffic Light Protocol (TLP) 2.0](https://www.first.org/tlp/) as the basis for these levels.
+
+| Level | When It Applies |
+|---|---|
+| **tlp-clear** | No confidentiality restrictions. Universal baseline requirements. |
+| **tlp-green** | Information shared within a community but not public. Adds protections for internal systems. |
+| **tlp-amber** | Information restricted to the organization and its clients. Stricter encryption, access, and audit. |
+| **tlp-red** | Information restricted to named individuals or specific roles. Maximum security — MFA everywhere, full audit logging, zero trust. |
+
+A requirement listed under all four levels is a universal baseline. A requirement listed only under `tlp-red` is an advanced hardening measure for the most sensitive environments. When adopting CCC controls, classify each workload by data sensitivity, map it to a TLP level, and apply all requirements whose applicability includes that level.
+
+For the full TLP specification, see the [official TLP 2.0 documentation](https://www.first.org/tlp/).
