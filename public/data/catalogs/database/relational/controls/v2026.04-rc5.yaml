@@ -1,0 +1,146 @@
+title: CCC Relational Database Controls
+metadata:
+    id: CCC.RDMS.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc5
+    description: Controls for Relational Database technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc5
+controls:
+    - id: CCC.RDMS.CN01
+      title: Password Management
+      objective: |
+        Ensure default vendor-supplied DB administrator credentials are replaced
+        with strong, unique passwords and that these credentials are properly
+        managed using a secure password or secrets management solution.
+      group: Access
+      assessment-requirements:
+        - id: CCC.RDMS.CN01.AR02
+          text: |
+            When an attempt is made to authenticate to the database using known
+            default credentials, the authentication attempt must fail and no
+            access should be granted.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.RDMS.CN02
+      title: Account Lockout and Rate-Limiting
+      objective: |
+        Ensure the database enforces lockouts or rate-limiting after a specified
+        number of failed authentication attempts. This prevents brute force
+        or password-guessing attacks from succeeding.
+      group: Access
+      assessment-requirements:
+        - id: CCC.RDMS.CN02.AR01
+          text: |
+            When repeated failed login attempts are made in a short timeframe,
+            the account must be locked out or rate-limited to prevent
+            further login attempts.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.RDMS.CN04
+      title: Access Control for Backup and Restore Operations
+      objective: |
+        Restrict who can initiate, manage, and validate database backup or
+        restore operations through strict role-based or least-privilege
+        access. Prevents accidental or malicious restorations, protecting
+        data integrity and availability.
+      group: Access
+      assessment-requirements:
+        - id: CCC.RDMS.CN04.AR01
+          text: |
+            When there is an attempt to perform a backup or restore,
+            then the attempt must fail with an access denied message if
+            credentials or roles that are not explicitly authorized for
+            backup/restore functions.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.RDMS.CN05
+      title: Restrict Snapshot Sharing to Authorized Accounts
+      objective: |
+        Ensure database snapshots can only be shared with explicitly authorized
+        accounts, thereby minimizing the risk of data exposure or exfiltration.
+      group: Access
+      assessment-requirements:
+        - id: CCC.RDMS.CN05.AR01
+          text: |
+            When an attempt is made to share a snapshot with an unauthorized
+            account, the sharing request must be denied.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.RDMS.CN03
+      title: Enforce and Monitor Automated Backups
+      objective: |
+        Ensure database backups are automatically scheduled, actively monitored,
+        and promptly reported if any disruptions occur. This helps maintain
+        data integrity, facilitates disaster recovery, and supports business
+        continuity when a system failure or breach occurs.
+      group: Data
+      assessment-requirements:
+        - id: CCC.RDMS.CN03.AR01
+          text: |
+            When backups are disabled, paused, or fail to run as scheduled,
+            an alert must be triggered and logged.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+groups:
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on unusual enumeration activity
+        - reference-id: CCC.Core.CN08
+          remarks: Enable Multi-zone or Multi-region Data Replication
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent tampering, deletion, or unauthorized access to access logs
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent data replication to destinations outside of defined trust perimeter
+        - reference-id: CCC.Core.CN12
+          remarks: Ensure Secure Network Access Rules
+      reference-id: CCC.Core.Controls
