@@ -1,0 +1,135 @@
+title: CCC Audit Logging Threats
+metadata:
+    id: CCC.AUDITLOG.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc4
+    description: Threats for Audit Logging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc4
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Ingestion
+      title: Ingestion
+      description: |
+        The Ingestion group covers entries related to how a service receives
+        or retrieves data, inputs, or commands for processing. This includes both
+        active (pull-based) and passive (push-based) ingestion patterns.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH04
+          remarks: Data is Replicated to Untrusted or External Locations
+        - reference-id: CCC.Core.TH06
+          remarks: Data is Lost or Corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.AUDITLOG.TH01
+      title: Insufficient Audit Logs
+      description: |
+        If security critical audit events are not logged then it increases the difficulty to detect threats
+        and perform post incident analysis.
+      group: Observability
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP03
+            - reference-id: CCC.Core.CP10
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.AUDITLOG.TH02
+      title: Log Ingestion Latency
+      description: |
+        Large spikes or sustained delays in log ingestion may degrade the timeliness
+        and completeness of security telemetry.
+        This can increase the time required to detect and investigate threats,
+        potentially impacting incident response effectiveness.
+      group: Observability
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP03
+            - reference-id: CCC.Core.CP10
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.AUDITLOG.TH03
+      title: Sensitive Data Logged
+      description: |
+        Sensitive information such as  passwords, environment variables,
+        or personally identifiable information (PII)
+        may be included in audit logs due to a number of reasons such as;
+        end user human error, developers not sanitizing fields or
+        maliciously by a threat actor attempting to exfil data.
+        This can lead to unauthorized disclosure if logs are accessed by
+        unintended parties or forwarded to external systems.
+      group: Data
+      capabilities:
+        - entries:
+            - reference-id: CCC.AuditLog.CP03
+              remarks: Sink
+            - reference-id: CCC.AuditLog.CP08
+              remarks: External Sink
+          reference-id: CCC.AuditLog.Capabilities
+        - entries:
+            - reference-id: CCC.Core.CP03
+            - reference-id: CCC.Core.CP10
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.AUDITLOG.TH04
+      title: Insufficient encoding of audit logs
+      description: |
+        User-supplied data such as scripts, control characters, escape sequences, or code fragments
+        may be written to audit logs without proper encoding or sanitization. This can result in malformed
+        or unexpected log entries that could disrupt or compromise systems that process or display these logs,
+        including log viewers or downstream services.
+      group: Ingestion
+      capabilities:
+        - entries:
+            - reference-id: CCC.AuditLog.CP03
+              remarks: Sink
+            - reference-id: CCC.AuditLog.CP08
+              remarks: External Sink
+          reference-id: CCC.AuditLog.Capabilities
+        - entries:
+            - reference-id: CCC.Core.CP03
+            - reference-id: CCC.Core.CP10
+          reference-id: CCC.Core.Capabilities
+    - id: CCC.AUDITLOG.TH05
+      title: Logging Evasion via violating size constraints
+      description: |
+        An attacker can evade detection by intentionally crafting input that violates
+        the size constraints of a clouds audit logging mechanism.
+        Many systems impose a maximum size limit on individual log entries.
+        By performing an action with oversized data such as whitespace or Unicode injection,
+        the resulting log event, which often includes the offending data,
+        exceeds this limit, which often is redacted in the audit logs.
+      group: Observability
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP03
+            - reference-id: CCC.Core.CP10
+          reference-id: CCC.Core.Capabilities
