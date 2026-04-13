@@ -1,0 +1,205 @@
+title: CCC Serverless Computing Capabilities
+metadata:
+    id: CCC.SvlsComp.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc1
+    description: Capabilities for Serverless Computing technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04-rc1
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.SvlsComp.CP01
+      title: Event Driven Execution
+      description: |
+        Supports execution of code functions in response to events
+        without the need to manage underlying server infrastructure.
+      group: Compute
+    - id: CCC.SvlsComp.CP02
+      title: Event Triggers
+      description: |
+        Ability to configure event triggers for functions such as
+        HTTP requests, cloud storage changes, messaging services,
+        and schedules.
+      group: Compute
+    - id: CCC.SvlsComp.CP03
+      title: Stateless Architecture
+      description: |
+        Functions are stateless and do not retain data or state
+        between invocations.
+      group: Compute
+    - id: CCC.SvlsComp.CP04
+      title: Cold Start
+      description: |
+        New execution environment is created and initialized to process
+        an incoming request which is the default behaviour.
+      group: Compute
+    - id: CCC.SvlsComp.CP05
+      title: Warm Start
+      description: |
+        Ability to reuse of an already-initialized execution environment to
+        handle subsequent requests, to reduce invocation latency
+      group: Compute
+    - id: CCC.SvlsComp.CP06
+      title: Flexible Resource Allocation
+      description: |
+        Ability to control resource allocations such as CPU, memory, and network.
+      group: Resource
+    - id: CCC.SvlsComp.CP07
+      title: Customizable Execution Timeout
+      description: |
+        Ability to configure function execution timeout for allowing
+        short/long-running tasks.
+      group: Compute
+    - id: CCC.SvlsComp.CP08
+      title: Native Runtime Support - Node.js
+      description: |
+        Support Node.js runtime by default.
+      group: Compute
+    - id: CCC.SvlsComp.CP09
+      title: Native Runtime Support - Python
+      description: |
+        Support Python runtime by default.
+      group: Compute
+    - id: CCC.SvlsComp.CP10
+      title: Native Runtime Support - Java
+      description: |
+        Support Java runtime by default.
+      group: Compute
+    - id: CCC.SvlsComp.CP11
+      title: Native Runtime Support - .NET Core
+      description: |
+        Support .NET runtime by default.
+      group: Compute
+    - id: CCC.SvlsComp.CP12
+      title: Custom Runtimes
+      description: |
+        Support any language by allowing functions to use custom runtime
+      group: Compute
+    - id: CCC.SvlsComp.CP13
+      title: Environment Variables
+      description: |
+        Allows setting environment variables for functions to store
+        configuration settings and operational parameters.
+      group: Compute
+    - id: CCC.SvlsComp.CP14
+      title: Aliases
+      description: |
+        Support the use of aliases such as dev, test, prod to manage
+        different environments or blue/green deployments  without
+        modifying the function's code.
+      group: Resource
+    - id: CCC.SvlsComp.CP15
+      title: Container Image Support
+      description: |
+        Ability to deploy and run functions packaged as container images
+        using predefined runtimes, that were built using container tools
+        like Docker.
+      group: Compute
+    - id: CCC.SvlsComp.CP16
+      title: Concurrency Limit
+      description: |
+        Ability to configure a limit for the concurrent executions of a function.
+      group: Resource
+    - id: CCC.SvlsComp.CP17
+      title: Throttling
+      description: |
+        Incoming requests are throttled when the function exceeds its
+        concurrency limit.
+      group: Resource
+    - id: CCC.SvlsComp.CP18
+      title: List Functions
+      description: |
+        Ability to list all existing functions.
+      group: Resource
+    - id: CCC.SvlsComp.CP19
+      title: Create Functions
+      description: |
+        Ability to create new functions.
+      group: Resource
+    - id: CCC.SvlsComp.CP20
+      title: Edit Function
+      description: |
+        Ability to edit an existing function.
+      group: Resource
+    - id: CCC.SvlsComp.CP21
+      title: Delete Function
+      description: |
+        Ability to delete an existing function.
+      group: Resource
+groups:
+    - id: Compute
+      title: Compute
+      description: |
+        The Compute group covers entries related to processing, execution,
+        and runtime infrastructure. This includes CPU, memory, storage allocation,
+        network ports, command-line interfaces, and elastic scaling.
+    - id: Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers entries related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit Enabled by Default
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest Enabled by Default
+        - reference-id: CCC.Core.CP04
+          remarks: Transaction Rate Limits
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP08
+          remarks: Data Replication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP15
+          remarks: Cost Management
+        - reference-id: CCC.Core.CP16
+          remarks: Budgeting
+        - reference-id: CCC.Core.CP18
+          remarks: Resource Versioning
+        - reference-id: CCC.Core.CP31
+          remarks: Elastic Scaling
+        - reference-id: CCC.Core.CP20
+          remarks: Resource Tagging
+        - reference-id: CCC.Core.CP22
+          remarks: Location Lock-In
+        - reference-id: CCC.Core.CP25
+          remarks: Random Access Memory Allocation
+        - reference-id: CCC.Core.CP28
+          remarks: Command-line Interface
+        - reference-id: CCC.Core.CP29
+          remarks: Active Ingestion
+        - reference-id: CCC.Core.CP30
+          remarks: Passive Ingestion
+      reference-id: CCC.Core.Capabilities

@@ -1,0 +1,102 @@
+title: CCC Audit Logging Capabilities
+metadata:
+    id: CCC.AuditLog.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04
+    description: Capabilities for Audit Logging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.AuditLog.CP01
+      title: Default Retention Period
+      description: |
+        Cloud providers support a default minimum retention of audit log data.
+      group: Observability
+    - id: CCC.AuditLog.CP02
+      title: Export
+      description: |
+        Support for manual "one off" exporting or downloading of raw log events.
+      group: Observability
+    - id: CCC.AuditLog.CP03
+      title: Sink
+      description: |
+        Ability to continually stream audit log data to a hosted storage bucket or data lake solution.
+      group: Observability
+    - id: CCC.AuditLog.CP04
+      title: Event Types
+      description: |
+        Audit events are generated with different data types to provide specific fields for the system
+        which generated the event, such as Management Event, Data Event and  Policy Event.
+      group: Observability
+    - id: CCC.AuditLog.CP05
+      title: Time Search
+      description: |
+        Ability to search for audit events across a specific time range.
+      group: Observability
+    - id: CCC.AuditLog.CP06
+      title: Filtering
+      description: |
+        Ability to filter audit events based on specific attribute.
+      group: Observability
+    - id: CCC.AuditLog.CP08
+      title: External Sink
+      description: |
+        Audit log events can be configured to be sent to a external SIEM or data analysis
+        provider outside of the cloud platform.
+      group: Observability
+groups:
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit Enabled by Default
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest Enabled by Default
+        - reference-id: CCC.Core.CP03
+          remarks: Access Log Publication
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP08
+          remarks: Data Replication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP17
+          remarks: Alerting
+        - reference-id: CCC.Core.CP34
+          remarks: Immutable Resources
+      reference-id: CCC.Core.Capabilities

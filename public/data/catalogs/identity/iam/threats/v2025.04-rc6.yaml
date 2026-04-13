@@ -1,0 +1,258 @@
+title: CCC Identity and Access Management Threats
+metadata:
+    id: CCC.IAM.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2025.04-rc6
+    description: Threats for Identity and Access Management technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2025.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH11
+          remarks: Event Notifications are Incorrectly Triggered
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human Entities
+        - reference-id: CCC.Core.TH16
+          remarks: Publications are Disabled
+        - reference-id: CCC.Core.TH17
+          remarks: Responses are Generated for Unauthorized Requests
+        - reference-id: CCC.Core.TH19
+          remarks: Metrics are Read by Unauthorized Entities
+        - reference-id: CCC.Core.TH20
+          remarks: Logging or Audit Coverage is Insufficient
+        - reference-id: CCC.Core.TH21
+          remarks: Sensitive Data is Exposed in Logs or Metrics
+        - reference-id: CCC.Core.TH22
+          remarks: Log Delivery is Delayed or Degraded
+        - reference-id: CCC.Core.TH24
+          remarks: Insecure Defaults Enable Unauthorized Access
+        - reference-id: CCC.Core.TH25
+          remarks: Credentials are Stale, Unused, or Long-Lived
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.IAM.TH01
+      title: Valid Cloud Credentials Abuse
+      description: |
+        Valid identity credentials such as access keys, tokens or passwords are misused or
+        compromised. Examples include public exposure, token theft, unprotected
+        metadata service of a compromised compute instance or brute-force attacks.
+        The use of these credentials can provide unauthorized access to the cloud environment,
+        potentially bypassing other security controls and enabling lateral movement across
+        cloud resources.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP02
+              remarks: IAM Users
+            - reference-id: CCC.IAM.CP03
+              remarks: Long-Term Credentials
+            - reference-id: CCC.IAM.CP04
+              remarks: Password Management
+            - reference-id: CCC.IAM.CP07
+              remarks: Managed Identities
+            - reference-id: CCC.IAM.CP08
+              remarks: Federated Identity - SAML
+            - reference-id: CCC.IAM.CP09
+              remarks: Federated Identity - OIDC
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH02
+      title: Overly-Permissive IAM Policy
+      description: |
+        An access control policy attached to an identity or a resource is
+        configured with excessive permissions, violating the principle of least privilege.
+        This can enable unauthorized data access, privilege escalation, or other unintended
+        actions by principals whose credentials might be compromised or who are acting erroneously.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP02
+              remarks: IAM Users
+            - reference-id: CCC.IAM.CP05
+              remarks: IAM Groups
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP07
+              remarks: Managed Identities
+            - reference-id: CCC.IAM.CP10
+              remarks: Custom Roles
+            - reference-id: CCC.IAM.CP12
+              remarks: Policy Conditions
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH03
+      title: Overly-Permissive Identity Trust Policy
+      description: |
+        An IAM role or service principal's trust policy is configured to allow principals
+        from untrusted or overly broad scopes, such as any identity in any account, to assume
+        or impersonate it. This can allow an external or unauthorized identity to gain access
+        to the cloud environment, completely bypassing internal identity controls.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP12
+              remarks: Policy Conditions
+            - reference-id: CCC.IAM.CP15
+              remarks: Role Assumption / Delegation
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH04
+      title: Additional Cloud Credentials Creation
+      description: |
+        An adversary with access to a sufficiently privileged cloud account may create
+        additional credentials such as access keys, service accounts and
+        temporary credentials to establish persistance or elevate their privileges.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP02
+              remarks: IAM Users
+            - reference-id: CCC.IAM.CP03
+              remarks: Long-Term Credentials
+            - reference-id: CCC.IAM.CP04
+              remarks: Password Management
+            - reference-id: CCC.IAM.CP08
+              remarks: Federated Identity - SAML
+            - reference-id: CCC.IAM.CP09
+              remarks: Federated Identity - OIDC
+            - reference-id: CCC.IAM.CP11
+              remarks: Temporary Credentials
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH05
+      title: Additional IAM Roles Creation
+      description: |
+        An adversary with access to a sufficiently privileged cloud account may create
+        additional IAM roles to establish persistance or elevate their privileges.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP10
+              remarks: Custom Roles
+            - reference-id: CCC.IAM.CP15
+              remarks: Role Assumption / Delegation
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH06
+      title: IAM Policies Modification
+      description: |
+        An adversary with access to a sufficiently privileged cloud account may modify
+        IAM policies to establish persistance or elevate their privileges.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP02
+              remarks: IAM Users
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP10
+              remarks: Custom Roles
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH07
+      title: Identity Inherits Excessive Permissions Through Group Membership
+      description: |
+        An identity principal becomes a member of one or more IAM groups, and the combined
+        policies of these groups grant permissions beyond what is necessary for the principal's
+        function. This "privilege creep" through group inheritance complicates auditing and can
+        lead to an identity having standing access to sensitive resources.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP05
+              remarks: IAM Groups
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH08
+      title: Privilege Escalation via Indirect Role Usage
+      description: |
+        An identity principal possesses specific, highly privileged permissions, such as the
+        ability to pass roles or impersonate service accounts, that allow it to leverage
+        the permissions of a different, more privileged role. Even without being able
+        to directly assume the target role, the principal can attach it to a new resource
+        they control and then use that resource to perform unauthorized actions.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP02
+              remarks: IAM Users
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP15
+              remarks: Role Assumption / Delegation
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH10
+      title: Orphaned Federated Identity Retains Access
+      description: |
+        A federated identity is de-provisioned from the external Identity Provider (IdP),
+        but its corresponding cloud identity remains active within the cloud environment.
+        This orphaned identity creates a latent access path that could be exploited if the
+        original username is reactivated or reassigned in the IdP, granting unintended
+        access to a new principal.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP08
+              remarks: Federated Identity - SAML
+            - reference-id: CCC.IAM.CP09
+              remarks: Federated Identity - OIDC
+          reference-id: CCC.IAM.Capabilities
+    - id: CCC.IAM.TH12
+      title: IAM Role is Coerced into Unauthorized Cross-Account Actions (Confused Deputy)
+      description: |
+        An external actor tricks a legitimate, authorized third-party application into making requests
+        to the cloud environment. A role in the cloud account (the "deputy"), which trusts that third-party
+        application, then performs unauthorized actions on behalf of the actor.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.IAM.CP06
+              remarks: IAM Roles / Service Principals
+            - reference-id: CCC.IAM.CP10
+              remarks: Custom Roles
+            - reference-id: CCC.IAM.CP15
+              remarks: Role Assumption / Delegation
+          reference-id: CCC.IAM.Capabilities
