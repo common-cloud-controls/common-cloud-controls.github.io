@@ -38,7 +38,7 @@ export type SiteConfig = {
 
 export const siteConfig: SiteConfig = {
   siteName: "Common Cloud Controls",
-  tagline: "Consistent controls for compliant public cloud deployments in financial services.",
+  tagline: "Consistent controls for compliant public and private cloud deployments in financial services.",
 
   banner: {
     enabled: true,

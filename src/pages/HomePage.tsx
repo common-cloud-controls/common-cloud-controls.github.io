@@ -131,6 +131,9 @@ export const HomePage: React.FC = () => {
           alt="CCC architecture diagram"
           style={{ maxWidth: "100%", width: "720px", maxHeight: "340px", objectFit: "contain", marginBottom: "var(--gf-space-lg)" }}
         />
+        <p style={{ fontSize: "1.15rem", color: "#1e40af", marginBottom: "var(--gf-space-md)", maxWidth: "640px", margin: "0 auto var(--gf-space-md)", lineHeight: 1.6 }}>
+          Technology-agnostic security controls for public and private cloud.
+        </p>
         <div>
           <Link
             to="/catalogs"
