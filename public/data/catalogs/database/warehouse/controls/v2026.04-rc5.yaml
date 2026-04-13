@@ -1,0 +1,93 @@
+title: CCC Data Warehouse Controls
+metadata:
+    id: CCC.DataWar.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc5
+    description: Controls for Data Warehouse technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc5
+controls:
+    - id: CCC.DataWar.CN01
+      title: Enforce Use of Managed Views for Data Access
+      objective: |
+        Ensure that data access is provided through managed views, restricting users
+        from accessing underlying tables directly and enforcing consistent security policies.
+      group: Access
+      assessment-requirements:
+        - id: CCC.DataWar.CN01.AR01
+          text: |
+            Attempt to access underlying database tables directly without
+            using managed views and verify that access is denied.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.DataWar.CN02
+      title: Enforce Column-Level Security Policies
+      objective: |
+        Ensure that access to sensitive data columns is restricted based on user roles,
+        preventing unauthorized access to sensitive information.
+      group: Access
+      assessment-requirements:
+        - id: CCC.DataWar.CN02.AR01
+          text: |
+            Attempt to query sensitive columns without the necessary permissions and
+            verify that access is denied or data is masked.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+    - id: CCC.DataWar.CN03
+      title: Enforce Row-Level Security Policies
+      objective: |
+        Ensure that access to data rows is restricted based on user roles or attributes,
+        preventing unauthorized access to specific subsets of data.
+      group: Access
+      assessment-requirements:
+        - id: CCC.DataWar.CN03.AR01
+          text: |
+            Attempt to query data rows that the user should not have access to and verify
+            that access is denied or data is not returned.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          state: Active
+      state: Active
+groups:
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on unusual enumeration activity
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent tampering, deletion, or unauthorized access to access logs
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent data replication to destinations outside of defined trust perimeter
+      reference-id: CCC.Core.Controls
