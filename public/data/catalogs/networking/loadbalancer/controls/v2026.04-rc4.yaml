@@ -1,0 +1,236 @@
+title: CCC Load Balancer Controls
+metadata:
+    id: CCC.LB.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc4
+    description: Controls for Load Balancer technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc4
+controls:
+    - id: CCC.LB.CN01
+      title: Enforce and Detect Rate Limiting
+      objective: |
+        Detect and throttle malicious or excessive requests to prevent downstream resource exhaustion and brute-force activity.
+      group: Resource
+      assessment-requirements:
+        - id: CCC.LB.CN01.AR01
+          text: |
+            When a single client sends more than 2000 requests within any
+            5-minute sliding window, the load balancer MUST throttle all
+            subsequent requests from that client for at least 60 seconds.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Implement per-IP token-bucket limits with and verify via
+            synthetic traffic tests.
+          state: Active
+        - id: CCC.LB.CN01.AR02
+          text: |
+            When throttling is invoked, the load balancer MUST
+            record the event in the access log within 5 minutes
+            for alerting and trend analysis.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Enable access logging and configure metric filters
+            on HTTP 429 counts to trigger alerts.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN06
+      title: Secure Health-Check Telemetry
+      objective: |
+        Monitor health-check endpoints for tampering and alert on
+        abnormal status changes.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.LB.CN06.AR01
+          text: |
+            When more than 10 percent of targets change from healthy to
+            unhealthy within five minutes, an alert MUST be issued.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Instrument metrics for health check results and target
+            removal events. Configure monitoring alarms to alert
+            on abnormal spikes in unhealthy targets.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN04
+      title: Enforce Distribution Policies
+      objective: |
+        Ensure traffic-splitting weights and algorithms are modified
+        only by trusted identities.
+      group: Access
+      assessment-requirements:
+        - id: CCC.LB.CN04.AR01
+          text: |
+            When routing weights change, the request MUST originate
+            from an explicitly defined and trusted identity and MUST
+            be logged.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Define a list of trusted principals allowed to modify
+            routing configurations. Enforce via conditional access
+            policies, and log changes using audit logging.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN05
+      title: Validate Session Affinity
+      objective: |
+        Configure session persistence to minimise fixation and hijacking
+        risks.
+      group: Access
+      assessment-requirements:
+        - id: CCC.LB.CN05.AR01
+          text: |
+            When stickiness is enabled, session cookies MUST expire
+            within 30 minutes of inactivity.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: Audit CCC.LB.CP15 parameters via configuration scans.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN09
+      title: Restrict Management API Access
+      objective: |
+        Limit load-balancer API calls to authorised identities and
+        trusted networks.
+      group: Access
+      assessment-requirements:
+        - id: CCC.LB.CN09.AR01
+          text: |
+            When an API call originates outside the approved CIDR
+            set, the request MUST be denied.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: Combine VPC endpoints with IAM condition-key filters for protected APIs.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN02
+      title: Auto-Scale Load Balancer Capacity
+      objective: |
+        Expand load-balancer capacity to maintain availability during traffic
+        spikes.
+      group: Resource
+      assessment-requirements:
+        - id: CCC.LB.CN02.AR01
+          text: |
+            When concurrent connections reach 80 percent of capacity, the
+            autoscaling group MUST add at least one instance within five
+            minutes.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: Enable autoscaling policies.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN07
+      title: Scrub Sensitive Headers
+      objective: |
+        Remove headers that disclose internal details or software
+        versions from HTTP responses.
+      group: Data
+      assessment-requirements:
+        - id: CCC.LB.CN07.AR01
+          text: |
+            When responses pass through the load balancer, the
+            "Server" header MUST be replaced with "lb".
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: Configure header-transformation rules.
+          state: Active
+      state: Active
+    - id: CCC.LB.CN08
+      title: Automate Certificate Renewal
+      objective: |
+        Maintain valid TLS certificates by automating renewal and
+        deployment before expiry.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.LB.CN08.AR01
+          text: |
+            When a certificate is within 30 days of expiry, automated renewal
+            MUST complete and deploy a new certificate within 24 hours.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: Use certificate-manager auto-renewal workflows.
+          state: Active
+      state: Active
+groups:
+    - id: Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers entries related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers entries related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent Unencrypted Requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure Data Encryption at Rest
+        - reference-id: CCC.Core.CN03
+          remarks: Enforce Multi-Factor Authentication
+        - reference-id: CCC.Core.CN04
+          remarks: Log All Access and Changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent Access From Untrusted Entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent Deployment in Restricted Regions
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent Data Replication Outside Perimeter
+      reference-id: CCC.Core.Controls

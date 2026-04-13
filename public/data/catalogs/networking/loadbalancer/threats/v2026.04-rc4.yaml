@@ -1,0 +1,145 @@
+title: CCC Load Balancer Threats
+metadata:
+    id: CCC.LB.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc4
+    description: Threats for Load Balancer technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc4
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers entries related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+    - id: Networking
+      title: Networking
+      description: |
+        The Networking group covers entries related to network infrastructure,
+        connectivity, and traffic management. This includes virtual networks, subnets,
+        load balancing, DNS, routing, peering, and network-level access controls.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers entries related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+        - reference-id: CCC.Core.TH17
+          remarks: Unauthorized Network Access via Misconfigured Rules
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.LB.TH01
+      title: Unrestricted Request Traffic Overwhelms Downstream Services
+      description: |
+        Absence of filtering or rate limiting permits malicious traffic to
+        overload downstream services and facilitates brute-force activity.
+      group: Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP04
+              remarks: Transaction Rate Limits
+          reference-id: CCC.Core.Capabilities
+        - entries:
+            - reference-id: CCC.LB.CP22
+              remarks: Rate Limiting / Throttling
+          reference-id: LB
+    - id: CCC.LB.TH03
+      title: Traffic Distribution Is Manipulated
+      description: |
+        Adjusting distribution policies can concentrate traffic on specific nodes
+        causing DoS or redirect flows through unwanted paths.
+      group: Networking
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP02
+              remarks: Dynamic LB
+            - reference-id: CCC.LB.CP20
+              remarks: Traffic Splitting
+          reference-id: LB
+    - id: CCC.LB.TH04
+      title: Session Persistence Is Exploited
+      description: |
+        Improper session-affinity settings can enable session fixation or
+        hijacking across backend targets.
+      group: Access
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP15
+              remarks: Session Affinity
+          reference-id: LB
+    - id: CCC.LB.TH05
+      title: Health Checks Are Exploited to Take Services Offline
+      description: |
+        Manipulating health-check endpoints or responses can cause healthy
+        targets to be marked unavailable, leading to denial of service.
+      group: Resource
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP12
+              remarks: Health Checks
+            - reference-id: CCC.LB.CP13
+              remarks: Target Removal
+          reference-id: LB
+    - id: CCC.LB.TH06
+      title: Sensitive Metadata Exposure via HTTP Headers
+      description: |
+        Response headers may reveal software versions, internal IPs, or other
+        metadata useful for reconnaissance.
+      group: Data
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP19
+          reference-id: LBL
+    - id: CCC.LB.TH07
+      title: TLS Certificates Are Expired or Invalid
+      description: |
+        Stale or untrusted certificates weaken encrypted-traffic protection.
+      group: Encryption
+      capabilities:
+        - entries:
+            - reference-id: CCC.LB.CP11
+              remarks: SSL/TLS Termination
+          reference-id: LB
