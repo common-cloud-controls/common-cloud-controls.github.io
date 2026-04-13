@@ -1,0 +1,171 @@
+title: CCC Monitoring Controls
+metadata:
+    id: CCC.Monitor.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2025.04-rc6
+    description: Controls for Monitoring technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2025.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+controls:
+    - id: CCC.Monitor.CN01
+      title: Rate Limiting on External Monitoring
+      objective: |
+        Prevent DoS attacks using External Monitoring tools.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Monitor.CN01.AR01
+          text: |
+            When an External Monitoring system exceeds the anticipated rate of monitoring checks then
+            Rate Limiting MUST be applied and an Audit Alert MUST be generated.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Monitor.CN02
+      title: Rate Limiting on Metric Generation
+      objective: |
+        Prevent Malicious Actor or misconfiguration from flooding services with metric data.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Monitor.CN02.AR01
+          text: |
+            When an Custom or User-Defined Metric starts to flood a collector, then a rate limit MUST be applied
+            to reduce the network impact of traffic and an alert must triggered.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Monitor.CN03
+      title: Access External Monitoring
+      objective: |
+        Control access to Synthetic monitoring solutions using API keys or Certificate based authentication to
+        ensure they don't become an attack path, preventing monitoring systems from forging network requests to
+        gain access to internal systems.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Monitor.CN03.AR01
+          text: |
+            When external systems have approved access to internal systems not normally available for public access
+            then they MUST be secured to prevent unauthorised access jumping through to the internal systems and
+            only allow access to specific internal services.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Monitor.CN04
+      title: Restrict access to Monitoring Dashboards
+      objective: |
+        Control access to Monitoring Dashboards and reports to ensure they don't highlight an attack path.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Monitor.CN04.AR01
+          text: |
+            When monitoring dashboards display degraded services which may become potential targets then the
+            dashboard MUST be protected from unauthorised access.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Monitor.CN05
+      title: Restrict access to silence or acknowledge an alert
+      objective: |
+        Ensure only a subset of users can silence or acknowledge alerts to prevent attackers hiding their activity.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Monitor.CN05.AR01
+          text: |
+            When monitoring services have generated an alert, the service MUST ensure only authorised
+            responders silence or acknowledge the alert.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Monitor.CN06
+      title: Metrics pushed for authorised services only
+      objective: |
+        Use IAM to control which types of metrics or traces can be pushed by different system to avoid a compromised
+        system pushing fabricated metrics about a different service
+      group: Access
+      assessment-requirements:
+        - id: CCC.Monitor.CN06.AR01
+          text: |
+            When systems push metrics or traces they MUST be authenticated for that particular type of metric or trace
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+groups:
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure Data Encryption at Rest for All Stored Data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement Multi-factor Authentication (MFA) for Access
+        - reference-id: CCC.Core.CN04
+          remarks: Log All Access and Changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent Access from Untrusted Entities
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on Unusual Enumeration Activity
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent Tampering, Deletion, or Unauthorized Access to Access Logs
+        - reference-id: CCC.Core.CN11
+          remarks: Enforce Key Management Policies
+        - reference-id: CCC.Core.CN20
+          remarks: Alert on Service Configuration Tampering
+      reference-id: CCC.Core.Controls
