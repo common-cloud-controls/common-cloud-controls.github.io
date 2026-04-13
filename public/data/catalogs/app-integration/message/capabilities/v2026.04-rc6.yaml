@@ -1,0 +1,180 @@
+title: CCC Messaging Capabilities
+metadata:
+    id: CCC.Message.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Capabilities for Messaging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.Message.CP01
+      title: Publish/Subscribe Model
+      description: |
+        Uses publish/subscribe (pub/sub) messaging service model for
+        fan-out distribution of messages to multiple subscribers.
+      group: Messaging
+    - id: CCC.Message.CP02
+      title: Message Storage Policies
+      description: |
+        Ability to control the region where messages are stored.
+      group: Data
+    - id: CCC.Message.CP03
+      title: Creating Topics and Publish Messages
+      description: |
+        Ability to create new topics and publish messages to topics
+      group: Messaging
+    - id: CCC.Message.CP04
+      title: List Topics
+      description: |
+        Ability to to list all existing topics.
+      group: Messaging
+    - id: CCC.Message.CP05
+      title: Edit Topics
+      description: |
+        Ability to to edit properties of existing topics other than
+        the topic name and ordering preference.
+      group: Messaging
+    - id: CCC.Message.CP06
+      title: Delete Topics
+      description: |
+        Ability to to delete existing topics.
+      group: Messaging
+    - id: CCC.Message.CP07
+      title: Subscribe to Topics and Receive messages
+      description: |
+        Ability to subscribe to topics and receive messages.
+      group: Messaging
+    - id: CCC.Message.CP08
+      title: List Subscribers
+      description: |
+        Ability to list all subscribers for a given topics.
+      group: Messaging
+    - id: CCC.Message.CP09
+      title: Edit Subscriber
+      description: |
+        Ability to edit subscriber properties such as subscription
+        filter policies after subscriber is created.
+      group: Messaging
+    - id: CCC.Message.CP10
+      title: Delete Subscribers
+      description: |
+        Ability to delete subscriber from a given topic.
+      group: Messaging
+    - id: CCC.Message.CP11
+      title: FIFO Message Ordering
+      description: |
+        Support for first-in, first-out strictly preserved message
+        ordering with exactly one message delivered.
+      group: Messaging
+    - id: CCC.Message.CP12
+      title: Best Effort Message Ordering
+      description: |
+        Support for best-effort message ordering with at-least one
+        message delivered.
+      group: Messaging
+    - id: CCC.Message.CP13
+      title: Deduplication of Messages
+      description: |
+        Support for deduplication of messages with use of messaging
+        service capabilities or deduplication IDs.
+      group: Messaging
+    - id: CCC.Message.CP14
+      title: Dead Letter Topics
+      description: |
+        Supports dead-letter topics for handling messages that cannot be
+        delivered or processed.
+      group: Messaging
+    - id: CCC.Message.CP15
+      title: Access Policies
+      description: |
+        Ability to specify access policies on publishers and subscribers.
+      group: Access
+    - id: CCC.Message.CP16
+      title: Message Filtering
+      description: |
+        Allows subscribers to receive subset of messages published to the
+        subscribed topic based on attributes or content.
+      group: Messaging
+    - id: CCC.Message.CP17
+      title: Message Retention
+      description: |
+        Ability to set message retention durations per topic.
+      group: Data
+groups:
+    - id: Messaging
+      title: Messaging
+      description: |
+        The Messaging group covers entries related to asynchronous
+        communication between services. This includes publish-subscribe,
+        message queuing, topic management, delivery guarantees, ordering,
+        filtering, and dead-letter handling.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit Enabled by Default
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest Enabled by Default
+        - reference-id: CCC.Core.CP04
+          remarks: Transaction Rate Limits
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP08
+          remarks: Data Replication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP19
+          remarks: Child Resource Scaling
+        - reference-id: CCC.Core.CP20
+          remarks: Resource Tagging
+        - reference-id: CCC.Core.F23
+          remarks: Network Access Rules
+        - reference-id: CCC.Core.F28
+          remarks: Command-line Interface
+        - reference-id: CCC.Core.F29
+          remarks: Active Ingestion
+        - reference-id: CCC.Core.F31
+          remarks: Elastic Scaling
+      reference-id: CCC.Core.Capabilities
