@@ -1,0 +1,152 @@
+title: CCC Object Storage Capabilities
+metadata:
+    id: CCC.ObjStor.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Capabilities for Object Storage technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.ObjStor.CP01
+      title: Storage Buckets
+      description: |
+        Provides uniquely identifiable segmentations in which data elements may
+        be stored.
+      group: Data
+    - id: CCC.ObjStor.CP02
+      title: Storage Objects
+      description: |
+        Supports storing, accessing, and managing data elements which contain
+        both data and metadata.
+      group: Data
+    - id: CCC.ObjStor.CP03
+      title: Bucket Capacity Limit
+      description: |
+        Provides the ability to set a maximum total capacity for objects within
+        a bucket.
+      group: Resource
+    - id: CCC.ObjStor.CP04
+      title: Object Size Limit
+      description: |
+        Supports setting a maximum object size for storing objects.
+      group: Resource
+    - id: CCC.ObjStor.CP05
+      title: Store New Objects
+      description: |
+        Supports for storing a new object in the bucket.
+      group: Data
+    - id: CCC.ObjStor.CP06
+      title: Replace Stored Objects
+      description: |
+        Supports for replacing an object in the bucket with a new object for the same key.
+      group: Data
+    - id: CCC.ObjStor.CP07
+      title: Delete Stored Objects
+      description: |
+        Supports for deleting objects from the bucket given the object key.
+      group: Data
+    - id: CCC.ObjStor.CP10
+      title: Object Level Access Control
+      description: |
+        Supports controlling access to specific objects within the object store.
+      group: Access
+    - id: CCC.ObjStor.CP11
+      title: Querying
+      description: |
+        Supports performing simple select queries to retrieve only a subset of
+        objects from the bucket.
+      group: Data
+    - id: CCC.ObjStor.CP12
+      title: Storage Classes
+      description: |
+        Provides different storage classes for frequently and infrequently
+        accessed objects.
+      group: Resource
+groups:
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Resource
+      title: Resource Management
+      description: |
+        The Resource Management group covers entries related to
+        the lifecycle, configuration, and operational integrity of cloud resources.
+        This includes resource exhaustion, tag manipulation, version rollback,
+        scaling, and cost management.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit Enabled by Default
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest Enabled by Default
+        - reference-id: CCC.Core.CP03
+          remarks: Access Log Publication
+        - reference-id: CCC.Core.CP04
+          remarks: Transaction Rate Limits
+        - reference-id: CCC.Core.CP05
+          remarks: Signed URLs
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP08
+          remarks: Data Replication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP15
+          remarks: Cost Management
+        - reference-id: CCC.Core.CP16
+          remarks: Budgeting
+        - reference-id: CCC.Core.CP18
+          remarks: Resource Versioning
+        - reference-id: CCC.Core.CP20
+          remarks: Resource Tagging
+        - reference-id: CCC.Core.CP22
+          remarks: Location Lock-In
+        - reference-id: CCC.Core.CP28
+          remarks: Command-line Interface
+        - reference-id: CCC.Core.CP29
+          remarks: Active Ingestion
+        - reference-id: CCC.Core.CP30
+          remarks: Passive Ingestion
+        - reference-id: CCC.Core.CP33
+          remarks: Lifecycle Policies
+        - reference-id: CCC.Core.CP34
+          remarks: Immutable Resources
+      reference-id: CCC.Core.Capabilities
