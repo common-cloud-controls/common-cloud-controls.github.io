@@ -1,0 +1,839 @@
+title: CCC Core Controls
+metadata:
+    id: CCC.Core.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Controls for Core technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+controls:
+    - id: CCC.Core.CN01
+      title: Encrypt Data for Transmission
+      objective: |
+        Ensure that all communications are encrypted in transit to protect
+        data integrity and confidentiality.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Core.CN01.AR01
+          text: |
+            When a port is exposed for non-SSH network traffic, all traffic
+            MUST include a TLS handshake AND be encrypted using TLS 1.3 or
+            higher.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Most cloud services enable TLS 1.3 by default. Where it is not
+            already set, ensure that your services are configured or updated
+            accordingly.
+          state: Active
+        - id: CCC.Core.CN01.AR02
+          text: |
+            When a port is exposed for SSH network traffic, all traffic MUST
+            include a SSH handshake AND be encrypted using SSHv2 or higher.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Any time port 22 is exposed, ensure that it has a properly
+            implemented SSH server with SSHv2 enabled and configured with
+            strong ciphers.
+          state: Active
+        - id: CCC.Core.CN01.AR03
+          text: "When the service receives unencrypted traffic, \nthen it MUST either block the request or automatically\nredirect it to the secure equivalent.\n"
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Review firewall, load balancer, and application configurations to
+            ensure insecure protocols such as HTTP, FTP, and Telnet are not
+            exposed. Where possible, implement automatic redirection to secure
+            protocols such as HTTPS, SFTP, SSH, and regularly scan for
+            protocol drift.
+          state: Active
+        - id: CCC.Core.CN01.AR07
+          text: |
+            When a port is exposed, the service MUST ensure that the protocol
+            and service officially assigned to that port number by the IANA
+            Service Name and Transport Protocol Port Number Registry, and no
+            other, is run on that port.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Reference the IANA Service Name and Transport Protocol Port Number
+            Registry for more information about correct protocol-to-port
+            assignments. Avoid running non-standard services on well-known
+            ports.
+          state: Active
+        - id: CCC.Core.CN01.AR08
+          text: |
+            When a service transmits data using TLS, mutual TLS (mTLS) MUST be
+            implemented to require both client and server certificate
+            authentication for all connections.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure mTLS for all endpoints that process or transmit
+            sensitive data. Ensure both client and server certificates are
+            validated and managed securely. Regularly review certificate
+            authorities and automate certificate rotation where possible.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN13
+      title: Minimize Lifetime of Encryption and Authentication Certificates
+      objective: |
+        Ensure that encryption and authentication certificates have a limited
+        lifetime to reduce the risk of compromise and ensure the use of
+        up-to-date security practices.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Core.CN13.AR01
+          text: |
+            When a port is exposed that uses certificate-based encryption,
+            the service MUST only use valid, unexpired certificates issued by
+            a trusted certificate authority.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Track certificate expiration dates and automate certificate
+            renewal where possible. Use certificate management tools to ensure
+            only certificates from trusted authorities are deployed.
+          state: Active
+        - id: CCC.Core.CN13.AR02
+          text: |
+            When a port is exposed that uses certificate-based encryption,
+            the service MUST rotate active certificates within 180 days of
+            issuance.
+          applicability:
+            - tlp-amber
+          recommendation: |
+            Track certificate expiration dates and automate certificate
+            renewal where possible. Use certificate management tools to ensure
+            only certificates from trusted authorities are deployed.
+          state: Active
+        - id: CCC.Core.CN13.AR03
+          text: |
+            When a port is exposed that uses certificate-based encryption,
+            the service MUST rotate active certificates within 90 days of
+            issuance.
+          applicability:
+            - tlp-red
+          recommendation: |
+            Track certificate expiration dates and automate certificate
+            renewal where possible. Use certificate management tools to ensure
+            only certificates from trusted authorities are deployed.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN06
+      title: Restrict Deployments to Trust Perimeter
+      objective: |
+        Ensure that the service and its child resources are only deployed on
+        infrastructure in locations that are explicitly included within a
+        defined trust perimeter.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN06.AR01
+          text: |
+            When the service is running, its region and availability zone MUST
+            be included in a list of explicitly trusted or approved locations
+            within the trust perimeter.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Maintain an up-to-date list of trusted and approved regions based
+            on organizational policies. Validate the service's deployment
+            location is included in this list.
+          state: Active
+        - id: CCC.Core.CN06.AR02
+          text: |
+            When a child resource is deployed, its region and availability
+            zone MUST be included in a list of explicitly trusted or approved
+            locations within the trust perimeter.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Maintain an up-to-date list of trusted and approved regions based
+            on organizational policies. Validate that child resources can only
+            be deployed to locations included in this list.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN08
+      title: Replicate Data to Multiple Locations
+      objective: |
+        Ensure that data is replicated across multiple physical locations to
+        protect against data loss due to hardware failures, natural disasters,
+        or other catastrophic events.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN08.AR01
+          text: |
+            When data is created or modified, the data MUST have a complete
+            and recoverable duplicate that is stored in a physically separate
+            data center.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Implement automated data replication processes to ensure that
+            data is consistently duplicated in another region or availability
+            zone. Regularly test data recovery from the replicated location to
+            ensure integrity and availability.
+          state: Active
+        - id: CCC.Core.CN08.AR02
+          text: |
+            When data is replicated into a second location, the service MUST
+            be able to accurately represent the replication locations,
+            replication status, and data synchronization status.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN09
+      title: Ensure Integrity of Access Logs
+      objective: |
+        Ensure that access logs are always recorded to an external location
+        that cannot be manipulated from the context of the service(s) it
+        contains logs for.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Core.CN09.AR01
+          text: |
+            When the service is operational, its logs and any child resource
+            logs MUST NOT be accessible from the resource they record access
+            to.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN09.AR02
+          text: |
+            When the service is operational, disabling the logs for the service
+            or its child resources MUST NOT be possible without also disabling
+            the corresponding resource.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            No normal business operations should disable
+            logs, as this could indicate an attempt to cover up unauthorized
+            access. Ensure that logging mechanisms are tightly integrated with
+            service operations, so that logging cannot be disabled without
+            stopping the service itself.
+          state: Active
+        - id: CCC.Core.CN09.AR03
+          text: |
+            When the service is operational, any attempt to redirect logs for
+            the service or its child resources MUST NOT be possible without
+            halting operation of the corresponding resource and publishing
+            corresponding events to monitored channels.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            No normal business operations should result in the redirection of
+            logs, as this could indicate an attempt to cover up unauthorized
+            access. Ensure that logging configurations are immutable during
+            service operation so that any changes require stopping the service
+            and publishing corresponding events to monitored channels.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN10
+      title: Restrict Data Replication to Trust Perimeter
+      objective: |
+        Ensure that data is only replicated on infrastructure in locations
+        that are explicitly included within a defined trust perimeter.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN10.AR01
+          text: |
+            When data is replicated, the service MUST ensure that replication
+            only occurs to destinations that are explicitly included within
+            the defined trust perimeter.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN02
+      title: Encrypt Data for Storage
+      objective: |
+        Ensure that all data stored is encrypted at rest using strong
+        encryption algorithms.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Core.CN02.AR01
+          text: |
+            When data is stored, it MUST be encrypted using the latest
+            industry-standard encryption methods.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN11
+      title: Protect Encryption Keys
+      objective: |
+        Ensure that encryption keys are managed securely by enforcing
+        the use of approved algorithms, regular key rotation, and
+        customer-managed encryption keys (CMEKs).
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Core.CN11.AR01
+          text: |
+            When encryption keys are used, the service MUST verify that
+            all encryption keys use the latest industry-standard cryptographic
+            algorithms.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN11.AR02
+          text: |
+            When encryption keys are used, the service MUST rotate active keys
+            within 180 days of issuance.
+          applicability:
+            - tlp-amber
+          state: Active
+        - id: CCC.Core.CN11.AR03
+          text: |
+            When encrypting data, the service MUST verify that
+            customer-managed encryption keys (CMEKs) are used.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN11.AR04
+          text: |
+            When encryption keys are accessed, the service MUST verify that
+            access to encryption keys is restricted to authorized personnel
+            and services, following the principle of least privilege.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN11.AR05
+          text: |
+            When encryption keys are used, the service MUST rotate active keys
+            within 365 days of issuance.
+          applicability:
+            - tlp-clear
+            - tlp-green
+          state: Active
+        - id: CCC.Core.CN11.AR06
+          text: |
+            When encryption keys are used, the service MUST rotate active keys
+            within 90 days of issuance.
+          applicability:
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN14
+      title: Maintain Recent Backups
+      objective: |
+        Ensure that all backups used for disaster recovery are recent and
+        subject to a retention policy that limits deletion.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN14.AR01
+          text: |
+            When backups are created for disaster recovery purposes, the
+            storage mechanism MUST NOT allow modification or deletion
+            within 30 days of creation.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Use immutable storage solutions where possible. Implement backup
+            retention policies that enforce a minimum retention period of 30
+            days.
+          state: Active
+        - id: CCC.Core.CN14.AR02
+          text: |
+            When backups are created for disaster recovery purposes, the
+            most recent backup MUST have a creation date within the past
+            30 days.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+          recommendation: |
+            Implement automated backup processes to ensure that backups are
+            created regularly. Monitor backup schedules and verify that the
+            most recent backup creation date is within the last 30 days.
+          state: Active
+        - id: CCC.Core.CN14.AR02
+          text: |
+            When backups are created for disaster recovery purposes, the
+            most recent backup MUST have a creation date within the past
+            14 days.
+          applicability:
+            - tlp-red
+          recommendation: |
+            Implement automated backup processes to ensure that backups are
+            created regularly. Monitor backup schedules and verify that the
+            most recent backup creation date is within the last 14 days.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN03
+      title: Implement Multi-factor Authentication (MFA) for Access
+      objective: |
+        Ensure that all sensitive activities require two or more identity
+        factors during authentication to prevent unauthorized access.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Core.CN03.AR01
+          text: |
+            When an entity attempts to modify the service through a user
+            interface, the authentication process MUST require multiple
+            identifying factors for authentication.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN03.AR02
+          text: |
+            When an entity attempts to modify the service through an API
+            endpoint, the authentication process MUST require a credential
+            such as an API key or token AND originate from within the trust
+            perimeter.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN03.AR03
+          text: |
+            When an entity attempts to view information on the service through
+            a user interface, the authentication process MUST require multiple
+            identifying factors from the user.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN03.AR04
+          text: |
+            When an entity attempts to view information on the service through
+            an API endpoint, the authentication process MUST require a
+            credential such as an API key or token AND originate from within
+            the trust perimeter.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN05
+      title: Prevent Access from Untrusted Entities
+      objective: |
+        Ensure that secure access controls enforce the principle of least
+        privilege to restrict access to authorized entities from explicitly
+        trusted sources only.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Core.CN05.AR01
+          text: |
+            When an attempt is made to modify data on the service or a child
+            resource, the service MUST block requests from unauthorized
+            entities.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN05.AR02
+          text: |
+            When administrative access or configuration change is attempted on
+            the service or a child resource, the service MUST refuse requests
+            from unauthorized entities.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN05.AR03
+          text: |
+            When administrative access or configuration change is attempted on
+            the service or a child resource in a multi-tenant environment, the
+            service MUST refuse requests across tenant boundaries unless the
+            origin is explicitly included in a pre-approved allowlist.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN05.AR04
+          text: |
+            When data is requested from outside the trust perimeter, the
+            service MUST refuse requests from unauthorized entities.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN05.AR05
+          text: |
+            When any request is made from outside the trust perimeter,
+            the service MUST NOT provide any response that may indicate the
+            service exists.
+          applicability:
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN05.AR06
+          text: |
+            When any request is made to the service or a child resource, the
+            service MUST refuse requests from unauthorized entities.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN04
+      title: Log All Access and Changes
+      objective: |
+        Ensure that all access attempts are logged to maintain a detailed
+        audit trail for security and compliance purposes.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Core.CN04.AR01
+          text: |
+            When administrative access or configuration change is attempted on
+            the service or a child resource, the service MUST log the client
+            identity, time, and result of the attempt.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN04.AR02
+          text: |
+            When any attempt is made to modify data on the service or a child
+            resource, the service MUST log the client identity, time, and
+            result of the attempt.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN04.AR03
+          text: |
+            When any attempt is made to read data on the service or a child
+            resource, the service MUST log the client identity, time, and
+            result of the attempt.
+          applicability:
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN07
+      title: Alert on Unusual Enumeration Activity
+      objective: |
+        Ensure that logs and associated alerts are generated when
+        unusual enumeration activity is detected that may indicate
+        reconnaissance activities.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Core.CN07.AR01
+          text: |
+            When enumeration activities are detected, the service MUST publish
+            an event to a monitored channel which includes the client
+            identity, time, and nature of the activity.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Implement event publication mechanisms and alerts for patterns
+            indicative of enumeration activities, such as repeated access
+            attempts, requests, or liveness probes. Configure alerts to notify
+            security teams of any activities that merit further investigation.
+          state: Active
+        - id: CCC.Core.CN07.AR02
+          text: |
+            When enumeration activities are detected, the service MUST log the
+            client identity, time, and nature of the activity.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Implement logging mechanisms to capture details of enumeration
+            activities, including client identity, timestamps, and activity
+            nature. Retain logs according to organizational policies, and
+            occasionally review them for patterns that may indicate
+            reconnaissance activities.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN15
+      title: Prevent Public Access to Storage Resources
+      objective: |
+        Ensure that storage resources are not publicly accessible to prevent
+        unauthorized exposure of sensitive data.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Core.CN15.AR01
+          text: |
+            When a storage resource is created, its access control settings
+            MUST explicitly deny public read and write access.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure bucket policies and access control lists (ACLs) to
+            restrict public access. Regularly review permissions to ensure
+            no public access has been inadvertently granted.
+          state: Active
+        - id: CCC.Core.CN15.AR02
+          text: |
+            When the URL of a stored object is accessed publicly, the
+            request MUST be denied by policy.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure bucket policies and access control lists (ACLs) to
+            restrict public access. Regularly review permissions to ensure
+            no public access has been inadvertently granted.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN16
+      title: Enforce Data Retention Policies
+      objective: |
+        Ensure that stored data has a retention policy configured in
+        accordance with the organization's data retention requirements,
+        and that data is automatically deleted after the configured
+        retention period expires.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN16.AR01
+          text: |
+            When a new storage resource is created, its retention policy
+            MUST be configured in accordance with the organization's data
+            retention policy.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure lifecycle rules or object retention settings to
+            enforce the required data retention period.
+          state: Active
+        - id: CCC.Core.CN16.AR02
+          text: |
+            When the retention policy period expires, data MUST be
+            automatically deleted.
+          applicability:
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure lifecycle rules or object retention settings to
+            enforce the required data retention period.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN17
+      title: Enable Object Lock for Critical Data
+      objective: |
+        Ensure data immutability by enabling Write Once, Read Many (WORM)
+        protection on storage resources holding critical data, preventing
+        modification or deletion during the defined retention period.
+      group: Data
+      assessment-requirements:
+        - id: CCC.Core.CN17.AR01
+          text: |
+            When an attempt is made to modify or delete data before the
+            object lock period expires, the action MUST be denied.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure object lock policies on storage resources holding
+            critical or compliance-sensitive data.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN18
+      title: Restrict Field-Level Access to Sensitive Data
+      objective: |
+        Configure access to stored data to follow the principle of least
+        privilege, in particular where technically possible limit the data
+        fields users have access to, to prevent accidental exposure to
+        sensitive information such as PII.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Core.CN18.AR01
+          text: |
+            When restricted fields are accessed by unauthorized users,
+            those fields MUST remain masked.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Review field-level access controls on stored data.
+          state: Active
+      state: Active
+    - id: CCC.Core.CN19
+      title: Require MFA for Deletion of Stored Data
+      objective: |
+        Ensure that deletion of stored data is protected by multi-factor
+        authentication (MFA), reducing the risk of accidental, unauthorized,
+        or compromised-credential-based data destruction.
+      group: Access
+      assessment-requirements:
+        - id: CCC.Core.CN19.AR01
+          text: |
+            When data deletion is attempted, the service MUST require MFA
+            to be successfully completed before the deletion can proceed,
+            regardless of the request interface.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Enable MFA Delete or equivalent multi-factor authentication
+            for delete operations on storage resources.
+          state: Active
+        - id: CCC.Core.CN19.AR02
+          text: |
+            When MFA deletion protection is enabled, the service MUST deny
+            any deletion request from an identity that has not satisfied
+            the MFA requirement at the time of the request.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+        - id: CCC.Core.CN19.AR03
+          text: |
+            When an attempt is made to delete data, the service's audit
+            logs MUST clearly record each deletion attempt, including
+            whether MFA was required and whether validation was met.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+    - id: CCC.Core.CN20
+      title: Alert on Service Configuration Tampering
+      objective: |
+        Ensure that alerts are generated when critical service configuration
+        is disabled, modified, or deleted, indicating a potential defense
+        evasion attempt.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.Core.CN20.AR01
+          text: |
+            When an attempt is made to disable or delete a critical service
+            component, an alert MUST be generated.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure alerting for all critical service configuration
+            changes, including disabling of log sources, deletion of
+            sinks, and modification of forwarding rules.
+          state: Active
+        - id: CCC.Core.CN20.AR02
+          text: |
+            When an attempt is made to modify the configuration of a
+            critical service component such as altering retention policies,
+            forwarding rules, or access controls, an alert MUST be
+            generated.
+          applicability:
+            - tlp-amber
+            - tlp-red
+          recommendation: |
+            Configure alerting for all critical service configuration
+            changes, including modification of retention or object lock
+            policies for data stores.
+          state: Active
+      state: Active
+groups:
+    - id: Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers entries related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Access
+      title: Access Control
+      description: |
+        The Access Control group covers entries related to
+        authentication, authorization, and trust perimeter enforcement. This includes
+        multi-factor authentication, least privilege access, network access rules, and
+        prevention of unauthorized access or reconnaissance.

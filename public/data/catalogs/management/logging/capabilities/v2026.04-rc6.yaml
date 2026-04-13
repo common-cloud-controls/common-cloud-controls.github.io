@@ -1,0 +1,143 @@
+title: CCC Logging Capabilities
+metadata:
+    id: CCC.Logging.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Capabilities for Logging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.Logging.CP01
+      title: Service Log Capture
+      description: |
+        Ability to capture logs from all relevant cloud services at varying
+        levels of verbosity.
+      group: Observability
+    - id: CCC.Logging.CP02
+      title: Application Log Ingestion
+      description: |
+        Support for ingesting logs from custom applications deployed within the
+        cloud environment.
+      group: Observability
+    - id: CCC.Logging.CP03
+      title: Real-Time Log Ingestion
+      description: |
+        Logs should be ingested in near real-time to enable timely detection and
+        response.
+      group: Observability
+    - id: CCC.Logging.CP04
+      title: Centralised Log Collection
+      description: |
+        Ability to centralise logs from different resources within a signle
+        logging solution or platform.
+      group: Observability
+    - id: CCC.Logging.CP05
+      title: Custom Log Format Support
+      description: |
+        Ability to ingest custom log formats or data from on-premises systems or
+        other cloud environments via agents.
+      group: Observability
+    - id: CCC.Logging.CP06
+      title: Log Filtering & Transformation
+      description: |
+        Ability to to filter, normalise, and transform raw log data at ingestion
+        to optimise storage and enhance usability.
+      group: Observability
+    - id: CCC.Logging.CP07
+      title: Immutable Storage
+      description: |
+        Ability to prevent unauthorized alteration or deletion of logs, ensuring
+        their integrity for auditing and forensic purposes.
+      group: Observability
+    - id: CCC.Logging.CP08
+      title: Retention Policies
+      description: |
+        Ability to define and enforce granular retention periods for different
+        log types based on regulatory requirements and internal policies.
+      group: Observability
+    - id: CCC.Logging.CP09
+      title: Internal Sink
+      description: |
+        Ability to continuously stream log data to a hosted storage bucket or data lake
+        solution within the cloud service provider.
+      group: Observability
+    - id: CCC.Logging.CP10
+      title: External Sink
+      description: |
+        Log events can be configured to be sent to a external SIEM or data analysis
+        provider outside of the cloud platform.
+      group: Observability
+    - id: CCC.Logging.CP11
+      title: Log-based Metrics
+      description: |
+        Ability to extract quantitative metrics from log data for performance
+        monitoring and operational analysis.
+      group: Observability
+    - id: CCC.Logging.CP12
+      title: Log Archiving
+      description: |
+        Ability to archive logs that are no longer needed but must be retained.
+      group: Observability
+    - id: CCC.Logging.CP13
+      title: Field Indexing
+      description: |
+        Supports field-based indexing to improve log query performace.
+      group: Observability
+groups:
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest
+        - reference-id: CCC.Core.CP03
+          remarks: Access Log Publication
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP11
+          remarks: Backup
+        - reference-id: CCC.Core.CP12
+          remarks: Recovery
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP17
+          remarks: Alerting
+        - reference-id: CCC.Core.CP18
+          remarks: Resource Versioning
+        - reference-id: CCC.Core.CP20
+          remarks: Resource Tagging
+        - reference-id: CCC.Core.CP22
+          remarks: Location Lock-In
+      reference-id: CCC.Core.Capabilities

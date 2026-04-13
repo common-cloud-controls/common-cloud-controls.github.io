@@ -1,0 +1,81 @@
+title: CCC Messaging Controls
+metadata:
+    id: CCC.Message.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Controls for Messaging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+controls:
+    - id: CCC.Message.CN01
+      title: Use Customer-Managed Encryption Keys (CMEK) for Messages
+      objective: |
+        Ensure that messages are encrypted using customer-managed encryption keys (CMEK)
+        to provide enhanced control over encryption processes and keys, meeting compliance and security requirements.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Message.CN01.AR01
+          text: |
+            Attempt to publish a message without using a customer-managed encryption key
+            and verify that the message is rejected or not stored.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+groups:
+    - id: Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers entries related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on unusual enumeration activity
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent tampering, deletion, or unauthorized access to access logs
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent data replication to destinations outside of defined trust perimeter
+        - reference-id: CCC.Core.CN16
+          remarks: Enforce Data Retention Policies
+      reference-id: CCC.Core.Controls

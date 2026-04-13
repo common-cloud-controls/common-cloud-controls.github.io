@@ -1,0 +1,159 @@
+title: CCC Logging Threats
+metadata:
+    id: CCC.Logging.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc6
+    description: Threats for Logging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Ingestion
+      title: Ingestion
+      description: |
+        The Ingestion group covers entries related to how a service receives
+        or retrieves data, inputs, or commands for processing. This includes both
+        active (pull-based) and passive (push-based) ingestion patterns.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment Region Network is Untrusted
+        - reference-id: CCC.Core.TH04
+          remarks: Data is Replicated to Untrusted or External Locations
+        - reference-id: CCC.Core.TH05
+          remarks: Data is Corrupted During Replication
+        - reference-id: CCC.Core.TH06
+          remarks: Data is Lost or Corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH08
+          remarks: Runtime Metrics are Manipulated
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH10
+          remarks: Alerts are Intercepted
+        - reference-id: CCC.Core.TH11
+          remarks: Event Notifications are Incorrectly Triggered
+        - reference-id: CCC.Core.TH12
+          remarks: Resource Constraints are Exhausted
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+        - reference-id: CCC.Core.TH14
+          remarks: Older Resource Versions are Exploited
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-Human Entities
+        - reference-id: CCC.Core.TH16
+          remarks: Logging and Monitoring are Disabled
+        - reference-id: CCC.Core.TH17
+          remarks: Unauthorized Network Access via Misconfigured Rules
+        - reference-id: CCC.Core.TH18
+          remarks: Encryption Key is Misused
+        - reference-id: CCC.Core.TH19
+          remarks: Metrics are Read by Unauthorized Entities
+        - reference-id: CCC.Core.TH20
+          remarks: Logging or Audit Coverage is Insufficient
+        - reference-id: CCC.Core.TH21
+          remarks: Sensitive Data is Exposed in Logs or Metrics
+        - reference-id: CCC.Core.TH22
+          remarks: Log Delivery is Delayed or Degraded
+        - reference-id: CCC.Core.TH23
+          remarks: Retention or Lifecycle Policies are Misconfigured
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.Logging.TH02
+      title: Unauthorized Data Transfer Out of a Trusted Boundary
+      description: |
+        Sensitive log data, including PII, financial transaction details,
+        or system vulnerabilities, is exfiltrated directly from the
+        logging service's query or API interfaces by authorized but malicious
+        insiders or compromised accounts exploiting legitimate access.
+      group: Data
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP06
+              remarks: Access Control
+            - reference-id: CCC.Core.CP14
+              remarks: API Access
+          reference-id: CCC.Core.Capabilities
+        - entries:
+            - reference-id: CCC.Core.CP22
+              remarks: Location Lock-In
+          reference-id: CCC.Logging
+    - id: CCC.Logging.TH03
+      title: Log Schema or Format Drift
+      description: |
+        Changes in source application or cloud service log formats, schemas,
+        or underlying data structures lead to parsing failures, incomplete
+        log ingestion, or render existing queries and dashboards ineffective,
+        hindering comprehensive analysis.
+      group: Observability
+      capabilities:
+        - entries:
+            - reference-id: CCC.Logging.CP05
+              remarks: Custom Log Format Support
+            - reference-id: CCC.Logging.CP06
+              remarks: Log Filtering & Transformation
+            - reference-id: CCC.Logging.CP11
+              remarks: Log-based Metrics
+          reference-id: CCC.Logging
+    - id: CCC.Logging.TH06
+      title: Log Injection
+      description: |
+        User-supplied data such as scripts, control characters, escape sequences,
+        or code fragments may be written to logs without proper encoding or sanitization.
+        This can result in malformed or unexpected log entries that could disrupt or
+        compromise systems that process or display these logs, including log viewers
+        or downstream services.
+      group: Ingestion
+      capabilities:
+        - entries:
+            - reference-id: CCC.Core.CP10
+              remarks: Logging
+            - reference-id: CCC.Logging.CP01
+              remarks: Service Log Capture
+            - reference-id: CCC.Logging.CP02
+              remarks: Application Log Ingestion
+          reference-id: CCC.Logging
