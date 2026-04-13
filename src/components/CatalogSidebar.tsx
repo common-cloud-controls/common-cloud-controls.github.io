@@ -16,6 +16,7 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
     pathname.startsWith(`/catalogs/${cat}/`)
   );
   const [openCategory, setOpenCategory] = useState<string | null>(activeCategory ?? null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (path: string) =>
     pathname === path || pathname.startsWith(path + "/");
@@ -33,7 +34,15 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
   });
 
   return (
-    <nav className="sidebar-nav catalog-sidebar">
+    <>
+      <button
+        className="catalog-sidebar-mobile-toggle"
+        onClick={() => setMobileOpen(!mobileOpen)}
+      >
+        <span>Browse Catalogs</span>
+        <span style={{ fontSize: "0.65rem", transform: mobileOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>▾</span>
+      </button>
+      <nav className={`sidebar-nav catalog-sidebar${mobileOpen ? "" : " mobile-collapsed"}`}>
       {Array.from(serviceGroups.entries()).map(([category, services]) => {
         const isOpen = openCategory === category;
         const categoryActive = services.some(({ path }) => isActive(path));
@@ -80,5 +89,6 @@ export const CatalogSidebar: React.FC<CatalogSidebarProps> = ({ typeFilter }) =>
         );
       })}
     </nav>
+    </>
   );
 };

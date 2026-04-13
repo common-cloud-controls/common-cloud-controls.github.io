@@ -430,8 +430,39 @@ h3 {
 
 @media (max-width: 768px) {
   .catalog-sidebar {
+    width: 100%;
+    position: static;
+    max-height: none;
+  }
+  .page-layout {
+    flex-direction: column;
+    gap: 0;
+  }
+  .sidebar-nav {
+    width: 100%;
+    position: static;
+  }
+  .catalog-sidebar-mobile-toggle {
+    display: flex;
+  }
+  .catalog-sidebar.mobile-collapsed {
     display: none;
   }
+}
+.catalog-sidebar-mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: var(--gf-space-sm);
+  background: var(--gf-color-surface);
+  border: 1px solid var(--gf-color-border-strong);
+  border-radius: var(--gf-radius-lg);
+  color: var(--gf-color-text-subtle);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /* Version card footer: stats left, View → right; stack on mobile */
