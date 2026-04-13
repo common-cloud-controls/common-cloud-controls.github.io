@@ -1,0 +1,146 @@
+title: CCC Build Systems Capabilities
+metadata:
+    id: CCC.Build.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2025.04-rc6
+    description: Capabilities for Build Systems technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2025.04-rc6
+    applicability-groups:
+        - id: tlp_red
+          title: TLP:RED
+          description: For the eyes and ears of individual recipients only, no further disclosure. Sources may use TLP:RED when information cannot be effectively acted upon without significant risk for the privacy, reputation, or operations of the organizations involved.
+        - id: tlp_amber_strict
+          title: TLP:AMBER+STRICT
+          description: Limited disclosure, recipients can only spread this on a need-to-know basis within their organization only. Sources may use TLP:AMBER+STRICT when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organization.
+        - id: tlp_amber
+          title: TLP:AMBER
+          description: Limited disclosure, recipients can spread this on a need-to-know basis within their organization and to its clients. Sources may use TLP:AMBER when information requires support to be effectively acted upon, yet carries risk to privacy, reputation, or operations if shared outside of the organizations involved.
+        - id: tlp_green
+          title: TLP:GREEN
+          description: Limited disclosure, recipients can spread this within their community. Sources may use TLP:GREEN when information is useful to increase awareness within their wider community.
+        - id: tlp_clear
+          title: TLP:CLEAR
+          description: Recipients can spread this to the world, there is no limit on disclosure. Sources may use TLP:CLEAR when information carries minimal or no foreseeable risk of misuse, in accordance with applicable rules and procedures for public release.
+capabilities:
+    - id: CCC.Build.CP01
+      title: Build Automation
+      description: |
+        Provides fully managed continuous integration service that compiles source code,
+        run tests and produce software packages based on triggers or schedules.
+      group: Orchestration
+    - id: CCC.Build.CP02
+      title: CI/CD Pipelines
+      description: |
+        Provides or integrates with continuous integration and continuous delivery/deployment (CI/CD)
+        services.
+      group: Orchestration
+    - id: CCC.Build.CP03
+      title: Source Repository Integration
+      description: |
+        Integrates with cloud native or external source code repositories such as
+        GitHub, Bitbucket, GitLab to trigger builds on code changes.
+      group: Orchestration
+    - id: CCC.Build.CP04
+      title: Artifact Storage
+      description: |
+        Ability to securely store build artifacts for later use.
+      group: Data
+    - id: CCC.Build.CP05
+      title: Multi-language Support
+      description: |
+        Provides pre-configured build environments for popular programming languages such as Java,
+        Python, Node.js, .NET, etc.
+      group: Orchestration
+    - id: CCC.Build.CP06
+      title: Custom Build Environments
+      description: |
+        Allows custom build environments by specifying the operating system, runtime, or
+        providing a custom docker runtime image.
+      group: Orchestration
+    - id: CCC.Build.CP07
+      title: Build Docker Image
+      description: |
+        Support for building docker container images in the pipelines.
+      group: Orchestration
+    - id: CCC.Build.CP08
+      title: Environment Variables
+      description: |
+        Ability to set environment variables within the build project.
+      group: Orchestration
+    - id: CCC.Build.CP09
+      title: Concurrent Builds
+      description: |
+        Support for concurrent, parallel builds to improve build performance.
+      group: Orchestration
+    - id: CCC.Build.CP10
+      title: Caching
+      description: |
+        Caching of dependencies between builds for faster builds.
+      group: Orchestration
+    - id: CCC.Build.CP11
+      title: Realtime Build Logs
+      description: |
+        Providing the ability to monitor builds and view logs in the real-time.
+      group: Observability
+    - id: CCC.Build.CP12
+      title: List and View Builds
+      description: |
+        Ability to list, view logs and download artifacts of old builds.
+      group: Observability
+groups:
+    - id: Orchestration
+      title: Orchestration
+      description: |
+        The Orchestration group covers entries related to coordinating and
+        managing workloads across distributed systems. This includes container
+        orchestration, job scheduling, CI/CD pipelines, build automation, and
+        service mesh management.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP01
+          remarks: Encryption in Transit Enabled by Default
+        - reference-id: CCC.Core.CP02
+          remarks: Encryption at Rest Enabled by Default
+        - reference-id: CCC.Core.CP04
+          remarks: Transaction Rate Limits
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.F23
+          remarks: Network Access Rules
+        - reference-id: CCC.Core.F26
+          remarks: Persistent Storage
+        - reference-id: CCC.Core.F28
+          remarks: Command-line Interface
+        - reference-id: CCC.Core.F29
+          remarks: Active Ingestion
+      reference-id: CCC.Core.Capabilities
