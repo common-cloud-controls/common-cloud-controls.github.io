@@ -1,0 +1,107 @@
+title: CCC Monitoring Capabilities
+metadata:
+    id: CCC.Monitor.CP
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc4
+    description: Capabilities for Monitoring technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Capabilities
+          title: CCC Core Capabilities
+          version: v2026.04-rc4
+capabilities:
+    - id: CCC.Monitor.CP01
+      title: Metric collection
+      description: |
+        Gathering numerical (quantitative) data points about the performance,
+        health, or behaviour of systems, applications or infrastructure.
+      group: Observability
+    - id: CCC.Monitor.CP02
+      title: Tracing
+      description: |
+        An observability technique providing an end-to-end view of a request or
+        transaction flow through a complex system to enable a single action to
+        be linked to resulting events in multiple downstream systems.
+      group: Observability
+    - id: CCC.Monitor.CP03
+      title: Reporting
+      description: |
+        Summarised view of metrics in a structured, sharable format.
+      group: Observability
+    - id: CCC.Monitor.CP04
+      title: Health Checks
+      description: |
+        A type of monitoring that focuses on the operational status and
+        readiness of components or entire systems.
+      group: Observability
+    - id: CCC.Monitor.CP05
+      title: SLO Monitoring
+      description: |
+        Define and monitor Service Level Objectives (SLO) using Service Level Indicators (SLI) based on metrics.
+      group: Observability
+    - id: CCC.Monitor.CP06
+      title: Synthetic Monitoring
+      description: |
+        Proactively checking sample user interactions to identify issues before real users are impacted.
+      group: Observability
+    - id: CCC.Monitor.CP07
+      title: Uptime Monitoring
+      description: |
+        Checking whether a specific service or application is accessible from an external perspective.
+      group: Observability
+    - id: CCC.Monitor.CP08
+      title: Application Performance Monitoring (APM)
+      description: |
+        A comprehensive approach to monitoring the performance, availability and user experience of
+        an application through multiple levels of data collection
+      group: Observability
+    - id: CCC.Monitor.CP09
+      title: Dashboard
+      description: |
+        A visual representation of the health of systems being monitored. Pulling together metrics,
+        current alerts, SLO/SLI's, health checks and other monitoring features into a single location
+        to enable a view of the health of the overall system.
+      group: Observability
+    - id: CCC.Monitor.CP10
+      title: Triggering
+      description: |
+        Automatically initiating actions like alerts, notifications or automated workflows based
+        on pre-defined conditions being met.
+      group: Observability
+    - id: CCC.Monitor.CP11
+      title: Integration with Third-Party Tools
+      description: |
+        Monitoring tools are able to integrate with a number of downstream systems in order to send
+        notifications and alerts, raise tickets and create incident reports.
+      group: Observability
+groups:
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CP03
+          remarks: Access Log Publication
+        - reference-id: CCC.Core.CP06
+          remarks: Access Control
+        - reference-id: CCC.Core.CP07
+          remarks: Event Publication
+        - reference-id: CCC.Core.CP09
+          remarks: Metrics Publication
+        - reference-id: CCC.Core.CP10
+          remarks: Log Publication
+        - reference-id: CCC.Core.CP14
+          remarks: API Access
+        - reference-id: CCC.Core.CP15
+          remarks: Cost Management
+        - reference-id: CCC.Core.CP17
+          remarks: Alerting
+      reference-id: CCC.Core.Capabilities
