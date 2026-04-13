@@ -1,0 +1,98 @@
+title: CCC Virtual Private Cloud Threats
+metadata:
+    id: CCC.VPC.TH
+    type: ThreatCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc5
+    description: Threats for Virtual Private Cloud technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Threats
+          title: CCC Core Threats
+          version: v2026.04-rc5
+groups:
+    - id: ungrouped
+      title: Ungrouped
+      description: ""
+    - id: Networking
+      title: Networking
+      description: |
+        The Networking group covers entries related to network infrastructure,
+        connectivity, and traffic management. This includes virtual networks, subnets,
+        load balancing, DNS, routing, peering, and network-level access controls.
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+imports:
+    - entries:
+        - reference-id: CCC.Core.TH01
+          remarks: Access Control is Misconfigured
+        - reference-id: CCC.Core.TH02
+          remarks: Data is Intercepted in Transit
+        - reference-id: CCC.Core.TH03
+          remarks: Deployment Region Network is Untrusted
+        - reference-id: CCC.Core.TH06
+          remarks: Data is Lost or Corrupted
+        - reference-id: CCC.Core.TH07
+          remarks: Logs are Tampered With or Deleted
+        - reference-id: CCC.Core.TH09
+          remarks: Logs or Monitoring Data are Read by Unauthorized Users
+        - reference-id: CCC.Core.TH13
+          remarks: Resource Tags are Manipulated
+        - reference-id: CCC.Core.TH15
+          remarks: Automated Enumeration and Reconnaissance by Non-human Entities
+        - reference-id: CCC.Core.TH24
+          remarks: Insecure Defaults Enable Unauthorized Access
+      reference-id: CCC.Core.Threats
+threats:
+    - id: CCC.VPC.TH02
+      title: Exposure of Resources to Public Internet
+      description: |
+        Assignment of external IP addresses to resources exposes resources to the
+        public internet, increasing the risk of attacks such as brute force,
+        exploitation of vulnerabilities, or unauthorized access.
+      group: Networking
+      capabilities:
+        - entries:
+            - reference-id: CCC.VPC.CP04
+          reference-id: CCC.VPC.Capabilities
+    - id: CCC.VPC.TH03
+      title: Unauthorized Network Access Through VPC Peering
+      description: |
+        Unauthorized VPC peering connections can allow network traffic between
+        untrusted or unapproved subscriptions, leading to potential data
+        exposure or exfiltration.
+      group: Networking
+      capabilities:
+        - entries:
+            - reference-id: CCC.VPC.CP11
+          reference-id: CCC.VPC.Capabilities
+    - id: CCC.VPC.TH04
+      title: Lack of Network Visibility due to Disabled VPC Flow Logs
+      description: |
+        VPC subnets with disabled flow logs lack critical network traffic
+        visibility, which can lead to undetected unauthorized access,
+        data exfiltration, and network misconfigurations. This lack of
+        visibility increases the risk of undetected security incidents.
+      group: Observability
+      capabilities:
+        - entries:
+            - reference-id: CCC.VPC.CP16
+          reference-id: CCC.VPC.Capabilities
+    - id: CCC.VPC.TH05
+      title: Overly Permissive VPC Endpoint Policies
+      description: |
+        VPC Endpoint policies that are overly permissive may inadvertently expose
+        resources within the VPC to unintended principals or external threats.
+      group: Networking
+      capabilities:
+        - entries:
+            - reference-id: CCC.VPC.CP17
+          reference-id: CCC.VPC.Capabilities

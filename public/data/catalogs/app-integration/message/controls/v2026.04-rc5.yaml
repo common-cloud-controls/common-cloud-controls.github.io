@@ -1,0 +1,63 @@
+title: CCC Messaging Controls
+metadata:
+    id: CCC.Message.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc5
+    description: Controls for Messaging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc5
+controls:
+    - id: CCC.Message.CN01
+      title: Use Customer-Managed Encryption Keys (CMEK) for Messages
+      objective: |
+        Ensure that messages are encrypted using customer-managed encryption keys (CMEK)
+        to provide enhanced control over encryption processes and keys, meeting compliance and security requirements.
+      group: Encryption
+      assessment-requirements:
+        - id: CCC.Message.CN01.AR01
+          text: |
+            Attempt to publish a message without using a customer-managed encryption key
+            and verify that the message is rejected or not stored.
+          applicability:
+            - tlp-clear
+            - tlp-green
+            - tlp-amber
+            - tlp-red
+          state: Active
+      state: Active
+groups:
+    - id: Encryption
+      title: Encryption
+      description: |
+        The Encryption group covers entries related to
+        protecting data confidentiality and integrity through cryptographic mechanisms.
+        This includes encryption in transit and at rest, key management, and certificate
+        lifecycle management.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on unusual enumeration activity
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent tampering, deletion, or unauthorized access to access logs
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent data replication to destinations outside of defined trust perimeter
+      reference-id: CCC.Core.Controls
