@@ -1,0 +1,147 @@
+title: CCC Audit Logging Controls
+metadata:
+    id: CCC.AuditLog.CN
+    type: ControlCatalog
+    gemara-version: v1.0.0
+    version: v2026.04-rc5
+    description: Controls for Audit Logging technologies, as defined by the FINOS Common Cloud Controls project.
+    author:
+        id: FINOS-CCC
+        name: FINOS Common Cloud Controls
+        type: Human
+    mapping-references:
+        - id: CCC.Core.Controls
+          title: CCC Core Controls
+          version: v2026.04-rc5
+controls:
+    - id: CCC.AuditLog.CN01
+      title: Implement Digital Signatures With Hash Chaining
+      objective: |
+        Digital signatures allows for external verification of log data tampering and
+        hash chaining allows for deleted log files to be detected.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.AuditLog.CN01.AR01
+          text: |
+            When the signature validation process is performed, then it MUST detect any modification of data.
+          applicability:
+            - tlp-red
+          recommendation: |
+            Ensure hash of data is included in digital signature.
+          state: Active
+        - id: CCC.AuditLog.CN01.AR02
+          text: |
+            When the signature validation process is performed, then it MUST detect any missing (deleted) log file.
+          applicability:
+            - tlp-red
+          recommendation: |
+            Ensure verification process includes a chained hash function.
+          state: Active
+      state: Active
+    - id: CCC.AuditLog.CN02
+      title: Enable And Validate All Audit Log Types
+      objective: |
+        Review audit log configuration and ensure that all audit log types
+        are being generated and replicated to configured sinks
+      group: Observability
+      assessment-requirements:
+        - id: CCC.AuditLog.CN02.AR01
+          text: |
+            When a manual action is performed to generate each audit log type,
+            then the corresponding audit log type MUST be generated and recorded.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          recommendation: Review audit log configuration
+          state: Active
+      state: Active
+    - id: CCC.AuditLog.CN04
+      title: Ensure Access Logging Is Enabled on the Audit Log Bucket
+      objective: |
+        Ensure that access logging is enabled for the audit log storage bucket to
+        capture all requests made to the bucket, providing an audit trail of data access.
+      group: Observability
+      assessment-requirements:
+        - id: CCC.AuditLog.CN04.AR01
+          text: |
+            When audit log buckets are created then verify that server access
+            logging MUST be enabled for the audit log bucket,
+            with logs delivered to a separate, secure logging bucket.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          recommendation: |
+            Configure the audit log bucket to enable server access logging.
+            Ensure the target logging bucket is configured for appropriate security,
+            including restricted access and immutability.
+          state: Active
+      state: Active
+    - id: CCC.AuditLog.CN05
+      title: Export Audit Logs To Bucket
+      objective: |
+        Configure audit logs to be sent to a external bucket where they can be globally replicated
+        and can be subject to greater access control and data retention polices.
+      group: Data
+      assessment-requirements:
+        - id: CCC.AuditLog.CN05.AR01
+          text: |
+            When audit logs are exported, then audit logs MUST be present in the configured data location.
+          applicability:
+            - tlp-red
+            - tlp-amber
+          recommendation: |
+            Configure audit log exporting.
+          state: Active
+      state: Active
+groups:
+    - id: Observability
+      title: Observability
+      description: |
+        The Observability group covers entries related to
+        logging, monitoring, metrics, alerting, and event publication. This includes
+        audit trail integrity, enumeration detection, and protection against tampering
+        or unauthorized access to operational telemetry.
+    - id: Data
+      title: Data Resilience
+      description: |
+        The Data Resilience group covers entries related to
+        ensuring data availability, integrity, and sovereignty across its lifecycle.
+        This includes replication, backup, recovery, region restrictions, and protection
+        against data loss or corruption.
+imports:
+    - entries:
+        - reference-id: CCC.Core.CN01
+          remarks: Prevent unencrypted requests
+        - reference-id: CCC.Core.CN02
+          remarks: Ensure data encryption at rest for all stored data
+        - reference-id: CCC.Core.CN03
+          remarks: Implement multi-factor authentication (MFA) for access
+        - reference-id: CCC.Core.CN04
+          remarks: Log all access and changes
+        - reference-id: CCC.Core.CN05
+          remarks: Prevent access from untrusted entities
+        - reference-id: CCC.Core.CN06
+          remarks: Prevent deployment in restricted regions
+        - reference-id: CCC.Core.CN07
+          remarks: Alert on Unusual Enumeration Activity
+        - reference-id: CCC.Core.CN08
+          remarks: Enable Multi-zone or Multi-region Data Replication
+        - reference-id: CCC.Core.CN09
+          remarks: Prevent tampering, deletion, or unauthorized access to access logs
+        - reference-id: CCC.Core.CN10
+          remarks: Prevent data replication to destinations outside of defined trust perimeter
+        - reference-id: CCC.Core.CN11
+          remarks: Enforce Key Management Policies
+        - reference-id: CCC.Core.CN15
+          remarks: Prevent Public Access to Storage Resources
+        - reference-id: CCC.Core.CN16
+          remarks: Enforce Data Retention Policies
+        - reference-id: CCC.Core.CN17
+          remarks: Enable Object Lock for Critical Data
+        - reference-id: CCC.Core.CN18
+          remarks: Restrict Field-Level Access to Sensitive Data
+        - reference-id: CCC.Core.CN19
+          remarks: Require MFA for Deletion of Stored Data
+        - reference-id: CCC.Core.CN20
+          remarks: Alert on Service Configuration Tampering
+      reference-id: CCC.Core.Controls
